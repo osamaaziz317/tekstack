@@ -1,56 +1,57 @@
 "use client";
 
 import React, { useState } from "react";
+import { useScrollAnimation } from "../../lib/useScrollAnimation";
 
 // FAQ Data
 const faqData = [
   {
     id: 1,
-    question: "What AI & Machine Learning services do you offer?",
+    question: "What is agentic AI and how does it differ from traditional AI?",
     answer:
-      "We provide AI-driven solutions including predictive analytics, computer vision, natural language processing, and custom machine learning models to help businesses make smarter, data-driven decisions."
+      "Agentic AI refers to systems composed of autonomous agents that act, plan, and coordinate to achieve goals. Unlike single-model AI, agentic systems enable distributed decision-making and orchestration across multiple actors."
   },
   {
     id: 2,
-    question: "What is included in your web development services?",
+    question: "How can multi-agent systems benefit my operations?",
     answer:
-      "Our web development services include responsive design, custom web applications, API integrations, and scalable platforms built to deliver high performance and seamless user experiences."
+      "Multi-agent systems let specialized agents handle different tasks in parallel, improving throughput, resilience, and fault tolerance while enabling complex workflows to be automated end-to-end."
   },
   {
     id: 3,
-    question: "How can AI automation benefit my business?",
+    question: "How do you integrate agentic systems with existing software?",
     answer:
-      "AI automation helps streamline repetitive tasks, reduce operational costs, improve efficiency, and enhance productivity by implementing intelligent workflows and automated systems."
+      "We integrate via secure APIs, connectors and adapters to ERPs, CRMs, and data stores. Our orchestration layer handles authentication, idempotency and transactional consistency for safe automation."
   },
   {
     id: 4,
-    question: "Do you develop mobile apps for both iOS and Android?",
+    question: "What measures do you take for safety and governance?",
     answer:
-      "Yes, we build high-performance mobile applications for both iOS and Android using modern technologies like React Native and Flutter, ensuring a smooth and scalable user experience."
+      "We embed monitoring, explainability, audit logs, and human-in-the-loop controls. Policies for access, data retention, and model updates are enforced to ensure compliance and reduce operational risk."
   },
   {
     id: 5,
-    question: "What do your data science and analytics services include?",
+    question: "Can you deploy agents at the edge or on-premise?",
     answer:
-      "We offer data analysis, visualization, business intelligence, and big data solutions to help organizations gain actionable insights and improve decision-making processes."
+      "Yes. We support cloud, hybrid, on-premise and edge deployments depending on latency, privacy and connectivity requirements. Edge agents enable real-time decisions close to the data source."
   },
   {
     id: 6,
-    question: "What are Edge AI computing services?",
+    question: "How quickly can we see ROI from automation?",
     answer:
-      "Edge AI enables real-time data processing directly on devices, reducing latency and improving speed. It is ideal for IoT systems, smart devices, and applications requiring instant decision-making."
+      "ROI depends on process complexity; many clients see measurable efficiency gains within months from targeted pilots, and broader impact as agent fleets scale across workflows. We prioritize high-impact pilot scopes."
   },
   {
     id: 7,
-    question: "How do you ensure cybersecurity in your solutions?",
+    question: "Do you handle data privacy and compliance?",
     answer:
-      "We implement advanced security measures including threat detection, data encryption, and regular security audits to protect your systems and ensure compliance with industry standards."
+      "Yes. We follow best practices for data minimization, encryption in transit and at rest, role-based access, and help map solutions to regulatory frameworks relevant to your industry."
   },
   {
     id: 8,
-    question: "What SaaS development services do you provide?",
+    question: "How do you support ongoing maintenance and updates?",
     answer:
-      "We build scalable SaaS platforms with multi-tenant architecture, subscription management systems, and cloud integration to support business growth and ensure high availability."
+      "We provide managed services, observability dashboards, model retraining pipelines, and SLO-driven support plans to keep agentic systems reliable and performant.",
   }
 ];
 
@@ -97,13 +98,16 @@ const AccordionItem = ({ item, isOpen, onToggle }) => {
 // Main FAQ Component
 export default function Value() {
   const [openId, setOpenId] = useState(null);
+  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   const toggleAccordion = (id) => {
     setOpenId(openId === id ? null : id);
   };
 
   return (
-    <section className="faq-otr relative bg-gradient-to-b from-black to-[#0a0a0a] py-12 lg:py-28 overflow-hidden">
+    <section ref={elementRef} className={`faq-otr relative bg-gradient-to-b from-black to-[#0a0a0a] py-12 lg:py-28 overflow-hidden transition-all duration-700 ${
+      isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+    }`}>
       {/* Decorative Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,rgba(0,168,168,0.1),transparent_50%)]"></div>

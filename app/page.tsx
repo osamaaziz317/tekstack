@@ -7,8 +7,12 @@ import Navbar from "./components/Navbar";
 import Service from "./components/Service";
 import SliderHero from "./components/SliderHero";
 import Value from "./components/Value";
+import Projects from "./components/Projects";
+import { listVideoSlugs, readVideoMetadata } from "../lib/videos";
 
 export default function Home() {
+  const videoSlugs = listVideoSlugs();
+  const videoMeta = readVideoMetadata();
   return (
     <>
       <div className="relative mb-[127px] max-tablet:mb-[78px] max-tablet3:mb-[61px]">
@@ -23,6 +27,7 @@ export default function Home() {
       <AboutUs />
       <Best />
       <Value/>
+      <Projects videoSlugs={videoSlugs} videoMeta={videoMeta} />
       <Footer />
     </>
   );

@@ -11,65 +11,65 @@ import serviceIcon8 from "../../public/images/serviceIcon8.svg";
 const services = [
   {
     icon: serviceIcon1,
-    title: "Artificial Intelligence & Machine Learning",
+    title: "AI Workflow Automation",
     description:
-      "Tailored software solution crafted to fit your unique business needs.",
+      "Design and deploy automated workflows powered by agentic AI to eliminate manual bottlenecks.",
     bgColor: "rgba(127, 0, 255, 1)",
     bgShadow: "0px 13px 36.3px 0px rgba(127, 0, 255, 0.65)",
   },
   {
     icon: serviceIcon2,
-    title: "Web Development Services",
+    title: "Agentic AI Systems",
     description:
-      "Tailored software solution crafted to fit your unique business needs.",
+      "Build autonomous agents that reason, act, and coordinate to achieve complex goals.",
     bgColor: "rgba(0, 168, 168, 1)",
     bgShadow: " 0px 13px 27.7px 0px rgba(0, 168, 168, 0.65)",
   },
   {
     icon: serviceIcon3,
-    title: "AI Automation Services",
-description:
-  "Smart automation solutions designed to streamline your business processes.",
+    title: "Multi-Agent Orchestration",
+    description:
+      "Orchestrate fleets of agents and services to run resilient, fault-tolerant workflows.",
     bgColor: "rgba(230, 158, 33, 1)",
     bgShadow: " 0px 13px 34.7px 0px rgba(230, 158, 33, 0.65)",
   },
   {
     icon: serviceIcon4,
-    title: "Mobile App Development",
+    title: "RPA & Intelligent Automation",
     description:
-      "Tailored software solution crafted to fit your unique business needs.",
+      "Combine robotic process automation with AI decisioning for end-to-end task automation.",
     bgColor: "rgba(255, 107, 107, 1)",
     bgShadow: "0px 13px 36.3px 0px rgba(255, 107, 107, 0.65)",
   },
   {
     icon: serviceIcon5,
-    title: "Data Science & Analytics",
+    title: "AI Integration & APIs",
     description:
-      "Tailored software solution crafted to fit your unique business needs.",
+      "Integrate agentic systems with existing infrastructure, data lakes, and SaaS platforms.",
     bgColor: " rgba(179, 157, 219, 1)",
     bgShadow: "0px 13px 27.7px 0px rgba(179, 157, 219, 0.65)",
   },
   {
     icon: serviceIcon6,
-title: "Edge AI Computing Services",
-description:
-  "Real-time AI solutions built to process data efficiently at the network edge.",
+    title: "Edge & Real-Time AI",
+    description:
+      "Deploy lightweight agents and models at the edge for real-time decisioning and low-latency control.",
     bgColor: "rgba(0, 191, 255, 1)",
     bgShadow: "0px 13px 34.7px 0px rgba(0, 191, 255, 0.65)",
   },
   {
     icon: serviceIcon7,
-    title: "Cyber Security Services",
+    title: "Security & Governance",
     description:
-      "Tailored software solution crafted to fit your unique business needs.",
+      "Embed observability, audit trails and safe-guards into agentic systems for compliance and trust.",
     bgColor: "rgba(255, 215, 0, 1)",
     bgShadow: "0px 13px 36.3px 0px rgba(255, 215, 0, 0.65)",
   },
   {
     icon: serviceIcon8,
-    title: "SAAS Development",
+    title: "AI Strategy & Consulting",
     description:
-      "Tailored software solution crafted to fit your unique business needs.",
+      "Roadmaps, pilots, and governance to adopt agentic AI responsibly and effectively.",
     bgColor: " rgba(102, 204, 204, 1)",
     bgShadow: " 0px 13px 27.7px 0px rgba(102, 204, 204, 0.65)",
   },

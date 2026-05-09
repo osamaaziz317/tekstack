@@ -6,6 +6,7 @@ import { Autoplay, FreeMode } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
 import Image from "next/image";
+import { useScrollAnimation } from "../../lib/useScrollAnimation";
 import sliderIcon1 from "../../public/images/aiicon.svg";
 import sliderIcon2 from "../../public/images/ai-technology.png";
 import sliderIcon3 from "../../public/images/webicon.svg";
@@ -16,9 +17,14 @@ import sliderIcon7 from "../../public/images/arrangement-chart-form-svgrepo-com.
 import sliderIcon8 from "../../public/images/ai.png";
 
 export default function SliderHero() {
+  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.3 });
+
   return (
     <section
-      className="bg-[#000000] hero-slider-otr relative z-[3] py-8 max-tablet:py-2 px-39 max-desktop:px-10 max-tablet:px-5"
+      ref={elementRef}
+      className={`bg-[#000000] hero-slider-otr relative z-[3] py-8 max-tablet:py-2 px-39 max-desktop:px-10 max-tablet:px-5 transition-all duration-700 ${
+        isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+      }`}
       aria-label="Services we offer slider"
     >
       
@@ -56,25 +62,26 @@ export default function SliderHero() {
           aria-label="Hero services slider"
         >
           {[
-            { icon: sliderIcon1, text: "Artificial Intelligence" },
-            { icon: sliderIcon2, text: "AI Development" },
-            { icon: sliderIcon3, text: "Web Development" },
-            { icon: sliderIcon4, text: "Data Analysis" },
-            { icon: sliderIcon5, text: "Agentic AI" },
-            { icon: sliderIcon6, text: "Mobile Development" },
-            { icon: sliderIcon7, text: "ERP Solutions" },
-            { icon: sliderIcon8, text: "AI Automation" },
+            { icon: sliderIcon1, text: "AI Workflow Automation" },
+            { icon: sliderIcon2, text: "Agentic AI Systems" },
+            { icon: sliderIcon3, text: "Multi-Agent Orchestration" },
+            { icon: sliderIcon4, text: "Autonomous Agents" },
+            { icon: sliderIcon5, text: "Process Orchestration" },
+            { icon: sliderIcon6, text: "AI Integration & APIs" },
+            { icon: sliderIcon7, text: "Robotic Process Automation" },
+            { icon: sliderIcon8, text: "AI Strategy & Consulting" },
+            { icon: sliderIcon8, text: "Monitoring & Governance" },
           ].map((item, index) => (
             <SwiperSlide key={index}>
-              <div className="slider-hero-slide flex items-center gap-2 px-2">
+              <div className="slider-hero-slide flex items-center gap-2 px-2 transition-all duration-300 hover:scale-110 cursor-pointer group">
                 <Image
-                  className="star1 w-11 h-11 max-tablet:w-8 max-tablet:h-8"
+                  className="star1 w-11 h-11 max-tablet:w-8 max-tablet:h-8 transition-all duration-300 group-hover:filter group-hover:brightness-150"
                   src={item.icon}
                   alt={item.text}
                   width={44}
                   height={44}
                 />
-                <p className="text-[#ffffff] text-sm max-tablet:text-xs ">
+                <p className="text-[#ffffff] text-sm max-tablet:text-xs transition-all duration-300 group-hover:text-[#00a8a8]">
                   {item.text}
                 </p>
               </div>

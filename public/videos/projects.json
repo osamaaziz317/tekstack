@@ -1,0 +1,30 @@
+{
+  "AI_Architect": {
+    "title": "AI Architect",
+    "description": "Intelligent system architecture for AI-driven workflow automation, orchestrating agents and ensuring scalability.",
+    "tags": ["Agentic AI", "Architecture"],
+    "image": "/videos/AI_s-impact-on-HR_Sharing-image.png",
+    "liveLink": "https://example.com/ai-architect"
+  },
+  "Focus_group": {
+    "title": "Focus Group",
+    "description": "Collaborative agent framework for distributed decision-making and cross-functional workflow coordination.",
+    "tags": ["Multi-Agent", "Collaboration"],
+    "image": "/videos/AI_s-impact-on-HR_Sharing-image.png",
+    "liveLink": "https://example.com/focus-group"
+  },
+  "HR_AI": {
+    "title": "HR AI",
+    "description": "Autonomous AI system for human resources automation, candidate screening, scheduling, and employee engagement.",
+    "tags": ["HR", "Agentic AI"],
+    "image": "/videos/AI_s-impact-on-HR_Sharing-image.png",
+    "liveLink": "https://example.com/hr-ai"
+  },
+  "Interactive_Dahboard": {
+    "title": "Interactive Dashboard",
+    "description": "Real-time monitoring and control interface for multi-agent systems with visual workflow orchestration.",
+    "tags": ["Dashboard", "Monitoring"],
+    "image": "/videos/AI_s-impact-on-HR_Sharing-image.png",
+    "liveLink": "https://example.com/dashboard"
+  }
+}

@@ -73,7 +73,7 @@ export default function Navbar() {
               <Image
                 className="logo max-tablet:w-[55px] max-laptop:hidden w-[135px] h-[74px] object-cover cursor-pointer"
                 src={logoImg}
-                alt="Your Logo"
+                alt="tekstack.ai logo"
               />
             </Link>
             <Link href="/">
@@ -99,19 +99,27 @@ export default function Navbar() {
                           ? "text-[#00a8a8]" 
                           : "text-[#ffffff] hover:text-gray-300"
                       }`}
+                      style={{
+                        backgroundImage: 'linear-gradient(to right, #00a8a8, #00a8a8)',
+                        backgroundPosition: isActive ? '0 100%' : '100% 100%',
+                        backgroundSize: '100% 2px',
+                        backgroundRepeat: 'no-repeat',
+                        transition: 'background-position 0.3s ease',
+                      }}
                     >
                       {item.name}
                     </button>
                   ) : (
                     <Link
                       href={item.href}
-                      className={`a-nav transition-colors duration-200 ${
+                      className={`a-nav transition-all duration-300 relative group ${
                         isActive 
                           ? "text-[#00a8a8]" 
-                          : "text-[#ffffff] hover:text-gray-300"
+                          : "text-[#ffffff] hover:text-[#00a8a8]"
                       }`}
                     >
                       {item.name}
+                      <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-[#00a8a8] group-hover:w-full transition-all duration-300 ${isActive ? 'w-full' : ''}`}></span>
                     </Link>
                   )}
                 </li>
@@ -269,7 +277,7 @@ export default function Navbar() {
                 <div className="mt-8 pt-6 border-t border-white/20 max-md:mt-4 max-md:pt-4">
                   <div className="text-center">
                     <p className="text-white/40 text-sm max-md:text-xs">Get in touch with us</p>
-                    <p className="text-white/60 text-sm mt-1 max-md:text-xs max-md:mt-0.5">hello@yourcompany.com</p>
+                    <p className="text-white/60 text-sm mt-1 max-md:text-xs max-md:mt-0.5">hello@tekstack.ai</p>
                   </div>
                 </div>
               </div>

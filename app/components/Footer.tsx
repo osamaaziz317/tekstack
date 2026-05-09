@@ -47,10 +47,10 @@ export default function Footer() {
         <div className="container mx-auto px-5 md:px-10 py-12 md:py-20">
           {/* Top Section - Logo */}
           <div className="flex justify-center mb-6 md:mb-12">
-            <Link href="/" className="inline-block">
+              <Link href="/" className="inline-block">
               <Image
                 src={logoImg}
-                alt="Company Logo"
+                alt="tekstack.ai logo"
                 className="h-[100px] w-[100px] object-cover"
                 priority
               />
@@ -124,7 +124,7 @@ export default function Footer() {
           {/* Copyright */}
           <div className="text-center pt-6 md:pt-8 border-t border-white/10">
 <p className="text-gray-500 text-xs sm:text-sm md:text-base">
-  © {currentYear} tekstack. All rights reserved.
+  © {currentYear} tekstack.ai. All rights reserved.
 </p>
           </div>
         </div>

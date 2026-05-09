@@ -13,6 +13,7 @@ import "swiper/css/navigation";
 import { EffectCoverflow, Navigation } from "swiper/modules";
 
 import Image from "next/image";
+import { useScrollAnimation } from "../../lib/useScrollAnimation";
 import cardIcon from "../../public/images/best-card-icon.svg";
 
 // Dummy API service
@@ -24,185 +25,89 @@ const dummyApiService = {
         resolve({
           heading: "What We Do Best",
           description:
-            "We craft end‑to‑end tech solutions—spanning strategy, design, and development—that turn bold ideas into resilient, user‑focused products. Partner with us to accelerate innovation, optimize operations, and create seamless digital experiences that set you apart.",
+            "We design and deliver agentic AI and workflow automation solutions that orchestrate complex processes, reduce manual work, and provide operational observability and governance.",
          slides: [
     {
-    id: 2,
-    title: "Web Development Services",
-    subtitle: "Scalable Platforms For Seamless Digital Experiences.",
-    features: [
-      {
-        title: "Responsive Design",
-        description:
-          "Create fast, mobile-friendly websites optimized for performance and accessibility.",
-      },
-      {
-        title: "Custom Web Apps",
-        description:
-          "Develop scalable and secure web applications tailored to your business needs.",
-      },
-      {
-        title: "API Integration",
-        description:
-          "Integrate third-party services and APIs for enhanced functionality and automation.",
-      },
-    ],
-  },
-  {
-    id: 1,
-    title: "Artificial Intelligence & Machine Learning",
-    subtitle: "Intelligent Systems For Smarter Business Decisions.",
-    features: [
-      {
-        title: "Predictive Analytics",
-        description:
-          "Leverage AI models to forecast trends, user behavior, and business outcomes with high accuracy.",
-      },
-      {
-        title: "Computer Vision",
-        description:
-          "Implement image recognition, object detection, and visual intelligence for automation.",
-      },
-      {
-        title: "NLP & Chatbots",
-        description:
-          "Build smart conversational agents to enhance user interaction and support systems.",
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: "AI Automation Services",
-    subtitle: "Smart Automation For Streamlined Business Operations.",
-    features: [
-      {
-        title: "Process Automation",
-        description:
-          "Automate repetitive workflows to improve efficiency and reduce operational costs.",
-      },
-      {
-        title: "AI Workflows",
-        description:
-          "Design intelligent pipelines that connect systems and optimize task execution.",
-      },
-      {
-        title: "Chatbot Automation",
-        description:
-          "Deploy AI-driven bots to handle customer queries and support tasks effectively.",
-      },
-    ],
-  },
-  {
-    id: 4,
-    title: "Mobile App Development",
-    subtitle: "High-Performance Apps For Modern Mobile Experiences.",
-    features: [
-      {
-        title: "Cross-Platform Apps",
-        description:
-          "Build scalable apps for iOS and Android using modern frameworks and tools.",
-      },
-      {
-        title: "Offline Functionality",
-        description:
-          "Ensure smooth performance with offline access and real-time data syncing.",
-      },
-      {
-        title: "Push Notifications",
-        description:
-          "Engage users with timely alerts and personalized communication strategies.",
-      },
-    ],
-  },
-  {
-    id: 5,
-    title: "Data Science & Analytics",
-    subtitle: "Data-Driven Insights For Strategic Business Growth.",
-    features: [
-      {
-        title: "Data Visualization",
-        description:
-          "Transform complex data into clear dashboards and actionable insights.",
-      },
-      {
-        title: "Big Data Processing",
-        description:
-          "Handle large datasets efficiently for real-time analytics and decision-making.",
-      },
-      {
-        title: "Business Intelligence",
-        description:
-          "Enable smarter strategies with data-backed reporting and performance tracking.",
-      },
-    ],
-  },
-  {
-    id: 6,
-    title: "Edge AI Computing Services",
-    subtitle: "Real-Time Processing At The Edge For Faster Decisions.",
-    features: [
-      {
-        title: "Edge Deployment",
-        description:
-          "Run AI models locally on devices to reduce latency and improve speed.",
-      },
-      {
-        title: "IoT Integration",
-        description:
-          "Connect smart devices with AI capabilities for intelligent automation systems.",
-      },
-      {
-        title: "Low Latency Systems",
-        description:
-          "Ensure fast data processing without relying heavily on cloud infrastructure.",
-      },
-    ],
-  },
-  {
-    id: 7,
-    title: "Cyber Security Services",
-    subtitle: "Advanced Protection For Your Digital Infrastructure.",
-    features: [
-      {
-        title: "Threat Detection",
-        description:
-          "Identify and prevent cyber threats using advanced monitoring systems.",
-      },
-      {
-        title: "Data Protection",
-        description:
-          "Secure sensitive data with encryption and access control mechanisms.",
-      },
-      {
-        title: "Security Audits",
-        description:
-          "Conduct regular assessments to ensure compliance and system integrity.",
-      },
-    ],
-  },
-  {
-    id: 8,
-    title: "SAAS Development",
-    subtitle: "Cloud-Based Solutions For Scalable Business Growth.",
-    features: [
-      {
-        title: "Multi-Tenant Architecture",
-        description:
-          "Build scalable SaaS platforms supporting multiple users and organizations.",
-      },
-      {
-        title: "Subscription Systems",
-        description:
-          "Implement flexible billing models and subscription management features.",
-      },
-      {
-        title: "Cloud Integration",
-        description:
-          "Leverage cloud infrastructure for high availability and performance.",
-      },
-    ],
-  },
-          ],
+      id: 1,
+      title: "AI Workflow Automation",
+      subtitle: "Automate repetitive and cross-system workflows with agent orchestration.",
+      features: [
+        { title: "End-to-End Orchestration", description: "Connect systems, data and agents into reliable pipelines that execute without manual intervention." },
+        { title: "Human-in-the-Loop", description: "Safe escalation paths and approvals when human oversight is required." },
+        { title: "Audit & Traceability", description: "Full audit trails and replayable workflows for compliance and debugging." },
+      ],
+    },
+    {
+      id: 2,
+      title: "Agentic AI Systems",
+      subtitle: "Design autonomous agents that plan, act, and learn to achieve business goals.",
+      features: [
+        { title: "Planner & Executor", description: "Agents that decompose goals into actionable steps and execute them reliably." },
+        { title: "Goal-Oriented Behavior", description: "Policy-driven agents that prioritize objectives and resources." },
+        { title: "Continuous Learning", description: "Feedback loops and retraining pipelines to improve agent performance." },
+      ],
+    },
+    {
+      id: 3,
+      title: "Multi-Agent Orchestration",
+      subtitle: "Coordinate agent fleets to run parallel tasks and handle complex workflows.",
+      features: [
+        { title: "Task Distribution", description: "Scale work across specialized agents for throughput and resilience." },
+        { title: "Conflict Resolution", description: "Rules and negotiation patterns to resolve competing actions safely." },
+        { title: "Monitoring & Healing", description: "Automated detection and recovery for failed agent tasks." },
+      ],
+    },
+    {
+      id: 4,
+      title: "RPA & Intelligent Automation",
+      subtitle: "Combine robotic process automation with AI decisioning for reliable task automation.",
+      features: [
+        { title: "Document & Data Extraction", description: "NLP and vision pipelines to parse documents and extract structured data." },
+        { title: "Rule-Based Flows", description: "Deterministic steps integrated with probabilistic AI decisions." },
+        { title: "Integrations", description: "Connectors to ERPs, CRMs and common business apps for end-to-end automation." },
+      ],
+    },
+    {
+      id: 5,
+      title: "Edge & Real-Time AI",
+      subtitle: "Deploy lightweight agents and models for low-latency decisions at the edge.",
+      features: [
+        { title: "Edge Deployment", description: "Run inference and small agents on-device for instant responses." },
+        { title: "Stream Processing", description: "Real-time telemetry analysis and event-driven agent triggers." },
+        { title: "Bandwidth Resilience", description: "Operate reliably with limited or intermittent connectivity." },
+      ],
+    },
+    {
+      id: 6,
+      title: "AI Integration & APIs",
+      subtitle: "Connect agentic systems to your data and services through secure APIs.",
+      features: [
+        { title: "Secure APIs", description: "Authenticated, rate-limited endpoints for agent communication." },
+        { title: "Data Connectors", description: "Prebuilt adapters for common databases and SaaS platforms." },
+        { title: "Event Bus", description: "Reliable messaging and event routing between services and agents." },
+      ],
+    },
+    {
+      id: 7,
+      title: "Security & Governance",
+      subtitle: "Embed observability, controls and policies into agentic deployments.",
+      features: [
+        { title: "Policy Enforcement", description: "Govern what agents can do and which data they can access." },
+        { title: "Explainability", description: "Logs and explanations for agent decisions to support audits." },
+        { title: "Access Controls", description: "Role-based permissions and secure secrets management." },
+      ],
+    },
+    {
+      id: 8,
+      title: "AI Strategy & Consulting",
+      subtitle: "Roadmaps, pilots and governance to adopt agentic AI responsibly.",
+      features: [
+        { title: "Pilot Programs", description: "Identify high-impact processes and run fast pilots to prove value." },
+        { title: "Operational Roadmaps", description: "Planning for scale, SLOs and maintenance of agentic systems." },
+        { title: "Compliance & Ethics", description: "Risk assessments and policies for safe AI adoption." },
+      ],
+    },
+  ],
         });
       }, 1500);
     });
@@ -300,6 +205,7 @@ export default function Best() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -347,15 +253,26 @@ export default function Best() {
   return (
     <div className="relative overflow-hidden">
       
-      <div className="best-otr relative bg-black pb-[40px]">
+      <div
+        ref={elementRef}
+        className={`best-otr relative bg-black pb-[40px] transition-all duration-700 ${
+          isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+        }`}
+      >
         <div className="best-inr px-39 max-desktop:px-10 max-tablet:px-5 relative">
-          <p className="best-heading font-gendy font-normal text-[60px] text-center max-tablet:text-[40px] text-white">
+          <p className={`best-heading font-gendy font-normal text-[60px] text-center max-tablet:text-[40px] text-white transition-all duration-700 ${
+            isVisible ? 'animate-fade-in-down' : 'opacity-0 -translate-y-8'
+          }`}>
             {loading ? "What We Do Best" : data?.heading}
           </p>
-          <p className="best-desc font-normal text-[16px] w-[844px] text-center mx-auto max-laptop:w-full text-white/80">
+          <p className={`best-desc font-normal text-[16px] w-[844px] text-center mx-auto max-laptop:w-full text-white/80 transition-all duration-700 delay-100 ${
+            isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+          }`}>
             {loading ? "Loading amazing content..." : data?.description}
           </p>
-          <div className="best-row-main relative bg-cover bg-center bg-no-repeat">
+          <div className={`best-row-main relative bg-cover bg-center bg-no-repeat transition-all duration-700 delay-200 ${
+            isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+          }`}>
             <Swiper
               key={loading ? "skeleton" : "actual"}
               breakpoints={{

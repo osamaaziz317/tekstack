@@ -17,25 +17,16 @@ export default function Contact() {
 
   const serviceOptions = [
     "Select a service",
-    "Enterprise Software Solutions",
-    "Dedicated Development Team",
-    "Mobile App Development",
-    "Web App Development",
-    "Data Services",
-    "UI/UX Design",
-    "DevOps & Cloud Services",
-    "Quality Assurance & Testing",
-    "Partnership Opportunities",
-    "Artificial Intelligence & Machine Learning",
-    "Cybersecurity Services",
-    "E-Commerce Development",
-    "SaaS Development",
-    "IT Consulting",
-    "Digital Transformation",
-    "Cloud Migration Services",
-    "Blockchain Development",
-    "IoT Solutions",
-    "Technical Support & Maintenance",
+    "AI Workflow Automation",
+    "Agentic AI Systems",
+    "Multi-Agent Orchestration",
+    "RPA & Intelligent Automation",
+    "Edge AI & Real-Time Agents",
+    "AI Integration & APIs",
+    "AI Strategy & Consulting",
+    "Security & Governance",
+    "Platform Integrations",
+    "Managed Agent Services",
   ];
 
   const handleChange = (e) => {
@@ -106,9 +97,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-gray-400 text-[10px] tablet4:text-[11px] tablet3:text-xs tablet2:text-xs tablet:text-sm laptop:text-base mb-1">Email</p>
-                  <a href="mailto:info@edgec.io" className="text-white text-xs tablet4:text-xs tablet3:text-sm tablet2:text-sm tablet:text-base laptop:text-lg hover:text-[#00a8a8] transition-colors duration-300 break-all">
-                    info@tekstack.site
-                    
+                  <a href="mailto:hello@tekstack.ai" className="text-white text-xs tablet4:text-xs tablet3:text-sm tablet2:text-sm tablet:text-base laptop:text-lg hover:text-[#00a8a8] transition-colors duration-300 break-all">
+                    hello@tekstack.ai
                   </a>
                 </div>
               </div>
@@ -190,7 +180,7 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     className="w-full px-2.5 tablet4:px-3 tablet3:px-3.5 tablet2:px-4 py-2 tablet4:py-2.5 tablet3:py-3 rounded-lg bg-black/50 border border-white/10 text-white text-xs tablet4:text-sm tablet3:text-base placeholder-gray-500 focus:outline-none focus:border-[#00a8a8] focus:ring-1 focus:ring-[#00a8a8] transition-all duration-300"
-                    placeholder="info@tekstack.site"
+                    placeholder="hello@tekstack.ai"
                   />
                 </div>
 
