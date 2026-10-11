@@ -105,23 +105,35 @@ body {
   pointer-events: none;
 }
 
-/* Best / Swiper Coverflow Styling for Clean Beige Cards */
-.best-otr .swiper-slide-prev {
-  transform: translate3d(0px, 0px, -80px) rotateX(0deg) rotateY(0deg) scale(0.95) !important;
-  opacity: 0.75;
-  z-index: 3 !important;
+/* Best / Swiper Coverflow Circular 3D Carousel Motion */
+.best-otr {
+  perspective: 1200px;
 }
 
-.best-otr .swiper-slide-next {
-  transform: translate3d(0px, 0px, -80px) rotateX(0deg) rotateY(0deg) scale(0.95) !important;
-  opacity: 0.75;
-  z-index: 3 !important;
+.best-otr .swiper {
+  overflow: visible !important;
+}
+
+.best-otr .swiper-wrapper {
+  display: flex;
+  align-items: center;
+  transform-style: preserve-3d;
+}
+
+.best-otr .swiper-slide {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
 }
 
 .best-otr .swiper-slide-active {
+  z-index: 10 !important;
+  opacity: 1 !important;
+}
+
+.best-otr .swiper-slide-prev,
+.best-otr .swiper-slide-next {
+  opacity: 0.85 !important;
   z-index: 5 !important;
-  opacity: 1;
-  transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) scale(1) !important;
 }
 
 .swiper-3d .swiper-slide-shadow-left,
@@ -129,9 +141,24 @@ body {
   display: none !important;
 }
 
-.swiper-wrapper {
-  display: flex;
-  align-items: center;
+/* Sleek Circular Pagination Bullets */
+.best-otr .swiper-pagination {
+  bottom: 0px !important;
+}
+
+.best-otr .swiper-pagination-bullet {
+  width: 8px !important;
+  height: 8px !important;
+  background-color: #E5DFD3 !important;
+  opacity: 0.8 !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.best-otr .swiper-pagination-bullet-active {
+  width: 26px !important;
+  border-radius: 9999px !important;
+  background-color: #1A1A1A !important;
+  opacity: 1 !important;
 }
 
 /* High-Contrast Swiper Controls */

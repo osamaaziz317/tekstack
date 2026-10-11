@@ -5,7 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
-import { EffectCoverflow, Navigation } from "swiper/modules";
+import "swiper/css/pagination";
+import { EffectCoverflow, Navigation, Autoplay, Pagination } from "swiper/modules";
 import { useScrollAnimation } from "../../lib/useScrollAnimation";
 
 interface FeatureItem {
@@ -326,17 +327,28 @@ export default function Best() {
               effect={"coverflow"}
               grabCursor={true}
               centeredSlides={true}
+              loop={true}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              speed={750}
               navigation={true}
+              pagination={{
+                clickable: true,
+                dynamicBullets: true,
+              }}
               initialSlide={1}
               coverflowEffect={{
-                rotate: 20,
+                rotate: 24,
                 stretch: 0,
-                depth: 60,
+                depth: 100,
                 modifier: 1,
                 slideShadows: false,
               }}
-              modules={[EffectCoverflow, Navigation]}
-              className="py-8 !pb-14"
+              modules={[EffectCoverflow, Navigation, Autoplay, Pagination]}
+              className="py-8 !pb-16"
             >
               {slidesData.map((slide) => (
                 <SwiperSlide key={slide.id}>
