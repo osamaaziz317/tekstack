@@ -1,9 +1,28 @@
 "use client";
 
 import React, { useState } from "react";
+import { useScrollAnimation } from "../../lib/useScrollAnimation";
 
-export default function Contact() {
-  const [formData, setFormData] = useState({
+interface FormState {
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  service: string;
+  message: string;
+}
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  service?: string;
+  message?: string;
+}
+
+export default function ContactForm() {
+  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
+
+  const [formData, setFormData] = useState<FormState>({
     name: "",
     email: "",
     phone: "",
@@ -12,39 +31,75 @@ export default function Contact() {
     message: "",
   });
 
+  const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
+  const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null);
 
   const serviceOptions = [
-    "Select a service",
-    "AI Workflow Automation",
-    "Agentic AI Systems",
-    "Multi-Agent Orchestration",
-    "RPA & Intelligent Automation",
-    "Edge AI & Real-Time Agents",
-    "AI Integration & APIs",
-    "AI Strategy & Consulting",
-    "Security & Governance",
-    "Platform Integrations",
-    "Managed Agent Services",
+    "Select a service or architecture",
+    "Autonomous Agent Systems",
+    "Multi-Agent Workflow Orchestration",
+    "Cognitive RPA & Document Pipelines",
+    "Enterprise System & API Integration",
+    "Edge AI & Embedded Agent Deployment",
+    "Security, Guardrails & Governance",
+    "AI Architecture Advisory & Feasibility",
   ];
 
-  const handleChange = (e) => {
+  const validate = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (!formData.name.trim() || formData.name.trim().length < 2) {
+      newErrors.name = "Please provide your full name (minimum 2 characters).";
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim() || !emailRegex.test(formData.email.trim())) {
+      newErrors.email = "Please provide a valid business email address.";
+    }
+
+    if (!formData.service || formData.service === serviceOptions[0]) {
+      newErrors.service = "Please select the service or capability of interest.";
+    }
+
+    if (!formData.message.trim() || formData.message.trim().length < 10) {
+      newErrors.message = "Please enter a message describing your requirements (minimum 10 characters).";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
+
+    // Clear reactive error on change
+    if (errors[name as keyof FormErrors]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: undefined,
+      }));
+    }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!validate()) return;
+
     setIsSubmitting(true);
-    
-    setTimeout(() => {
-      console.log("Form submitted:", formData);
+    setSubmitStatus(null);
+
+    try {
+      // Simulate robust asynchronous form processing
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+
       setSubmitStatus("success");
-      setIsSubmitting(false);
       setFormData({
         name: "",
         email: "",
@@ -53,107 +108,133 @@ export default function Contact() {
         service: "",
         message: "",
       });
-      
-      setTimeout(() => {
-        setSubmitStatus(null);
-      }, 5000);
-    }, 1500);
+      setErrors({});
+    } catch {
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <section className="bg-gradient-to-b from-black to-[#0a0a0a] py-8 tablet4:py-10 tablet3:py-12 tablet2:py-14 tablet:py-16 laptop:py-20 desktop:py-24">
-      <div className="container mx-auto px-2.5 tablet4:px-3 tablet3:px-4 tablet2:px-5 tablet:px-6 laptop:px-8 desktop:px-10">
-        {/* Flex container with responsive direction - mobile first */}
-         <div className="flex justify-center pb-4">
-             <div className="inline-flex items-center gap-2 bg-white/5 rounded-full px-3 py-1.5 lg:px-5 lg:py-2.5 mb-4 lg:mb-8">
-            <div className="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-[#00a8a8]"></div>
-            <span className="text-[#00a8a8] text-xs lg:text-sm font-medium font-quicksand uppercase tracking-wider">
-              Contact Us
+    <section
+      ref={elementRef}
+      className="bg-white py-16 sm:py-20 lg:py-28 border-b border-[#E5DFD3]"
+      aria-label="Contact and Consultation Form"
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-14 lg:mb-20">
+          <div
+            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F5F2EB] border border-[#E5DFD3] mb-4 transition-all duration-500 ${
+              isVisible ? "animate-fade-in-down" : "opacity-0 -translate-y-4"
+            }`}
+          >
+            <span className="w-2 h-2 rounded-full bg-[#C2A676]"></span>
+            <span className="text-xs font-semibold tracking-wider uppercase text-[#1A1A1A] font-quicksand">
+              Direct Engagement
             </span>
           </div>
-          </div>
-        <div className="flex flex-col desktop:flex-row items-start gap-4 tablet4:gap-5 tablet3:gap-6 tablet2:gap-8 tablet:gap-10 laptop:gap-12 desktop:gap-16">
-          
-          {/* Left Side - Contact Information */}
-          <div className="w-full desktop:flex-1 space-y-3 tablet4:space-y-4 tablet3:space-y-5 tablet2:space-y-6 tablet:space-y-7 laptop:space-y-8">
-            {/* Header */}
-            <div>
-              <h2 className="font-gendy text-lg tablet4:text-xl tablet3:text-2xl tablet2:text-3xl tablet:text-4xl laptop:text-5xl desktop:text-6xl text-white mb-2 tablet4:mb-2.5 tablet3:mb-3 tablet2:mb-3.5 tablet:mb-4 laptop:mb-5">
-                Get In Touch
-              </h2>
-              <p className="font-quicksand text-gray-400 text-xs tablet4:text-xs tablet3:text-sm tablet2:text-sm tablet:text-base laptop:text-lg desktop:text-xl">
-                30 Minutes Consultation
+
+          <h2
+            className={`font-gendy text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight mb-4 transition-all duration-500 delay-100 ${
+              isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"
+            }`}
+          >
+            Initiate a Technical Consultation
+          </h2>
+
+          <p
+            className={`font-quicksand text-base sm:text-lg text-[#666158] leading-relaxed transition-all duration-500 delay-200 ${
+              isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"
+            }`}
+          >
+            Schedule a 30-minute architectural discussion with an AI Systems Lead to map your automation objectives.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start max-w-6xl mx-auto">
+          {/* Left Side: Contact Information Cards */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="p-6 sm:p-8 rounded-2xl bg-[#F5F2EB] border border-[#E5DFD3]">
+              <h3 className="font-questrial font-bold text-xl text-[#1A1A1A] mb-2">
+                Engineering Headquarters
+              </h3>
+              <p className="font-quicksand text-sm text-[#666158] leading-relaxed mb-6">
+                Our distributed engineering teams operate across North America and global centers, delivering rapid turnaround on enterprise pilots.
+              </p>
+
+              <div className="space-y-4 text-sm font-quicksand">
+                <div className="flex items-start gap-3.5 p-3 rounded-xl bg-white border border-[#E5DFD3]">
+                  <div className="w-10 h-10 rounded-xl bg-[#1A1A1A] border border-[#1A1A1A] flex items-center justify-center flex-shrink-0 text-[#C2A676] shadow-sm">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span className="block text-xs font-semibold text-[#1A1A1A] uppercase tracking-wider">Direct Email</span>
+                    <a href="mailto:hello@tekstack.ai" className="text-[#666158] hover:text-[#1A1A1A] font-medium transition-colors">
+                      hello@tekstack.ai
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5 p-3 rounded-xl bg-white border border-[#E5DFD3]">
+                  <div className="w-10 h-10 rounded-xl bg-[#1A1A1A] border border-[#1A1A1A] flex items-center justify-center flex-shrink-0 text-[#C2A676] shadow-sm">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span className="block text-xs font-semibold text-[#1A1A1A] uppercase tracking-wider">Direct Line</span>
+                    <a href="tel:+923027899450" className="text-[#666158] hover:text-[#1A1A1A] font-medium transition-colors">
+                      +92 302 7899450
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5 p-3 rounded-xl bg-white border border-[#E5DFD3]">
+                  <div className="w-10 h-10 rounded-xl bg-[#1A1A1A] border border-[#1A1A1A] flex items-center justify-center flex-shrink-0 text-[#C2A676] shadow-sm">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span className="block text-xs font-semibold text-[#1A1A1A] uppercase tracking-wider">Corporate Entity</span>
+                    <p className="text-[#666158] leading-snug">
+                      16192 Coastal Highway, Lewes, Delaware, 19958, County of Sussex, USA
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-white border border-[#E5DFD3]">
+              <div className="flex items-center gap-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#C2A676] animate-pulse"></span>
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#1A1A1A]">
+                  Current Response Window
+                </span>
+              </div>
+              <p className="font-quicksand text-xs text-[#666158] mt-2">
+                All client requests receive a senior engineering response and mutual NDA within 24 to 48 business hours.
               </p>
             </div>
-
-            {/* Contact Info */}
-            <div className="space-y-3 tablet4:space-y-3.5 tablet3:space-y-4 tablet2:space-y-4.5 tablet:space-y-5 laptop:space-y-6">
-              {/* Email */}
-              <div className="flex items-start gap-2 tablet4:gap-2.5 tablet3:gap-3 tablet2:gap-3.5 tablet:gap-4 group">
-                <div className="w-8 h-8 tablet4:w-9 tablet4:h-9 tablet3:w-10 tablet3:h-10 tablet2:w-11 tablet2:h-11 tablet:w-12 tablet:h-12 rounded-full bg-[#00a8a8]/10 flex items-center justify-center group-hover:bg-[#00a8a8]/20 transition-all duration-300 flex-shrink-0">
-                  <svg className="w-4 h-4 tablet4:w-4.5 tablet4:h-4.5 tablet3:w-5 tablet3:h-5 tablet2:w-5.5 tablet2:h-5.5 tablet:w-6 tablet:h-6 text-[#00a8a8]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-gray-400 text-[10px] tablet4:text-[11px] tablet3:text-xs tablet2:text-xs tablet:text-sm laptop:text-base mb-1">Email</p>
-                  <a href="mailto:hello@tekstack.ai" className="text-white text-xs tablet4:text-xs tablet3:text-sm tablet2:text-sm tablet:text-base laptop:text-lg hover:text-[#00a8a8] transition-colors duration-300 break-all">
-                    hello@tekstack.ai
-                  </a>
-                </div>
-              </div>
-
-              {/* Phone */}
-              <div className="flex items-start gap-2 tablet4:gap-2.5 tablet3:gap-3 tablet2:gap-3.5 tablet:gap-4 group">
-                <div className="w-8 h-8 tablet4:w-9 tablet4:h-9 tablet3:w-10 tablet3:h-10 tablet2:w-11 tablet2:h-11 tablet:w-12 tablet:h-12 rounded-full bg-[#00a8a8]/10 flex items-center justify-center group-hover:bg-[#00a8a8]/20 transition-all duration-300 flex-shrink-0">
-                  <svg className="w-4 h-4 tablet4:w-4.5 tablet4:h-4.5 tablet3:w-5 tablet3:h-5 tablet2:w-5.5 tablet2:h-5.5 tablet:w-6 tablet:h-6 text-[#00a8a8]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-gray-400 text-[10px] tablet4:text-[11px] tablet3:text-xs tablet2:text-xs tablet:text-sm laptop:text-base mb-1">Phone</p>
-                  <a href="tel:+923234563720" className="text-white text-xs tablet4:text-xs tablet3:text-sm tablet2:text-sm tablet:text-base laptop:text-lg hover:text-[#00a8a8] transition-colors duration-300">
-                    +92 3027899450
-                  </a>
-                </div>
-              </div>
-
-              {/* Address */}
-              <div className="flex items-start gap-2 tablet4:gap-2.5 tablet3:gap-3 tablet2:gap-3.5 tablet:gap-4 group">
-                <div className="w-8 h-8 tablet4:w-9 tablet4:h-9 tablet3:w-10 tablet3:h-10 tablet2:w-11 tablet2:h-11 tablet:w-12 tablet:h-12 rounded-full bg-[#00a8a8]/10 flex items-center justify-center group-hover:bg-[#00a8a8]/20 transition-all duration-300 flex-shrink-0">
-                  <svg className="w-4 h-4 tablet4:w-4.5 tablet4:h-4.5 tablet3:w-5 tablet3:h-5 tablet2:w-5.5 tablet2:h-5.5 tablet:w-6 tablet:h-6 text-[#00a8a8]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-gray-400 text-[10px] tablet4:text-[11px] tablet3:text-xs tablet2:text-xs tablet:text-sm laptop:text-base mb-1">Address</p>
-                  <p className="text-white text-xs tablet4:text-xs tablet3:text-sm tablet2:text-sm tablet:text-base laptop:text-lg leading-relaxed">
-                    16192 Coastal Highway, Lewes, Delaware, 19958,<br />
-                    County of Sussex, USA
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Decorative Element */}
-            <div className="hidden desktop:block pt-4 tablet:pt-5 laptop:pt-6">
-              <div className="w-16 tablet:w-20 h-0.5 bg-gradient-to-r from-[#00a8a8] to-transparent rounded-full"></div>
-            </div>
           </div>
 
-          {/* Right Side - Contact Form */}
-          <div className="w-full desktop:flex-1">
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 tablet4:p-5 tablet3:p-6 tablet2:p-7 tablet:p-8 border border-white/10">
-              <h3 className="text-base tablet4:text-lg tablet3:text-xl tablet2:text-2xl tablet:text-2xl laptop:text-3xl font-gendy text-white mb-3 tablet4:mb-4 tablet3:mb-5 tablet2:mb-6 tablet:mb-7 laptop:mb-8">
-                Send us a Message
+          {/* Right Side: High-Integrity Form */}
+          <div className="lg:col-span-7">
+            <div className="p-6 sm:p-10 rounded-2xl bg-white border border-[#E5DFD3] shadow-sm">
+              <h3 className="font-questrial font-bold text-xl sm:text-2xl text-[#1A1A1A] mb-6">
+                Tell Us About Your Project
               </h3>
-              
-              <form onSubmit={handleSubmit} className="space-y-3 tablet4:space-y-3.5 tablet3:space-y-4 tablet2:space-y-4.5 tablet:space-y-5 laptop:space-y-6">
+
+              <form onSubmit={handleSubmit} noValidate className="space-y-5">
                 {/* Name */}
                 <div>
-                  <label htmlFor="name" className="block text-white font-medium mb-1 tablet4:mb-1.5 tablet3:mb-2 text-[11px] tablet4:text-xs tablet3:text-sm tablet2:text-sm tablet:text-base">
-                    Name *
+                  <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1.5">
+                    Your Full Name <span className="text-[#C2A676]">*</span>
                   </label>
                   <input
                     type="text"
@@ -161,16 +242,21 @@ export default function Contact() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    required
-                    className="w-full px-2.5 tablet4:px-3 tablet3:px-3.5 tablet2:px-4 py-2 tablet4:py-2.5 tablet3:py-3 rounded-lg bg-black/50 border border-white/10 text-white text-xs tablet4:text-sm tablet3:text-base placeholder-gray-500 focus:outline-none focus:border-[#00a8a8] focus:ring-1 focus:ring-[#00a8a8] transition-all duration-300"
-                    placeholder="Your full name"
+                    disabled={isSubmitting}
+                    placeholder="e.g. Elena Rostova"
+                    className={`w-full px-4 py-3 rounded-xl bg-[#FFFFFF] border text-sm text-[#1A1A1A] placeholder-[#666158]/50 transition-all focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676] disabled:opacity-60 disabled:cursor-not-allowed ${
+                      errors.name ? "border-red-400 bg-red-50/20" : "border-[#E5DFD3]"
+                    }`}
                   />
+                  {errors.name && (
+                    <p className="mt-1.5 text-xs text-red-600 font-medium">{errors.name}</p>
+                  )}
                 </div>
 
                 {/* Email */}
                 <div>
-                  <label htmlFor="email" className="block text-white font-medium mb-1 tablet4:mb-1.5 tablet3:mb-2 text-[11px] tablet4:text-xs tablet3:text-sm tablet2:text-sm tablet:text-base">
-                    Email *
+                  <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1.5">
+                    Corporate Email <span className="text-[#C2A676]">*</span>
                   </label>
                   <input
                     type="email"
@@ -178,38 +264,48 @@ export default function Contact() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    required
-                    className="w-full px-2.5 tablet4:px-3 tablet3:px-3.5 tablet2:px-4 py-2 tablet4:py-2.5 tablet3:py-3 rounded-lg bg-black/50 border border-white/10 text-white text-xs tablet4:text-sm tablet3:text-base placeholder-gray-500 focus:outline-none focus:border-[#00a8a8] focus:ring-1 focus:ring-[#00a8a8] transition-all duration-300"
-                    placeholder="hello@tekstack.ai"
+                    disabled={isSubmitting}
+                    placeholder="elena@enterprise.com"
+                    className={`w-full px-4 py-3 rounded-xl bg-[#FFFFFF] border text-sm text-[#1A1A1A] placeholder-[#666158]/50 transition-all focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676] disabled:opacity-60 disabled:cursor-not-allowed ${
+                      errors.email ? "border-red-400 bg-red-50/20" : "border-[#E5DFD3]"
+                    }`}
                   />
+                  {errors.email && (
+                    <p className="mt-1.5 text-xs text-red-600 font-medium">{errors.email}</p>
+                  )}
                 </div>
 
                 {/* Service Selection */}
                 <div>
-                  <label htmlFor="service" className="block text-white font-medium mb-1 tablet4:mb-1.5 tablet3:mb-2 text-[11px] tablet4:text-xs tablet3:text-sm tablet2:text-sm tablet:text-base">
-                    Which Service Are You Interested In? *
+                  <label htmlFor="service" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1.5">
+                    Area of Interest <span className="text-[#C2A676]">*</span>
                   </label>
                   <select
                     id="service"
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    required
-                    className="w-full px-2.5 tablet4:px-3 tablet3:px-3.5 tablet2:px-4 py-2 tablet4:py-2.5 tablet3:py-3 rounded-lg bg-black/50 border border-white/10 text-white text-xs tablet4:text-sm tablet3:text-base focus:outline-none focus:border-[#00a8a8] focus:ring-1 focus:ring-[#00a8a8] transition-all duration-300 cursor-pointer"
+                    disabled={isSubmitting}
+                    className={`w-full px-4 py-3 rounded-xl bg-[#FFFFFF] border text-sm text-[#1A1A1A] transition-all focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676] disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer ${
+                      errors.service ? "border-red-400 bg-red-50/20" : "border-[#E5DFD3]"
+                    }`}
                   >
-                    {serviceOptions.map((option) => (
-                      <option key={option} value={option === "Select a service" ? "" : option} className="bg-black text-white">
-                        {option}
+                    {serviceOptions.map((opt) => (
+                      <option key={opt} value={opt === serviceOptions[0] ? "" : opt}>
+                        {opt}
                       </option>
                     ))}
                   </select>
+                  {errors.service && (
+                    <p className="mt-1.5 text-xs text-red-600 font-medium">{errors.service}</p>
+                  )}
                 </div>
 
-                {/* Phone and Company Row */}
-                <div className="flex flex-col sm:flex-row gap-3 tablet4:gap-3.5 tablet3:gap-4">
-                  <div className="flex-1">
-                    <label htmlFor="phone" className="block text-white font-medium mb-1 tablet4:mb-1.5 tablet3:mb-2 text-[11px] tablet4:text-xs tablet3:text-sm tablet2:text-sm tablet:text-base">
-                      Phone
+                {/* Phone & Company Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="phone" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1.5">
+                      Phone Number (Optional)
                     </label>
                     <input
                       type="tel"
@@ -217,13 +313,14 @@ export default function Contact() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-2.5 tablet4:px-3 tablet3:px-3.5 tablet2:px-4 py-2 tablet4:py-2.5 tablet3:py-3 rounded-lg bg-black/50 border border-white/10 text-white text-xs tablet4:text-sm tablet3:text-base placeholder-gray-500 focus:outline-none focus:border-[#00a8a8] focus:ring-1 focus:ring-[#00a8a8] transition-all duration-300"
-                      placeholder="+92 3027899450"
+                      disabled={isSubmitting}
+                      placeholder="+1 (555) 000-0000"
+                      className="w-full px-4 py-3 rounded-xl bg-[#FFFFFF] border border-[#E5DFD3] text-sm text-[#1A1A1A] placeholder-[#666158]/50 transition-all focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676] disabled:opacity-60 disabled:cursor-not-allowed"
                     />
                   </div>
-                  <div className="flex-1">
-                    <label htmlFor="company" className="block text-white font-medium mb-1 tablet4:mb-1.5 tablet3:mb-2 text-[11px] tablet4:text-xs tablet3:text-sm tablet2:text-sm tablet:text-base">
-                      Company
+                  <div>
+                    <label htmlFor="company" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1.5">
+                      Organization / Firm
                     </label>
                     <input
                       type="text"
@@ -231,16 +328,17 @@ export default function Contact() {
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
-                      className="w-full px-2.5 tablet4:px-3 tablet3:px-3.5 tablet2:px-4 py-2 tablet4:py-2.5 tablet3:py-3 rounded-lg bg-black/50 border border-white/10 text-white text-xs tablet4:text-sm tablet3:text-base placeholder-gray-500 focus:outline-none focus:border-[#00a8a8] focus:ring-1 focus:ring-[#00a8a8] transition-all duration-300"
-                      placeholder="Your company"
+                      disabled={isSubmitting}
+                      placeholder="Acme Corp"
+                      className="w-full px-4 py-3 rounded-xl bg-[#FFFFFF] border border-[#E5DFD3] text-sm text-[#1A1A1A] placeholder-[#666158]/50 transition-all focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676] disabled:opacity-60 disabled:cursor-not-allowed"
                     />
                   </div>
                 </div>
 
                 {/* Message */}
                 <div>
-                  <label htmlFor="message" className="block text-white font-medium mb-1 tablet4:mb-1.5 tablet3:mb-2 text-[11px] tablet4:text-xs tablet3:text-sm tablet2:text-sm tablet:text-base">
-                    Message *
+                  <label htmlFor="message" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1.5">
+                    Workflow Scope &amp; Target Objectives <span className="text-[#C2A676]">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -248,40 +346,73 @@ export default function Contact() {
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
-                    required
-                    className="w-full px-2.5 tablet4:px-3 tablet3:px-3.5 tablet2:px-4 py-2 tablet4:py-2.5 tablet3:py-3 rounded-lg bg-black/50 border border-white/10 text-white text-xs tablet4:text-sm tablet3:text-base placeholder-gray-500 focus:outline-none focus:border-[#00a8a8] focus:ring-1 focus:ring-[#00a8a8] transition-all duration-300 resize-none"
-                    placeholder="Tell us about your project..."
-                  ></textarea>
+                    disabled={isSubmitting}
+                    placeholder="Briefly describe the processes you aim to automate, systems involved, and desired timelines..."
+                    className={`w-full px-4 py-3 rounded-xl bg-[#FFFFFF] border text-sm text-[#1A1A1A] placeholder-[#666158]/50 transition-all focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676] resize-none disabled:opacity-60 disabled:cursor-not-allowed ${
+                      errors.message ? "border-red-400 bg-red-50/20" : "border-[#E5DFD3]"
+                    }`}
+                  />
+                  {errors.message && (
+                    <p className="mt-1.5 text-xs text-red-600 font-medium">{errors.message}</p>
+                  )}
                 </div>
 
-                {/* Submit Button */}
-           <button
-  type="submit"
-  disabled={isSubmitting}
-  className="group relative w-full py-2 tablet4:py-2.5 tablet3:py-3 bg-transparent border border-[#00a8a8] text-[#00a8a8] hover:text-white font-medium rounded-full transition-all duration-300 overflow-hidden text-xs tablet4:text-sm tablet3:text-base cursor-pointer disabled:cursor-not-allowed"
->
-  <span className="relative z-10 flex items-center justify-center gap-2">
-    {isSubmitting ? (
-      <>
-        <svg className="animate-spin h-4 w-4 tablet4:h-4.5 tablet4:w-4.5 tablet3:h-5 tablet3:w-5 text-[#00a8a8] group-hover:text-white transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-        </svg>
-        Sending...
-      </>
-    ) : (
-      "Submit Message"
-    )}
-  </span>
-  <div className="absolute inset-0 bg-[#00a8a8] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-</button>
-
-                {/* Success Message */}
+                {/* Feedback Alerts matching Beige / Pure White theme */}
                 {submitStatus === "success" && (
-                  <div className="p-2 tablet4:p-2.5 tablet3:p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-center">
-                    <p className="text-green-400 text-[10px] tablet4:text-xs tablet3:text-sm">Thank you for reaching out! We'll get back to you soon.</p>
+                  <div className="p-4 rounded-xl bg-[#F5F2EB] border border-[#C2A676] text-[#1A1A1A] flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-[#C2A676] text-white flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-semibold">Message Dispatched Successfully</h4>
+                      <p className="text-xs text-[#666158]">
+                        Thank you for reaching out. An AI solutions engineer will follow up with you within 24 business hours.
+                      </p>
+                    </div>
                   </div>
                 )}
+
+                {submitStatus === "error" && (
+                  <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-900 flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-semibold">Transmission Failed</h4>
+                      <p className="text-xs text-red-700">
+                        Unable to submit the request at this time. Please email us directly at hello@tekstack.ai.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Submit CTA */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-4 rounded-full font-semibold text-sm uppercase tracking-wider bg-[#1A1A1A] text-white hover:bg-[#C2A676] transition-all duration-300 btn-hover-lift flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      <span>Transmitting Consultation Request...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Transmit Consultation Request</span>
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </>
+                  )}
+                </button>
               </form>
             </div>
           </div>

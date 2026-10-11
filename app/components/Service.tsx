@@ -1,126 +1,164 @@
-import Image from "next/image";
-import serviceIcon1 from "../../public/images/service-icon-1.svg";
-import serviceIcon2 from "../../public/images/service-icon-2.svg";
-import serviceIcon3 from "../../public/images/service-icon-3.svg";
-import serviceIcon4 from "../../public/images/service-icon-4.svg";
-import serviceIcon5 from "../../public/images/service-icon-5.svg";
-import serviceIcon6 from "../../public/images/service-icon-6.svg";
-import serviceIcon7 from "../../public/images/serviceIcon7.svg";
-import serviceIcon8 from "../../public/images/serviceIcon8.svg";
+"use client";
+
+import { useScrollAnimation } from "../../lib/useScrollAnimation";
+import {
+  Workflow,
+  Bot,
+  Network,
+  Cpu,
+  Boxes,
+  Zap,
+  ShieldCheck,
+  Compass,
+} from "lucide-react";
 
 const services = [
   {
-    icon: serviceIcon1,
+    icon: Workflow,
     title: "AI Workflow Automation",
     description:
-      "Design and deploy automated workflows powered by agentic AI to eliminate manual bottlenecks.",
-    bgColor: "rgba(127, 0, 255, 1)",
-    bgShadow: "0px 13px 36.3px 0px rgba(127, 0, 255, 0.65)",
+      "Design and deploy end-to-end automated pipelines powered by agentic reasoning to eliminate human bottlenecks.",
+    tag: "Orchestration",
   },
   {
-    icon: serviceIcon2,
+    icon: Bot,
     title: "Agentic AI Systems",
     description:
-      "Build autonomous agents that reason, act, and coordinate to achieve complex goals.",
-    bgColor: "rgba(0, 168, 168, 1)",
-    bgShadow: " 0px 13px 27.7px 0px rgba(0, 168, 168, 0.65)",
+      "Build autonomous agents that decompose complex goals into discrete actions with policy-driven execution.",
+    tag: "Autonomous",
   },
   {
-    icon: serviceIcon3,
+    icon: Network,
     title: "Multi-Agent Orchestration",
     description:
-      "Orchestrate fleets of agents and services to run resilient, fault-tolerant workflows.",
-    bgColor: "rgba(230, 158, 33, 1)",
-    bgShadow: " 0px 13px 34.7px 0px rgba(230, 158, 33, 0.65)",
+      "Coordinate specialized fleets of agents in parallel with safe conflict-resolution and recovery protocols.",
+    tag: "Distributed",
   },
   {
-    icon: serviceIcon4,
-    title: "RPA & Intelligent Automation",
+    icon: Cpu,
+    title: "RPA & Cognitive Automation",
     description:
-      "Combine robotic process automation with AI decisioning for end-to-end task automation.",
-    bgColor: "rgba(255, 107, 107, 1)",
-    bgShadow: "0px 13px 36.3px 0px rgba(255, 107, 107, 0.65)",
+      "Fuse deterministic robotic automation with probabilistic LLM reasoning for high-accuracy document and task processing.",
+    tag: "Cognitive",
   },
   {
-    icon: serviceIcon5,
-    title: "AI Integration & APIs",
+    icon: Boxes,
+    title: "Enterprise API Gateways",
     description:
-      "Integrate agentic systems with existing infrastructure, data lakes, and SaaS platforms.",
-    bgColor: " rgba(179, 157, 219, 1)",
-    bgShadow: "0px 13px 27.7px 0px rgba(179, 157, 219, 0.65)",
+      "Connect agent systems seamlessly to ERPs, CRMs, and relational databases with secure, rate-limited adapters.",
+    tag: "Integration",
   },
   {
-    icon: serviceIcon6,
+    icon: Zap,
     title: "Edge & Real-Time AI",
     description:
-      "Deploy lightweight agents and models at the edge for real-time decisioning and low-latency control.",
-    bgColor: "rgba(0, 191, 255, 1)",
-    bgShadow: "0px 13px 34.7px 0px rgba(0, 191, 255, 0.65)",
+      "Deploy optimized micro-models and lightweight agents at the edge for low-latency decisioning and offline resilience.",
+    tag: "Edge",
   },
   {
-    icon: serviceIcon7,
+    icon: ShieldCheck,
     title: "Security & Governance",
     description:
-      "Embed observability, audit trails and safe-guards into agentic systems for compliance and trust.",
-    bgColor: "rgba(255, 215, 0, 1)",
-    bgShadow: "0px 13px 36.3px 0px rgba(255, 215, 0, 0.65)",
+      "Enforce deterministic guardrails, human-in-the-loop approvals, and immutable audit logs for regulatory compliance.",
+    tag: "Governance",
   },
   {
-    icon: serviceIcon8,
-    title: "AI Strategy & Consulting",
+    icon: Compass,
+    title: "AI Strategy & Advisory",
     description:
-      "Roadmaps, pilots, and governance to adopt agentic AI responsibly and effectively.",
-    bgColor: " rgba(102, 204, 204, 1)",
-    bgShadow: " 0px 13px 27.7px 0px rgba(102, 204, 204, 0.65)",
+      "Architect clear deployment roadmaps, high-velocity pilot scopes, and quantitative ROI models for enterprise leaders.",
+    tag: "Advisory",
   },
 ];
 
 export default function Service() {
-  return (
-    <>
-      <section
-        className="service-otr pt-[90px] bg-primary relative border-t border-error-content"
-        aria-label="Services section"
-      >
-        <div className="service-inr flex items-center flex-wrap justify-center gap-y-[67px] gap-x-[33px] px-39 max-desktop:px-10 max-tablet:px-5">
-          {services.map((service, index) => {
-            const isHiddenOnLaptop = index >= 4 ? "max-laptop:hidden" : "";
-            const isHiddenOnDesktop = index >= 6 ? "max-desktop2:hidden" : "";
-            const isHiddenOnWideScreens =
-              index >= 8 ? "min-desktop2:hidden" : "";
+  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
 
+  return (
+    <section
+      ref={elementRef}
+      className="bg-white py-16 sm:py-20 lg:py-28 border-b border-[#E5DFD3]"
+      aria-label="Services section"
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-14 lg:mb-20">
+          <div
+            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F5F2EB] border border-[#E5DFD3] mb-4 transition-all duration-500 ${
+              isVisible ? "animate-fade-in-down" : "opacity-0 -translate-y-4"
+            }`}
+          >
+            <span className="w-2 h-2 rounded-full bg-[#C2A676]"></span>
+            <span className="text-xs font-semibold tracking-wider uppercase text-[#1A1A1A] font-quicksand">
+              Specialized Capabilities
+            </span>
+          </div>
+
+          <h2
+            className={`font-gendy text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight mb-4 transition-all duration-500 delay-100 ${
+              isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"
+            }`}
+          >
+            Engineered for Autonomous Performance
+          </h2>
+          <p
+            className={`font-quicksand text-base sm:text-lg text-[#666158] leading-relaxed transition-all duration-500 delay-200 ${
+              isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"
+            }`}
+          >
+            From single-purpose autonomous task executors to enterprise-wide multi-agent swarms, we deliver production-ready automation architectures.
+          </p>
+        </div>
+
+        {/* Services Card Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {services.map((service, index) => {
+            const IconComponent = service.icon;
             return (
               <div
                 key={index}
-                className={`service-box-otr min-w-[354px] max-tablet3:min-w-[330px] ${isHiddenOnLaptop} ${isHiddenOnDesktop} ${isHiddenOnWideScreens}`}
+                style={{
+                  transitionDelay: isVisible ? `${index * 60}ms` : "0ms",
+                }}
+                className={`group relative p-7 rounded-2xl bg-white border border-[#E5DFD3] hover:border-[#C2A676] hover:bg-[#F5F2EB]/50 card-hover-lift flex flex-col justify-between ${
+                  isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-6"
+                }`}
               >
-                <div className="service-box-inr relative min-h-[228px] bg-accent pt-[62px] pb-[25px] text-center rounded-[40px] border border-[#FFFFFF91]">
-                  <div
-                    className="absolute top-[-38px] left-2/4 -translate-x-2/4 flex justify-center items-center rounded-[38px] w-[77px] h-[77px]"
-                    style={{
-                      backgroundColor: service.bgColor,
-                      boxShadow: service.bgShadow,
-                    }}
-                    aria-hidden="true"
-                  >
-                    <Image
-                      className="serviceIcon w-[47px] h-[47px]"
-                      src={service.icon}
-                      alt={`${service.title} icon`}
-                    />
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-[#1A1A1A] group-hover:bg-[#C2A676] border border-[#1A1A1A] group-hover:border-[#C2A676] flex items-center justify-center p-2.5 transition-all duration-300 shadow-md group-hover:scale-105">
+                      <IconComponent className="w-6 h-6 text-[#C2A676] group-hover:text-[#1A1A1A] transition-colors" />
+                    </div>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#F5F2EB] group-hover:bg-white text-[#666158] border border-[#E5DFD3]">
+                      {service.tag}
+                    </span>
                   </div>
-                  <p className="service-box-heading w-[228px] text-[#FFFFFF] mx-auto font-questrial font-normal text-[25px] leading-[30px] pb-2.5 max-tablet3:text-[21px]">
+
+                  <h3 className="font-questrial font-bold text-lg sm:text-xl text-[#1A1A1A] mb-2.5 group-hover:text-[#1A1A1A]">
                     {service.title}
-                  </p>
-                  <p className="service-box-desc w-[272px] text-center mx-auto text-[#E2E2E2FF] font-questrial font-normal text-[15px] max-tablet3:text-[14px]">
+                  </h3>
+
+                  <p className="font-quicksand text-sm text-[#666158] leading-relaxed">
                     {service.description}
                   </p>
+                </div>
+
+                <div className="pt-6 mt-6 border-t border-[#E5DFD3]/70 flex items-center text-xs font-semibold text-[#1A1A1A] group-hover:text-[#C2A676] transition-colors">
+                  <span>Learn capability specs</span>
+                  <svg
+                    className="w-3.5 h-3.5 ml-1.5 transform group-hover:translate-x-1 transition-transform text-[#1A1A1A] group-hover:text-[#C2A676]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
                 </div>
               </div>
             );
           })}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

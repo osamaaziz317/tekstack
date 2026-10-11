@@ -30,6 +30,15 @@ const gendy = localFont({
   display: "swap",
 });
 
+export const metadata = {
+  title: "Tekstack - AI-Driven Workflow Automation",
+  description: "Intelligent system architecture and AI-driven solutions for modern enterprises.",
+  openGraph: {
+    title: "Tekstack - AI-Driven Workflow Automation",
+    description: "Intelligent system architecture and AI-driven solutions for modern enterprises.",
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -38,11 +47,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-theme="dark"
+      data-theme="light"
       suppressHydrationWarning={true}
       className={`${poppinsSans.variable} ${quicksandSans.variable} ${questrialSans.variable} ${gendy.variable}`}
     >
-      <body className="font-sans bg-primary">{children}</body>
+      <body className="font-sans bg-[#FFFFFF] text-[#1A1A1A] antialiased min-h-screen">
+        {children}
+      </body>
     </html>
   );
 }

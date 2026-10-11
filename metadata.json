@@ -1,0 +1,6 @@
+{
+  "name": "Tekstack",
+  "description": "Intelligent system architecture and AI-driven solutions for modern enterprises.",
+  "permissions": [],
+  "capabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

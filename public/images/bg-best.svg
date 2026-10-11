@@ -46,10 +46,10 @@
 <rect x="506.584" y="700.376" width="88.8312" height="88.8312" stroke="#131313" stroke-width="1.16883"/>
 <rect x="596.584" y="700.376" width="88.8312" height="88.8312" stroke="#131313" stroke-width="1.16883"/>
 <rect x="686.584" y="700.376" width="88.8312" height="88.8312" stroke="#131313" stroke-width="1.16883"/>
-<rect opacity="0.5" x="776" y="699.792" width="90" height="90" fill="white" fill-opacity="0.15"/>
+<rect opacity="0.5" x="776" y="699.792" width="90" height="90" fill="#1A1A1A" fill-opacity="0.15"/>
 <rect x="56.5844" y="790.376" width="88.8312" height="88.8312" stroke="#131313" stroke-width="1.16883"/>
 <rect x="146.584" y="790.376" width="88.8312" height="88.8312" stroke="#131313" stroke-width="1.16883"/>
-<rect opacity="0.5" x="236" y="789.792" width="90" height="90" fill="white" fill-opacity="0.15"/>
+<rect opacity="0.5" x="236" y="789.792" width="90" height="90" fill="#1A1A1A" fill-opacity="0.15"/>
 <rect x="326.584" y="790.376" width="88.8312" height="88.8312" stroke="#131313" stroke-width="1.16883"/>
 <rect x="416.584" y="790.376" width="88.8312" height="88.8312" stroke="#131313" stroke-width="1.16883"/>
 <rect x="506.584" y="790.376" width="88.8312" height="88.8312" stroke="#131313" stroke-width="1.16883"/>
@@ -62,12 +62,12 @@
 <rect x="866.584" y="610.376" width="88.8312" height="88.8312" stroke="#131313" stroke-width="1.16883"/>
 <rect x="866.584" y="700.376" width="88.8312" height="88.8312" stroke="#131313" stroke-width="1.16883"/>
 <rect x="866.584" y="790.376" width="88.8312" height="88.8312" stroke="#131313" stroke-width="1.16883"/>
-<circle cx="866" cy="429.793" r="4.67532" fill="white" fill-opacity="0.49"/>
-<circle cx="866" cy="519.793" r="4.67532" fill="white" fill-opacity="0.49"/>
-<circle cx="866" cy="609.793" r="4.67532" fill="white" fill-opacity="0.49"/>
-<circle cx="146" cy="429.793" r="4.67532" fill="white" fill-opacity="0.49"/>
-<circle cx="146" cy="519.793" r="4.67532" fill="white" fill-opacity="0.49"/>
-<circle cx="146" cy="609.793" r="4.67532" fill="white" fill-opacity="0.49"/>
+<circle cx="866" cy="429.793" r="4.67532" fill="#1A1A1A" fill-opacity="0.49"/>
+<circle cx="866" cy="519.793" r="4.67532" fill="#1A1A1A" fill-opacity="0.49"/>
+<circle cx="866" cy="609.793" r="4.67532" fill="#1A1A1A" fill-opacity="0.49"/>
+<circle cx="146" cy="429.793" r="4.67532" fill="#1A1A1A" fill-opacity="0.49"/>
+<circle cx="146" cy="519.793" r="4.67532" fill="#1A1A1A" fill-opacity="0.49"/>
+<circle cx="146" cy="609.793" r="4.67532" fill="#1A1A1A" fill-opacity="0.49"/>
 <defs>
 <filter id="filter0_f_4349_10" x="0.792206" y="0.792206" width="1053.12" height="1133.77" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>

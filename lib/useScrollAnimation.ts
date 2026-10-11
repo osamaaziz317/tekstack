@@ -1,74 +1,132 @@
-import { useEffect, useRef, useState } from 'react';
+"use client";
 
-/**
- * Hook to trigger animations when element comes into view
- * @param options - IntersectionObserver options
- * @returns ref to attach to element, and isVisible boolean
- */
-export function useScrollAnimation(options = {}) {
-  const elementRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+import { useEffect, useRef, useState, useMemo } from 'react';
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIsVisible(true);
-        observer.unobserve(entry.target);
-      }
-    }, {
-      threshold: 0.1,
-      ...options,
-    });
-
-    const currentElement = elementRef.current;
-    if (currentElement) {
-      observer.observe(currentElement);
-    }
-
-    return () => {
-      if (currentElement) {
-        observer.unobserve(currentElement);
-      }
-    };
-  }, [options]);
-
-  return { elementRef, isVisible };
+interface ScrollAnimationOptions {
+  threshold?: number;
+  rootMargin?: string;
+  triggerOnce?: boolean;
 }
 
 /**
- * Hook for staggered children animations
+ * Hydration-safe hook to trigger animations when element enters viewport.
+ * Uses primitive threshold/rootMargin dependencies to prevent infinite re-render loops.
  */
-export function useStaggerAnimation(itemCount: number, delay = 0.1) {
-  const containerRef = useRef<HTMLDivElement>(null);
+export function useScrollAnimation({
+  threshold = 0.15,
+  rootMargin = '0px',
+  triggerOnce = true,
+}: ScrollAnimationOptions = {}) {
+  const elementRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIsVisible(true);
-        observer.unobserve(entry.target);
-      }
-    }, {
-      threshold: 0.1,
-    });
+    setHasMounted(true);
+  }, []);
 
-    const currentElement = containerRef.current;
-    if (currentElement) {
-      observer.observe(currentElement);
+  useEffect(() => {
+    if (!hasMounted) return;
+
+    // Check if user prefers reduced motion
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setIsVisible(true);
+      return;
     }
 
-    return () => {
-      if (currentElement) {
-        observer.unobserve(currentElement);
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      setIsVisible(true);
+      return;
+    }
+
+    const currentElement = elementRef.current;
+    if (!currentElement) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          if (triggerOnce) {
+            observer.unobserve(entry.target);
+          }
+        } else if (!triggerOnce) {
+          setIsVisible(false);
+        }
+      },
+      {
+        threshold,
+        rootMargin,
       }
+    );
+
+    observer.observe(currentElement);
+
+    return () => {
+      observer.disconnect();
     };
+  }, [hasMounted, threshold, rootMargin, triggerOnce]);
+
+  return { elementRef, isVisible: hasMounted ? isVisible : false };
+}
+
+/**
+ * Hydration-safe hook for staggered item animations in grids.
+ */
+export function useStaggerAnimation(itemCount: number, delay = 0.08) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (!hasMounted) return;
+
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setIsVisible(true);
+      return;
+    }
+
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      setIsVisible(true);
+      return;
+    }
+
+    const currentElement = containerRef.current;
+    if (!currentElement) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    observer.observe(currentElement);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [hasMounted]);
+
+  const getItemStyle = useMemo(() => {
+    return (index: number) => ({
+      transitionDelay: isVisible ? `${Math.min(index * delay, 0.8)}s` : '0s',
+      transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+      transitionDuration: '500ms',
+    });
+  }, [isVisible, delay]);
 
   return {
     containerRef,
-    isVisible,
-    getItemStyle: (index: number) => ({
-      transitionDelay: isVisible ? `${index * delay}s` : '0s',
-    }),
+    isVisible: hasMounted ? isVisible : false,
+    getItemStyle,
   };
 }

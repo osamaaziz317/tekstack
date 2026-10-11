@@ -5,8 +5,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import logoImg from "../../public/images/Logo.png";
-import logoMobile from "../../public/images/Logo.png";
-import GetAQuoteModal from "./GetAQuoteButton"; // Fixed import name
+import GetAQuoteModal from "./GetAQuoteButton";
 
 export default function Navbar() {
   const menuItems = [
@@ -15,282 +14,244 @@ export default function Navbar() {
     { name: "Get a Quote", href: "#", isModal: true },
     { name: "Contact Us", href: "/contact" },
   ];
-  
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
-  
-  // Prevent body scroll when sidebar is open
+
+  // Scroll listener for enhanced header elevation
   useEffect(() => {
-    if (isSidebarOpen) {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 12);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Hydration-safe body scroll locking
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    if (isSidebarOpen || isQuoteModalOpen) {
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
     };
-  }, [isSidebarOpen]);
-  
-  // Prevent body scroll when modal is open
-  useEffect(() => {
-    if (isQuoteModalOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isQuoteModalOpen]);
-  
+  }, [isSidebarOpen, isQuoteModalOpen]);
+
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    setIsSidebarOpen((prev) => !prev);
   };
-  
+
   const closeSidebar = () => {
     setIsSidebarOpen(false);
   };
-  
-  const handleGetQuoteClick = (e) => {
+
+  const handleGetQuoteClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsQuoteModalOpen(true);
     closeSidebar();
   };
-  
+
   const closeQuoteModal = () => {
     setIsQuoteModalOpen(false);
   };
 
   return (
     <>
-      <nav className="navbar-otr bg-[#000000] relative z-50">
-        <div className="navbar-inr py-5 px-39 max-desktop:px-10 max-tablet:px-5 max-md:py-3 max-md:px-4 flex items-center max-laptop:justify-between relative">
-          
-          {/* Logo Section */}
-          <div className="logo-otr">
-            <Link href="/">
-              <Image
-                className="logo max-tablet:w-[55px] max-laptop:hidden w-[135px] h-[74px] object-cover cursor-pointer"
-                src={logoImg}
-                alt="tekstack.ai logo"
-              />
-            </Link>
-            <Link href="/">
-              <Image
-                className="cursor-pointer w-[95px] h-[74px] object-cover hidden max-laptop:block"
-                src={logoMobile}
-                alt="Your Logo"
-              />
-            </Link>
-          </div>
+      <header
+        className={`sticky top-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? "bg-white/95 backdrop-blur-md shadow-[0_4px_20px_-4px_rgba(26,26,26,0.05)] border-b border-[#E5DFD3]"
+            : "bg-white/90 backdrop-blur-sm border-b border-[#E5DFD3]/80"
+        }`}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
+            {/* Logo Section */}
+            <div className="flex items-center">
+              <Link href="/" className="flex items-center gap-2 group" aria-label="Tekstack home">
+                <div className="relative w-12 h-12 flex items-center justify-center rounded-xl bg-[#F5F2EB] border border-[#E5DFD3] p-1.5 transition-transform duration-300 group-hover:scale-105">
+                  <Image
+                    src={logoImg}
+                    alt="Tekstack Logo"
+                    width={40}
+                    height={40}
+                    priority
+                    className="object-contain"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-gendy text-2xl font-bold tracking-tight text-[#1A1A1A]">
+                    tekstack<span className="text-[#C2A676]">.ai</span>
+                  </span>
+                  <span className="text-[10px] tracking-widest uppercase font-medium text-[#666158]">
+                    AI Systems & Automation
+                  </span>
+                </div>
+              </Link>
+            </div>
 
-          {/* Desktop Navigation */}
-          <ul className="max-laptop:hidden max-desktop:relative absolute left-2/4 -translate-x-2/4 ul-nav flex items-center gap-8 py-2 px-5 rounded-4xl bg-[#FFFFFF30] backdrop-blur-sm">
-            {menuItems.map((item) => {
-              const isActive = pathname === item.href && !item.isModal;
-              return (
-                <li key={item.name} className="li-nav">
-                  {item.isModal ? (
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-1 bg-[#F5F2EB]/80 p-1.5 rounded-full border border-[#E5DFD3]">
+              {menuItems.map((item) => {
+                const isActive = pathname === item.href && !item.isModal;
+                if (item.isModal) {
+                  return (
                     <button
+                      key={item.name}
                       onClick={handleGetQuoteClick}
-                      className={`a-nav transition-colors duration-200 cursor-pointer ${
-                        isActive 
-                          ? "text-[#00a8a8]" 
-                          : "text-[#ffffff] hover:text-gray-300"
-                      }`}
-                      style={{
-                        backgroundImage: 'linear-gradient(to right, #00a8a8, #00a8a8)',
-                        backgroundPosition: isActive ? '0 100%' : '100% 100%',
-                        backgroundSize: '100% 2px',
-                        backgroundRepeat: 'no-repeat',
-                        transition: 'background-position 0.3s ease',
-                      }}
+                      className="px-5 py-2 text-sm font-medium font-quicksand text-[#1A1A1A] hover:text-[#C2A676] rounded-full transition-colors duration-200 cursor-pointer"
                     >
                       {item.name}
                     </button>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className={`a-nav transition-all duration-300 relative group ${
-                        isActive 
-                          ? "text-[#00a8a8]" 
-                          : "text-[#ffffff] hover:text-[#00a8a8]"
-                      }`}
-                    >
-                      {item.name}
-                      <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-[#00a8a8] group-hover:w-full transition-all duration-300 ${isActive ? 'w-full' : ''}`}></span>
-                    </Link>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-
-          {/* Mobile Hamburger Button */}
-          <div className="hidden max-laptop:flex max-laptop:justify-end">
-            <button
-              onClick={toggleSidebar}
-              className="cursor-pointer p-0 focus:outline-none relative"
-              aria-label="Open menu"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="rgba(255,255,255,1)"
-                className="w-6 h-6 max-md:w-5 max-md:h-5"
-              >
-                <path d="M3 4H21V6H3V4ZM9 11H21V13H9V11ZM3 18H21V20H3V18Z"></path>
-              </svg>
-            </button>
-          </div>
-
-          {/* Stylish Sidebar - Comes from Top to Bottom */}
-          <div 
-            className={`
-              fixed top-0 left-0 w-full z-40
-              transition-all duration-500 ease-out
-              ${isSidebarOpen ? 'visible' : 'invisible'}
-            `}
-          >
-            {/* Overlay */}
-            <div 
-              className={`
-                fixed inset-0 bg-black/60 backdrop-blur-sm
-                transition-opacity duration-500 ease-out
-                ${isSidebarOpen ? 'opacity-100' : 'opacity-0'}
-              `}
-              onClick={closeSidebar}
-            />
-            
-            {/* Sidebar Panel - Slides from Top */}
-            <div 
-              className={`
-                fixed top-0 left-0 w-full
-                bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a]
-                shadow-2xl
-                transition-all duration-500 ease-out
-                ${isSidebarOpen ? 'translate-y-0' : '-translate-y-full'}
-              `}
-            >
-              {/* Decorative Top Border - Teal Color */}
-              <div className="h-1 bg-[#00a8a8] w-full"></div>
-              
-              {/* Sidebar Content */}
-              <div className="container mx-auto px-5 py-8 max-md:px-4 max-md:py-4 max-h-[90vh] overflow-y-auto">
-                {/* Close Button & Header */}
-                <div className="flex justify-between items-center mb-8 pb-4 border-b border-white/20 max-md:mb-4 max-md:pb-3">
-                  <div className="flex items-center gap-3 max-md:gap-2">
-                    <div className="w-2 h-2 bg-[#00a8a8] rounded-full max-md:w-1.5 max-md:h-1.5"></div>
-                    <span className="text-white text-xl font-semibold max-md:text-base">
-                      Menu
-                    </span>
-                  </div>
-                  <button
-                    onClick={closeSidebar}
-                    className="p-2 hover:bg-white/10 rounded-full transition-all duration-200 max-md:p-1"
-                    aria-label="Close menu"
+                  );
+                }
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`relative px-5 py-2 text-sm font-medium font-quicksand rounded-full transition-all duration-200 ${
+                      isActive
+                        ? "bg-white text-[#1A1A1A] font-semibold shadow-sm border border-[#E5DFD3]"
+                        : "text-[#666158] hover:text-[#1A1A1A] hover:bg-white/60"
+                    }`}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="rgba(255,255,255,1)"
-                      className="w-6 h-6 max-md:w-4 max-md:h-4"
-                    >
-                      <path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"></path>
-                    </svg>
-                  </button>
-                </div>
-                
-                {/* Navigation Links with Menu Dots */}
-                <ul className="space-y-3 max-md:space-y-1.5">
-                  {menuItems.map((item, index) => {
-                    const isActive = pathname === item.href && !item.isModal;
-                    return (
-                      <li 
-                        key={item.name}
-                        className={`
-                          transform transition-all duration-500 ease-out
-                          ${isSidebarOpen ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}
-                        `}
-                        style={{ transitionDelay: `${index * 80}ms` }}
-                      >
-                        {item.isModal ? (
-                          <button
-                            onClick={handleGetQuoteClick}
-                            className={`group flex items-center gap-4 py-4 px-6 rounded-2xl hover:bg-white/10 transition-all duration-300 w-full text-left max-md:gap-2.5 max-md:py-2.5 max-md:px-4 ${
-                              isActive ? "bg-white/10" : "bg-white/5"
-                            }`}
-                          >
-                            <div className="w-1.5 h-1.5 rounded-full transition-transform duration-300 group-hover:scale-125 max-md:w-1 max-md:h-1 bg-[#00a8a8]"></div>
-                            <span className="text-lg font-medium group-hover:translate-x-1 transition-transform duration-300 max-md:text-sm text-white">
-                              {item.name}
-                            </span>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={2}
-                              stroke="currentColor"
-                              className="w-5 h-5 ml-auto transition-all duration-300 max-md:w-3.5 max-md:h-3.5 text-white/30 group-hover:text-[#00a8a8] group-hover:translate-x-1"
-                            >
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                            </svg>
-                          </button>
-                        ) : (
-                          <Link
-                            href={item.href}
-                            onClick={closeSidebar}
-                            className={`group flex items-center gap-4 py-4 px-6 rounded-2xl hover:bg-white/10 transition-all duration-300 max-md:gap-2.5 max-md:py-2.5 max-md:px-4 ${
-                              isActive ? "bg-white/10" : "bg-white/5"
-                            }`}
-                          >
-                            <div className={`w-1.5 h-1.5 rounded-full transition-transform duration-300 group-hover:scale-125 max-md:w-1 max-md:h-1 ${
-                              isActive ? "bg-[#00a8a8]" : "bg-[#00a8a8]"
-                            }`}></div>
-                            <span className={`text-lg font-medium group-hover:translate-x-1 transition-transform duration-300 max-md:text-sm ${
-                              isActive ? "text-[#00a8a8]" : "text-white"
-                            }`}>
-                              {item.name}
-                            </span>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={2}
-                              stroke="currentColor"
-                              className={`w-5 h-5 ml-auto transition-all duration-300 max-md:w-3.5 max-md:h-3.5 ${
-                                isActive 
-                                  ? "text-[#00a8a8] group-hover:translate-x-1" 
-                                  : "text-white/30 group-hover:text-[#00a8a8] group-hover:translate-x-1"
-                              }`}
-                            >
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                            </svg>
-                          </Link>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-                
-                <div className="mt-8 pt-6 border-t border-white/20 max-md:mt-4 max-md:pt-4">
-                  <div className="text-center">
-                    <p className="text-white/40 text-sm max-md:text-xs">Get in touch with us</p>
-                    <p className="text-white/60 text-sm mt-1 max-md:text-xs max-md:mt-0.5">hello@tekstack.ai</p>
-                  </div>
-                </div>
-              </div>
+                    {item.name}
+                    {isActive && (
+                      <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#C2A676]"></span>
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            {/* Action CTA & Mobile Trigger */}
+            <div className="flex items-center gap-3">
+              <button
+                onClick={handleGetQuoteClick}
+                className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-[#1A1A1A] text-white hover:bg-[#C2A676] transition-all duration-300 btn-hover-lift cursor-pointer"
+              >
+                <span>Get a Quote</span>
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
+
+              {/* Mobile Hamburger Toggle */}
+              <button
+                onClick={toggleSidebar}
+                className="lg:hidden p-2.5 rounded-xl bg-[#1A1A1A] text-[#C2A676] border border-[#1A1A1A] hover:bg-[#C2A676] hover:text-[#1A1A1A] transition-colors focus:outline-none cursor-pointer shadow-sm"
+                aria-label="Toggle navigation menu"
+                aria-expanded={isSidebarOpen}
+              >
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  {isSidebarOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </button>
             </div>
           </div>
         </div>
-      </nav>
-      
-      {/* Modal with animations */}
-      <GetAQuoteModal
-        isOpen={isQuoteModalOpen}
-        onClose={closeQuoteModal}
-      />
+      </header>
+
+      {/* Mobile Drawer (Beige & White Frosted Overlay) */}
+      <div
+        className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${
+          isSidebarOpen ? "visible" : "invisible pointer-events-none"
+        }`}
+      >
+        {/* Backdrop */}
+        <div
+          className={`fixed inset-0 bg-[#1A1A1A]/30 backdrop-blur-sm transition-opacity duration-300 ${
+            isSidebarOpen ? "opacity-100" : "opacity-0"
+          }`}
+          onClick={closeSidebar}
+        />
+
+        {/* Sliding Panel */}
+        <div
+          className={`fixed top-0 left-0 right-0 bg-[#FFFFFF] border-b border-[#E5DFD3] shadow-2xl transition-transform duration-300 ease-out ${
+            isSidebarOpen ? "translate-y-0" : "-translate-y-full"
+          }`}
+        >
+          {/* Top Beige Stripe */}
+          <div className="h-1 bg-[#C2A676] w-full" />
+
+          <div className="container mx-auto px-5 py-6">
+            <div className="flex items-center justify-between pb-4 border-b border-[#E5DFD3]">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-[#C2A676]" />
+                <span className="font-semibold text-[#1A1A1A]">Menu</span>
+              </div>
+              <button
+                onClick={closeSidebar}
+                className="p-1.5 rounded-lg text-[#666158] hover:text-[#1A1A1A] hover:bg-[#F5F2EB] transition-colors"
+                aria-label="Close menu"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <ul className="py-4 space-y-2">
+              {menuItems.map((item) => {
+                const isActive = pathname === item.href && !item.isModal;
+                if (item.isModal) {
+                  return (
+                    <li key={item.name}>
+                      <button
+                        onClick={handleGetQuoteClick}
+                        className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-left font-medium text-[#1A1A1A] bg-[#F5F2EB]/60 hover:bg-[#F5F2EB] border border-[#E5DFD3] transition-colors"
+                      >
+                        <span>{item.name}</span>
+                        <span className="text-[#C2A676] text-xs font-semibold uppercase tracking-wider">
+                          Quote &rarr;
+                        </span>
+                      </button>
+                    </li>
+                  );
+                }
+                return (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      onClick={closeSidebar}
+                      className={`flex items-center justify-between px-4 py-3 rounded-xl font-medium transition-colors ${
+                        isActive
+                          ? "bg-[#F5F2EB] text-[#1A1A1A] font-semibold border border-[#E5DFD3]"
+                          : "text-[#666158] hover:text-[#1A1A1A] hover:bg-[#F5F2EB]/40"
+                      }`}
+                    >
+                      <span>{item.name}</span>
+                      {isActive && <span className="w-2 h-2 rounded-full bg-[#C2A676]"></span>}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <div className="pt-4 border-t border-[#E5DFD3] flex flex-col gap-3">
+              <a
+                href="mailto:hello@tekstack.ai"
+                className="text-xs text-[#666158] text-center hover:text-[#1A1A1A]"
+              >
+                Need assistance? hello@tekstack.ai
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Quote Request Modal */}
+      <GetAQuoteModal isOpen={isQuoteModalOpen} onClose={closeQuoteModal} />
     </>
   );
 }

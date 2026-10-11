@@ -1,176 +1,174 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useScrollAnimation } from "../../lib/useScrollAnimation";
 
 // FAQ Data
 const faqData = [
   {
     id: 1,
-    question: "What is agentic AI and how does it differ from traditional AI?",
+    question: "What is agentic AI and how does it differ from standard LLMs?",
     answer:
-      "Agentic AI refers to systems composed of autonomous agents that act, plan, and coordinate to achieve goals. Unlike single-model AI, agentic systems enable distributed decision-making and orchestration across multiple actors."
+      "Traditional LLMs respond to individual prompts in isolation. Agentic AI refers to autonomous systems capable of continuous multi-step reasoning, goal decomposition, environment tool calling (APIs, databases, code execution), and self-healing error recovery without constant manual guidance.",
   },
   {
     id: 2,
-    question: "How can multi-agent systems benefit my operations?",
+    question: "How do multi-agent systems coordinate without conflicts?",
     answer:
-      "Multi-agent systems let specialized agents handle different tasks in parallel, improving throughput, resilience, and fault tolerance while enabling complex workflows to be automated end-to-end."
+      "We implement server-authoritative state machines, distributed locking protocols, and role-based policies. Agents operate as specialized workers (planners, executors, evaluators) managed by an orchestrator with deterministic consensus and transaction rollbacks.",
   },
   {
     id: 3,
-    question: "How do you integrate agentic systems with existing software?",
+    question: "How do you integrate agentic workflows with our existing enterprise software?",
     answer:
-      "We integrate via secure APIs, connectors and adapters to ERPs, CRMs, and data stores. Our orchestration layer handles authentication, idempotency and transactional consistency for safe automation."
+      "We design custom gateway adapters and webhooks that interface with ERPs (SAP, NetSuite), CRMs (Salesforce, HubSpot), relational databases, and proprietary cloud microservices. All interactions use authenticated, rate-limited tokens.",
   },
   {
     id: 4,
-    question: "What measures do you take for safety and governance?",
+    question: "What measures do you implement for compliance, security, and governance?",
     answer:
-      "We embed monitoring, explainability, audit logs, and human-in-the-loop controls. Policies for access, data retention, and model updates are enforced to ensure compliance and reduce operational risk."
+      "We embed human-in-the-loop approval thresholds for high-stakes decisions, complete cryptographically auditable telemetry logs, strict data minimization, and SOC2 / GDPR compliant data isolation.",
   },
   {
     id: 5,
-    question: "Can you deploy agents at the edge or on-premise?",
+    question: "Can agents be deployed on-premise, in private clouds, or at the edge?",
     answer:
-      "Yes. We support cloud, hybrid, on-premise and edge deployments depending on latency, privacy and connectivity requirements. Edge agents enable real-time decisions close to the data source."
+      "Yes. Our deployment architectures support sovereign VPCs, private AWS/GCP/Azure clusters, on-premise Kubernetes clusters, and quantized edge models for air-gapped or latency-critical industrial environments.",
   },
   {
     id: 6,
-    question: "How quickly can we see ROI from automation?",
+    question: "What timeline and ROI can we realistically expect?",
     answer:
-      "ROI depends on process complexity; many clients see measurable efficiency gains within months from targeted pilots, and broader impact as agent fleets scale across workflows. We prioritize high-impact pilot scopes."
+      "A focused production pilot typically delivers functional validation within 4 to 6 weeks. Most enterprise clients experience measurable labor cost reduction and 5x to 10x process speedup within the first quarter of deployment.",
   },
-  {
-    id: 7,
-    question: "Do you handle data privacy and compliance?",
-    answer:
-      "Yes. We follow best practices for data minimization, encryption in transit and at rest, role-based access, and help map solutions to regulatory frameworks relevant to your industry."
-  },
-  {
-    id: 8,
-    question: "How do you support ongoing maintenance and updates?",
-    answer:
-      "We provide managed services, observability dashboards, model retraining pipelines, and SLO-driven support plans to keep agentic systems reliable and performant.",
-  }
 ];
 
 // Individual Accordion Item Component
-const AccordionItem = ({ item, isOpen, onToggle }) => {
+const AccordionItem = ({
+  item,
+  isOpen,
+  onToggle,
+}: {
+  item: { id: number; question: string; answer: string };
+  isOpen: boolean;
+  onToggle: () => void;
+}) => {
   return (
-    <div className="border-b border-white/10 last:border-0">
+    <div className="border border-[#E5DFD3] rounded-2xl bg-white overflow-hidden transition-all duration-300 hover:border-[#C2A676] shadow-xs">
       <button
         onClick={onToggle}
-        className="flex justify-between items-center w-full py-4 lg:py-8 px-0 text-left focus:outline-none group"
+        className="flex justify-between items-center w-full p-5 sm:p-6 text-left focus:outline-none group cursor-pointer"
         aria-expanded={isOpen}
       >
-        <span className="text-[16px] lg:text-[22px] font-quicksand font-medium text-white group-hover:text-[#00a8a8] transition-colors duration-300 pr-3 lg:pr-6">
+        <span className="text-base sm:text-lg font-questrial font-semibold text-[#1A1A1A] group-hover:text-[#C2A676] transition-colors pr-4">
           {item.question}
         </span>
-        <div className={`flex-shrink-0 w-7 h-7 lg:w-10 lg:h-10 rounded-full bg-white/10 flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-[#00a8a8] rotate-180' : 'group-hover:bg-white/20'}`}>
-          <svg
-            className={`w-4 h-4 lg:w-6 lg:h-6 text-white transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        <div
+          className={`flex-shrink-0 w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-300 ${
+            isOpen
+              ? "bg-[#C2A676] text-[#1A1A1A] border-[#C2A676] rotate-180 shadow-sm"
+              : "bg-[#1A1A1A] text-[#C2A676] border-[#1A1A1A] group-hover:bg-[#C2A676] group-hover:text-[#1A1A1A] group-hover:border-[#C2A676] shadow-xs"
+          }`}
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
           </svg>
         </div>
       </button>
-      
-      {/* Answer section with CSS transition */}
+
+      {/* Expandable answer panel */}
       <div
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+        className={`transition-all duration-300 ease-in-out overflow-hidden ${
+          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="pb-4 lg:pb-8 pr-4 lg:pr-12">
-          <p className="text-[14px] lg:text-[17px] font-quicksand font-normal text-gray-300 leading-relaxed">
-            {item.answer}
-          </p>
+        <div className="px-5 pb-6 sm:px-6 sm:pb-6 pt-1 text-sm sm:text-base font-quicksand text-[#666158] leading-relaxed border-t border-[#E5DFD3]/50">
+          {item.answer}
         </div>
       </div>
     </div>
   );
 };
 
-// Main FAQ Component
 export default function Value() {
-  const [openId, setOpenId] = useState(null);
-  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const [openId, setOpenId] = useState<number | null>(1);
+  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
 
-  const toggleAccordion = (id) => {
-    setOpenId(openId === id ? null : id);
+  const toggleAccordion = (id: number) => {
+    setOpenId((prev) => (prev === id ? null : id));
   };
 
   return (
-    <section ref={elementRef} className={`faq-otr relative bg-gradient-to-b from-black to-[#0a0a0a] py-12 lg:py-28 overflow-hidden transition-all duration-700 ${
-      isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
-    }`}>
-      {/* Decorative Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,rgba(0,168,168,0.1),transparent_50%)]"></div>
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#00a8a8]/5 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#00a8a8]/5 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="container mx-auto px-5 lg:px-10 relative z-10">
+    <section
+      ref={elementRef}
+      className="bg-[#F5F2EB] py-16 sm:py-20 lg:py-28 border-b border-[#E5DFD3]"
+      aria-label="Frequently asked questions section"
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
         {/* Section Header */}
-        <div className="text-center mb-8 lg:mb-20">
-          <div className="inline-flex items-center gap-2 bg-white/5 rounded-full px-3 py-1.5 lg:px-5 lg:py-2.5 mb-4 lg:mb-8">
-            <div className="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-[#00a8a8]"></div>
-            <span className="text-[#00a8a8] text-xs lg:text-sm font-medium font-quicksand uppercase tracking-wider">
-              FAQ
+        <div className="text-center mb-12 lg:mb-16">
+          <div
+            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#E5DFD3] mb-4 transition-all duration-500 ${
+              isVisible ? "animate-fade-in-down" : "opacity-0 -translate-y-4"
+            }`}
+          >
+            <span className="w-2 h-2 rounded-full bg-[#C2A676]"></span>
+            <span className="text-xs font-semibold tracking-wider uppercase text-[#1A1A1A] font-quicksand">
+              Knowledge Base
             </span>
           </div>
-          
-          <h2 className="font-gendy font-normal text-[40px] lg:text-[60px] text-center max-tablet:text-[40px] text-white mb-2 lg:mb-6">
-            Frequently Asked
-            <span className="text-[#00a8a8]"> Questions</span>
+
+          <h2
+            className={`font-gendy text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight mb-4 transition-all duration-500 delay-100 ${
+              isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"
+            }`}
+          >
+            Frequently Asked Questions
           </h2>
-          
-          <p className="font-quicksand font-normal text-[14px] lg:text-[18px] w-full lg:w-[844px] text-center mx-auto text-white/80 px-4 lg:px-0">
-            Find answers to common questions about our services, process, and how we can help your business grow.
+
+          <p
+            className={`font-quicksand text-base sm:text-lg text-[#666158] leading-relaxed max-w-2xl mx-auto transition-all duration-500 delay-200 ${
+              isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"
+            }`}
+          >
+            Clear architectural answers regarding multi-agent reliability, system integration, security, and economic returns.
           </p>
         </div>
 
-        {/* FAQ Accordion Grid */}
-        <div className="max-w-5xl mx-auto">
-          <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-3 lg:p-8">
-            {faqData.map((item) => (
-              <AccordionItem
-                key={item.id}
-                item={item}
-                isOpen={openId === item.id}
-                onToggle={() => toggleAccordion(item.id)}
-              />
-            ))}
-          </div>
+        {/* Accordion List */}
+        <div
+          className={`space-y-3.5 transition-all duration-500 delay-300 ${
+            isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"
+          }`}
+        >
+          {faqData.map((item) => (
+            <AccordionItem
+              key={item.id}
+              item={item}
+              isOpen={openId === item.id}
+              onToggle={() => toggleAccordion(item.id)}
+            />
+          ))}
+        </div>
 
-          {/* Call to Action */}
-          <div className="text-center mt-8 lg:mt-16">
-            <p className="font-quicksand text-gray-400 text-[13px] lg:text-base mb-3 lg:mb-6">
-              Still have questions? We're here to help!
-            </p>
-            <a
-  href="/contact"
-  className="group relative inline-flex items-center gap-2 px-9 py-2.5 lg:px-8 lg:py-4 bg-transparent border border-[#00a8a8] text-[#00a8a8] hover:text-white font-medium font-quicksand text-[14px] lg:text-base rounded-full transition-all duration-300 overflow-hidden cursor-pointer"
->
-  <span className="relative z-10 flex items-center gap-2">
-    Contact Us
-    <svg
-      className="w-4 h-4 lg:w-5 lg:h-5 relative z-10 group-hover:translate-x-1 transition-transform"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-    </svg>
-  </span>
-  <div className="absolute inset-0 bg-[#00a8a8] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-</a>
-          </div>
+        {/* Bottom CTA Card */}
+        <div className="mt-12 text-center p-8 rounded-2xl bg-white border border-[#E5DFD3] shadow-xs">
+          <h3 className="font-questrial font-bold text-lg sm:text-xl text-[#1A1A1A] mb-2">
+            Have a custom workflow challenge?
+          </h3>
+          <p className="font-quicksand text-sm text-[#666158] mb-6 max-w-md mx-auto">
+            Our principal engineers review technical briefs and provide architectural feedback within 48 hours.
+          </p>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-xs sm:text-sm uppercase tracking-wider bg-[#1A1A1A] text-white hover:bg-[#C2A676] transition-all duration-300 btn-hover-lift"
+          >
+            <span>Consult Our Engineering Team</span>
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </Link>
         </div>
       </div>
     </section>

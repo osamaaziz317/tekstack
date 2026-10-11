@@ -4,39 +4,34 @@ import React, { useState, useEffect } from "react";
 
 // Budget options
 const budgetOptions = [
-  { value: "", label: "Select budget range" },
-  { value: "$10,000 - $25,000", label: "$10,000 - $25,000" },
-  { value: "$25,000 - $50,000", label: "$25,000 - $50,000" },
-  { value: "$50,000 - $100,000", label: "$50,000 - $100,000" },
-  { value: "$100,000 - $200,000", label: "$100,000 - $200,000" },
-  { value: "$200,000 - $500,000", label: "$200,000 - $500,000" },
-  { value: "$500,000 or above", label: "$500,000 or above" },
-  { value: "Request Budget Guidance", label: "Request Budget Guidance" },
+  { value: "", label: "Select project budget range" },
+  { value: "$10,000 - $25,000", label: "$10,000 - $25,000 (Targeted Pilot)" },
+  { value: "$25,000 - $50,000", label: "$25,000 - $50,000 (Multi-Workflow Automation)" },
+  { value: "$50,000 - $100,000", label: "$50,000 - $100,000 (Departmental Swarm)" },
+  { value: "$100,000 - $250,000", label: "$100,000 - $250,000 (Enterprise Deployment)" },
+  { value: "$250,000+", label: "$250,000+ (Full Transformational Program)" },
+  { value: "Request Advisory", label: "Request Architectural Scoping First" },
 ];
 
 // Service options
 const serviceOptions = [
-  "Select a service",
-  "Enterprise Software Solutions",
-  "Dedicated Development Team",
-  "Mobile App Development",
-  "Web App Development",
-  "Data Services",
-  "UI/UX Design",
-  "DevOps & Cloud Services",
-  "Quality Assurance & Testing",
-  "Artificial Intelligence & Machine Learning",
-  "Cybersecurity Services",
-  "E-Commerce Development",
-  "SaaS Development",
-  "IT Consulting",
-  "Digital Transformation",
-  "Cloud Migration Services",
-  "Blockchain Development",
-  "IoT Solutions",
+  "Select a core solution",
+  "Autonomous Agent Systems",
+  "Multi-Agent Workflow Orchestration",
+  "Cognitive RPA & Document Automation",
+  "Enterprise System & API Integration",
+  "Edge AI & Embedded Agent Deployment",
+  "Governance, Guardrails & Audit Trails",
+  "AI Strategy & Architecture Advisory",
 ];
 
-export default function GetAQuoteModal({ isOpen, onClose }) {
+export default function GetAQuoteModal({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -46,35 +41,64 @@ export default function GetAQuoteModal({ isOpen, onClose }) {
     company: "",
     message: "",
   });
+
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
-  const [animateIn, setAnimateIn] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null);
 
+  // Keyboard navigation & escape key binding
   useEffect(() => {
-    if (isOpen) {
-      setAnimateIn(true);
-    } else {
-      setAnimateIn(false);
-    }
-  }, [isOpen]);
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
-  const handleChange = (e) => {
+  const validate = () => {
+    const errs: Record<string, string> = {};
+    if (!formData.name.trim()) errs.name = "Full name is required.";
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim() || !emailRegex.test(formData.email.trim())) {
+      errs.email = "Valid corporate email is required.";
+    }
+    if (!formData.service || formData.service === serviceOptions[0]) {
+      errs.service = "Please select a solution.";
+    }
+    if (!formData.budget || formData.budget === budgetOptions[0].value) {
+      errs.budget = "Please select a budget range.";
+    }
+    setFormErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
+    if (formErrors[name]) {
+      setFormErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!validate()) return;
+
     setIsSubmitting(true);
-    
-    setTimeout(() => {
-      console.log("Quote request submitted:", formData);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       setSubmitStatus("success");
-      setIsSubmitting(false);
-      
       setTimeout(() => {
         setSubmitStatus(null);
         onClose();
@@ -87,225 +111,246 @@ export default function GetAQuoteModal({ isOpen, onClose }) {
           company: "",
           message: "",
         });
-      }, 2000);
-    }, 1500);
+      }, 1800);
+    } catch {
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-      {/* Overlay with fade animation */}
-      <div 
-        className={`absolute inset-0 bg-black/80 backdrop-blur-md transition-all duration-500 ease-out ${
-          animateIn ? 'opacity-100' : 'opacity-0'
-        }`}
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+    >
+      {/* Frosted Dark Glass Backdrop */}
+      <div
+        className="fixed inset-0 bg-[#1A1A1A]/40 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
-      
-      {/* Modal Content with slide-up and scale animation */}
-      <div 
-        className={`relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-[#0a0a0a] via-[#0f0f0f] to-black rounded-2xl border border-white/10 shadow-2xl transition-all duration-500 ease-out ${
-          animateIn 
-            ? 'opacity-100 translate-y-0 scale-100' 
-            : 'opacity-0 translate-y-10 scale-95'
-        }`}
-      >
+
+      {/* Modal Card */}
+      <div className="relative w-full max-w-2xl bg-white rounded-3xl border border-[#E5DFD3] shadow-2xl overflow-hidden my-auto z-10 animate-scale-in">
         {/* Header */}
-        <div className="sticky top-0 bg-gradient-to-r from-[#0a0a0a] to-black border-b border-white/10 px-6 py-5 md:px-8 md:py-6 z-10">
-          <div className="flex justify-between items-start">
-            <div>
-              <h2 className="font-gendy text-2xl md:text-3xl text-white mb-2">
-                Get a Quote
-              </h2>
-              <p className="font-quicksand text-gray-400 text-sm md:text-base">
-                Tell us about your project. We'll be in touch soon.
+        <div className="bg-[#F5F2EB] px-6 sm:px-8 py-6 border-b border-[#E5DFD3] flex items-center justify-between">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="w-2 h-2 rounded-full bg-[#C2A676]"></span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#1A1A1A]">
+                Scope &amp; Estimation
+              </span>
+            </div>
+            <h2 id="modal-title" className="font-gendy text-2xl sm:text-3xl font-bold text-[#1A1A1A]">
+              Request an Architectural Quote
+            </h2>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-2 rounded-full bg-[#1A1A1A] text-[#C2A676] hover:bg-[#C2A676] hover:text-[#1A1A1A] transition-colors border border-[#1A1A1A] cursor-pointer shadow-sm"
+            aria-label="Close modal"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Body Form */}
+        <div className="p-6 sm:p-8 max-h-[75vh] overflow-y-auto">
+          {submitStatus === "success" ? (
+            <div className="py-8 text-center space-y-3">
+              <div className="w-14 h-14 rounded-full bg-[#1A1A1A] border border-[#1A1A1A] text-[#C2A676] flex items-center justify-center mx-auto shadow-md">
+                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 className="font-questrial text-xl font-bold text-[#1A1A1A]">
+                Quote Request Received
+              </h3>
+              <p className="font-quicksand text-sm text-[#666158] max-w-md mx-auto">
+                Thank you. Our solutions team will analyze your requirements and prepare an architectural estimate within 24 business hours.
               </p>
             </div>
-            <button
-              onClick={onClose}
-              className="text-gray-400 hover:text-white hover:bg-white/10 rounded-full p-2 transition-all duration-300"
-              aria-label="Close modal"
-            >
-              <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-        </div>
+          ) : (
+            <form onSubmit={handleSubmit} noValidate className="space-y-4">
+              {/* Name & Email Row */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="modal-name" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1">
+                    Your Name <span className="text-[#C2A676]">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="modal-name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    placeholder="Elena Rostova"
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-sm text-[#1A1A1A] placeholder-[#666158]/50 focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676] ${
+                      formErrors.name ? "border-red-400 bg-red-50/20" : "border-[#E5DFD3]"
+                    }`}
+                  />
+                  {formErrors.name && (
+                    <p className="mt-1 text-xs text-red-600 font-medium">{formErrors.name}</p>
+                  )}
+                </div>
 
-        {/* Form */}
-        <div className="p-6 md:p-8">
-          <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
-            {/* Name and Email Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-              <div className="group">
-                <label htmlFor="name" className="block text-white font-medium mb-1.5 md:mb-2 text-sm md:text-base">
-                  Name *
+                <div>
+                  <label htmlFor="modal-email" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1">
+                    Corporate Email <span className="text-[#C2A676]">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="modal-email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    placeholder="elena@enterprise.com"
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-sm text-[#1A1A1A] placeholder-[#666158]/50 focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676] ${
+                      formErrors.email ? "border-red-400 bg-red-50/20" : "border-[#E5DFD3]"
+                    }`}
+                  />
+                  {formErrors.email && (
+                    <p className="mt-1 text-xs text-red-600 font-medium">{formErrors.email}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Service & Budget Row */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="modal-service" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1">
+                    Target Solution <span className="text-[#C2A676]">*</span>
+                  </label>
+                  <select
+                    id="modal-service"
+                    name="service"
+                    value={formData.service}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-sm text-[#1A1A1A] focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676] cursor-pointer ${
+                      formErrors.service ? "border-red-400 bg-red-50/20" : "border-[#E5DFD3]"
+                    }`}
+                  >
+                    {serviceOptions.map((opt) => (
+                      <option key={opt} value={opt === serviceOptions[0] ? "" : opt}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                  {formErrors.service && (
+                    <p className="mt-1 text-xs text-red-600 font-medium">{formErrors.service}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label htmlFor="modal-budget" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1">
+                    Budget Range <span className="text-[#C2A676]">*</span>
+                  </label>
+                  <select
+                    id="modal-budget"
+                    name="budget"
+                    value={formData.budget}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-sm text-[#1A1A1A] focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676] cursor-pointer ${
+                      formErrors.budget ? "border-red-400 bg-red-50/20" : "border-[#E5DFD3]"
+                    }`}
+                  >
+                    {budgetOptions.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                  {formErrors.budget && (
+                    <p className="mt-1 text-xs text-red-600 font-medium">{formErrors.budget}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Phone & Company */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="modal-phone" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1">
+                    Phone (Optional)
+                  </label>
+                  <input
+                    type="tel"
+                    id="modal-phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    placeholder="+1 (555) 000-0000"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#E5DFD3] text-sm text-[#1A1A1A] placeholder-[#666158]/50 focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676]"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="modal-company" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1">
+                    Organization / Firm
+                  </label>
+                  <input
+                    type="text"
+                    id="modal-company"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    placeholder="Acme Corp"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#E5DFD3] text-sm text-[#1A1A1A] placeholder-[#666158]/50 focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676]"
+                  />
+                </div>
+              </div>
+
+              {/* Message */}
+              <div>
+                <label htmlFor="modal-message" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1">
+                  Project Context &amp; Key Requirements
                 </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
+                <textarea
+                  id="modal-message"
+                  name="message"
+                  rows={3}
+                  value={formData.message}
                   onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2.5 md:py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm md:text-base placeholder-gray-500 focus:outline-none focus:border-[#00a8a8] focus:ring-2 focus:ring-[#00a8a8]/20 transition-all duration-300 group-hover:bg-white/10"
-                  placeholder="Your full name"
+                  disabled={isSubmitting}
+                  placeholder="Tell us about the current processes, tech stack, and goals..."
+                  className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#E5DFD3] text-sm text-[#1A1A1A] placeholder-[#666158]/50 focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676] resize-none"
                 />
               </div>
-              <div className="group">
-                <label htmlFor="email" className="block text-white font-medium mb-1.5 md:mb-2 text-sm md:text-base">
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2.5 md:py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm md:text-base placeholder-gray-500 focus:outline-none focus:border-[#00a8a8] focus:ring-2 focus:ring-[#00a8a8]/20 transition-all duration-300 group-hover:bg-white/10"
-                  placeholder="your@email.com"
-                />
-              </div>
-            </div>
 
-            {/* Service and Budget Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-              <div className="group">
-                <label htmlFor="service" className="block text-white font-medium mb-1.5 md:mb-2 text-sm md:text-base">
-                  Which Service Are You Interested In? *
-                </label>
-                <select
-                  id="service"
-                  name="service"
-                  value={formData.service}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2.5 md:py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm md:text-base focus:outline-none focus:border-[#00a8a8] focus:ring-2 focus:ring-[#00a8a8]/20 transition-all duration-300 cursor-pointer group-hover:bg-white/10"
+              {/* Submit CTA */}
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-3.5 rounded-full font-semibold text-sm uppercase tracking-wider bg-[#1A1A1A] text-white hover:bg-[#C2A676] transition-all duration-300 btn-hover-lift flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {serviceOptions.map((option) => (
-                    <option key={option} value={option === "Select a service" ? "" : option} className="bg-black text-white">
-                      {option}
-                    </option>
-                  ))}
-                </select>
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      <span>Submitting Scope Details...</span>
+                    </>
+                  ) : (
+                    <span>Submit Quote Request</span>
+                  )}
+                </button>
               </div>
-              <div className="group">
-                <label htmlFor="budget" className="block text-white font-medium mb-1.5 md:mb-2 text-sm md:text-base">
-                  Request Budget Guidance *
-                </label>
-                <select
-                  id="budget"
-                  name="budget"
-                  value={formData.budget}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2.5 md:py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm md:text-base focus:outline-none focus:border-[#00a8a8] focus:ring-2 focus:ring-[#00a8a8]/20 transition-all duration-300 cursor-pointer group-hover:bg-white/10"
-                >
-                  {budgetOptions.map((option) => (
-                    <option key={option.value} value={option.value} className="bg-black text-white">
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            {/* Phone and Company Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-              <div className="group">
-                <label htmlFor="phone" className="block text-white font-medium mb-1.5 md:mb-2 text-sm md:text-base">
-                  Phone
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2.5 md:py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm md:text-base placeholder-gray-500 focus:outline-none focus:border-[#00a8a8] focus:ring-2 focus:ring-[#00a8a8]/20 transition-all duration-300 group-hover:bg-white/10"
-                  placeholder="+92 323 4563720"
-                />
-              </div>
-              <div className="group">
-                <label htmlFor="company" className="block text-white font-medium mb-1.5 md:mb-2 text-sm md:text-base">
-                  Company
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2.5 md:py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm md:text-base placeholder-gray-500 focus:outline-none focus:border-[#00a8a8] focus:ring-2 focus:ring-[#00a8a8]/20 transition-all duration-300 group-hover:bg-white/10"
-                  placeholder="Your company"
-                />
-              </div>
-            </div>
-
-            {/* Message */}
-            <div className="group">
-              <label htmlFor="message" className="block text-white font-medium mb-1.5 md:mb-2 text-sm md:text-base">
-                Message *
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={4}
-                value={formData.message}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2.5 md:py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm md:text-base placeholder-gray-500 focus:outline-none focus:border-[#00a8a8] focus:ring-2 focus:ring-[#00a8a8]/20 transition-all duration-300 resize-none group-hover:bg-white/10"
-                placeholder="Tell us about your project requirements..."
-              ></textarea>
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full py-3 md:py-4 bg-gradient-to-r from-[#00a8a8] to-[#008a8a] hover:from-[#008a8a] hover:to-[#006868] text-white font-medium rounded-xl transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 text-sm md:text-base shadow-lg hover:shadow-[#00a8a8]/25"
-            >
-              {isSubmitting ? (
-                <span className="flex items-center justify-center gap-2">
-                  <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Sending...
-                </span>
-              ) : (
-                "Submit Quote Request"
-              )}
-            </button>
-
-            {/* Success Message */}
-            {submitStatus === "success" && (
-              <div className="p-3 rounded-xl bg-green-500/10 border border-green-500/20 text-center animate-fade-in">
-                <p className="text-green-400 text-sm">Thank you! We'll contact you within 24 hours.</p>
-              </div>
-            )}
-          </form>
+            </form>
+          )}
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fade-in {
-          animation: fadeIn 0.3s ease-out;
-        }
-      `}</style>
     </div>
   );
 }
