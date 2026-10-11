@@ -130,28 +130,28 @@ export default function GetAQuoteModal({
     >
       {/* Frosted Dark Glass Backdrop */}
       <div
-        className="fixed inset-0 bg-[#1A1A1A]/40 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-[#252522]/40 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
 
       {/* Modal Card */}
-      <div className="relative w-full max-w-2xl bg-white rounded-3xl border border-[#E5DFD3] shadow-2xl overflow-hidden my-auto z-10 animate-scale-in">
+      <div className="relative w-full max-w-2xl bg-white rounded-3xl border border-[#D6CCBC] shadow-2xl overflow-hidden my-auto z-10 animate-scale-in">
         {/* Header */}
-        <div className="bg-[#F5F2EB] px-6 sm:px-8 py-6 border-b border-[#E5DFD3] flex items-center justify-between">
+        <div className="bg-[#E8DFD2] px-6 sm:px-8 py-6 border-b border-[#D6CCBC] flex items-center justify-between">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="w-2 h-2 rounded-full bg-[#C2A676]"></span>
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#1A1A1A]">
+              <span className="w-2 h-2 rounded-full bg-[#B6A58F]"></span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#252522]">
                 Scope &amp; Estimation
               </span>
             </div>
-            <h2 id="modal-title" className="font-gendy text-2xl sm:text-3xl font-bold text-[#1A1A1A]">
+            <h2 id="modal-title" className="font-gendy text-2xl sm:text-3xl font-bold text-[#252522]">
               Request an Architectural Quote
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-full bg-[#1A1A1A] text-[#C2A676] hover:bg-[#C2A676] hover:text-[#1A1A1A] transition-colors border border-[#1A1A1A] cursor-pointer shadow-sm"
+            className="p-2 rounded-full bg-[#252522] text-[#B6A58F] hover:bg-[#B6A58F] hover:text-[#252522] transition-colors border border-[#252522] cursor-pointer shadow-sm"
             aria-label="Close modal"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -164,15 +164,15 @@ export default function GetAQuoteModal({
         <div className="p-6 sm:p-8 max-h-[75vh] overflow-y-auto">
           {submitStatus === "success" ? (
             <div className="py-8 text-center space-y-3">
-              <div className="w-14 h-14 rounded-full bg-[#1A1A1A] border border-[#1A1A1A] text-[#C2A676] flex items-center justify-center mx-auto shadow-md">
+              <div className="w-14 h-14 rounded-full bg-[#252522] border border-[#252522] text-[#B6A58F] flex items-center justify-center mx-auto shadow-md">
                 <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h3 className="font-questrial text-xl font-bold text-[#1A1A1A]">
+              <h3 className="font-questrial text-xl font-bold text-[#252522]">
                 Quote Request Received
               </h3>
-              <p className="font-quicksand text-sm text-[#666158] max-w-md mx-auto">
+              <p className="font-quicksand text-sm text-[#706D66] max-w-md mx-auto">
                 Thank you. Our solutions team will analyze your requirements and prepare an architectural estimate within 24 business hours.
               </p>
             </div>
@@ -181,8 +181,8 @@ export default function GetAQuoteModal({
               {/* Name & Email Row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="modal-name" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1">
-                    Your Name <span className="text-[#C2A676]">*</span>
+                  <label htmlFor="modal-name" className="block text-xs font-semibold uppercase tracking-wider text-[#252522] mb-1">
+                    Your Name <span className="text-[#B6A58F]">*</span>
                   </label>
                   <input
                     type="text"
@@ -192,8 +192,8 @@ export default function GetAQuoteModal({
                     onChange={handleChange}
                     disabled={isSubmitting}
                     placeholder="Elena Rostova"
-                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-sm text-[#1A1A1A] placeholder-[#666158]/50 focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676] ${
-                      formErrors.name ? "border-red-400 bg-red-50/20" : "border-[#E5DFD3]"
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-sm text-[#252522] placeholder-[#706D66]/50 focus:outline-none focus:ring-1 focus:ring-[#B6A58F] focus:border-[#B6A58F] ${
+                      formErrors.name ? "border-red-400 bg-red-50/20" : "border-[#D6CCBC]"
                     }`}
                   />
                   {formErrors.name && (
@@ -202,8 +202,8 @@ export default function GetAQuoteModal({
                 </div>
 
                 <div>
-                  <label htmlFor="modal-email" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1">
-                    Corporate Email <span className="text-[#C2A676]">*</span>
+                  <label htmlFor="modal-email" className="block text-xs font-semibold uppercase tracking-wider text-[#252522] mb-1">
+                    Corporate Email <span className="text-[#B6A58F]">*</span>
                   </label>
                   <input
                     type="email"
@@ -213,8 +213,8 @@ export default function GetAQuoteModal({
                     onChange={handleChange}
                     disabled={isSubmitting}
                     placeholder="elena@enterprise.com"
-                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-sm text-[#1A1A1A] placeholder-[#666158]/50 focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676] ${
-                      formErrors.email ? "border-red-400 bg-red-50/20" : "border-[#E5DFD3]"
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-sm text-[#252522] placeholder-[#706D66]/50 focus:outline-none focus:ring-1 focus:ring-[#B6A58F] focus:border-[#B6A58F] ${
+                      formErrors.email ? "border-red-400 bg-red-50/20" : "border-[#D6CCBC]"
                     }`}
                   />
                   {formErrors.email && (
@@ -226,8 +226,8 @@ export default function GetAQuoteModal({
               {/* Service & Budget Row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="modal-service" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1">
-                    Target Solution <span className="text-[#C2A676]">*</span>
+                  <label htmlFor="modal-service" className="block text-xs font-semibold uppercase tracking-wider text-[#252522] mb-1">
+                    Target Solution <span className="text-[#B6A58F]">*</span>
                   </label>
                   <select
                     id="modal-service"
@@ -235,8 +235,8 @@ export default function GetAQuoteModal({
                     value={formData.service}
                     onChange={handleChange}
                     disabled={isSubmitting}
-                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-sm text-[#1A1A1A] focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676] cursor-pointer ${
-                      formErrors.service ? "border-red-400 bg-red-50/20" : "border-[#E5DFD3]"
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-sm text-[#252522] focus:outline-none focus:ring-1 focus:ring-[#B6A58F] focus:border-[#B6A58F] cursor-pointer ${
+                      formErrors.service ? "border-red-400 bg-red-50/20" : "border-[#D6CCBC]"
                     }`}
                   >
                     {serviceOptions.map((opt) => (
@@ -251,8 +251,8 @@ export default function GetAQuoteModal({
                 </div>
 
                 <div>
-                  <label htmlFor="modal-budget" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1">
-                    Budget Range <span className="text-[#C2A676]">*</span>
+                  <label htmlFor="modal-budget" className="block text-xs font-semibold uppercase tracking-wider text-[#252522] mb-1">
+                    Budget Range <span className="text-[#B6A58F]">*</span>
                   </label>
                   <select
                     id="modal-budget"
@@ -260,8 +260,8 @@ export default function GetAQuoteModal({
                     value={formData.budget}
                     onChange={handleChange}
                     disabled={isSubmitting}
-                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-sm text-[#1A1A1A] focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676] cursor-pointer ${
-                      formErrors.budget ? "border-red-400 bg-red-50/20" : "border-[#E5DFD3]"
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white border text-sm text-[#252522] focus:outline-none focus:ring-1 focus:ring-[#B6A58F] focus:border-[#B6A58F] cursor-pointer ${
+                      formErrors.budget ? "border-red-400 bg-red-50/20" : "border-[#D6CCBC]"
                     }`}
                   >
                     {budgetOptions.map((opt) => (
@@ -279,7 +279,7 @@ export default function GetAQuoteModal({
               {/* Phone & Company */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="modal-phone" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1">
+                  <label htmlFor="modal-phone" className="block text-xs font-semibold uppercase tracking-wider text-[#252522] mb-1">
                     Phone (Optional)
                   </label>
                   <input
@@ -290,11 +290,11 @@ export default function GetAQuoteModal({
                     onChange={handleChange}
                     disabled={isSubmitting}
                     placeholder="+1 (555) 000-0000"
-                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#E5DFD3] text-sm text-[#1A1A1A] placeholder-[#666158]/50 focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676]"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#D6CCBC] text-sm text-[#252522] placeholder-[#706D66]/50 focus:outline-none focus:ring-1 focus:ring-[#B6A58F] focus:border-[#B6A58F]"
                   />
                 </div>
                 <div>
-                  <label htmlFor="modal-company" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1">
+                  <label htmlFor="modal-company" className="block text-xs font-semibold uppercase tracking-wider text-[#252522] mb-1">
                     Organization / Firm
                   </label>
                   <input
@@ -305,14 +305,14 @@ export default function GetAQuoteModal({
                     onChange={handleChange}
                     disabled={isSubmitting}
                     placeholder="Acme Corp"
-                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#E5DFD3] text-sm text-[#1A1A1A] placeholder-[#666158]/50 focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676]"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#D6CCBC] text-sm text-[#252522] placeholder-[#706D66]/50 focus:outline-none focus:ring-1 focus:ring-[#B6A58F] focus:border-[#B6A58F]"
                   />
                 </div>
               </div>
 
               {/* Message */}
               <div>
-                <label htmlFor="modal-message" className="block text-xs font-semibold uppercase tracking-wider text-[#1A1A1A] mb-1">
+                <label htmlFor="modal-message" className="block text-xs font-semibold uppercase tracking-wider text-[#252522] mb-1">
                   Project Context &amp; Key Requirements
                 </label>
                 <textarea
@@ -323,7 +323,7 @@ export default function GetAQuoteModal({
                   onChange={handleChange}
                   disabled={isSubmitting}
                   placeholder="Tell us about the current processes, tech stack, and goals..."
-                  className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#E5DFD3] text-sm text-[#1A1A1A] placeholder-[#666158]/50 focus:outline-none focus:ring-1 focus:ring-[#C2A676] focus:border-[#C2A676] resize-none"
+                  className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#D6CCBC] text-sm text-[#252522] placeholder-[#706D66]/50 focus:outline-none focus:ring-1 focus:ring-[#B6A58F] focus:border-[#B6A58F] resize-none"
                 />
               </div>
 
@@ -332,7 +332,7 @@ export default function GetAQuoteModal({
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3.5 rounded-full font-semibold text-sm uppercase tracking-wider bg-[#1A1A1A] text-white hover:bg-[#C2A676] transition-all duration-300 btn-hover-lift flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full py-3.5 rounded-full font-semibold text-sm uppercase tracking-wider bg-[#252522] text-white hover:bg-[#B6A58F] transition-all duration-300 btn-hover-lift flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>

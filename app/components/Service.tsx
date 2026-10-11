@@ -77,32 +77,32 @@ export default function Service() {
   return (
     <section
       ref={elementRef}
-      className="bg-white py-16 sm:py-20 lg:py-28 border-b border-[#E5DFD3]"
+      className="bg-white py-16 sm:py-20 lg:py-28 border-b border-[#D6CCBC]"
       aria-label="Services section"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 lg:mb-20">
           <div
-            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F5F2EB] border border-[#E5DFD3] mb-4 transition-all duration-500 ${
+            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E8DFD2] border border-[#D6CCBC] mb-4 transition-all duration-500 ${
               isVisible ? "animate-fade-in-down" : "opacity-0 -translate-y-4"
             }`}
           >
-            <span className="w-2 h-2 rounded-full bg-[#C2A676]"></span>
-            <span className="text-xs font-semibold tracking-wider uppercase text-[#1A1A1A] font-quicksand">
+            <span className="w-2 h-2 rounded-full bg-[#B6A58F]"></span>
+            <span className="text-xs font-semibold tracking-wider uppercase text-[#252522] font-quicksand">
               Specialized Capabilities
             </span>
           </div>
 
           <h2
-            className={`font-gendy text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight mb-4 transition-all duration-500 delay-100 ${
+            className={`font-gendy text-3xl sm:text-4xl lg:text-5xl font-bold text-[#252522] tracking-tight mb-4 transition-all duration-500 delay-100 ${
               isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"
             }`}
           >
             Engineered for Autonomous Performance
           </h2>
           <p
-            className={`font-quicksand text-base sm:text-lg text-[#666158] leading-relaxed transition-all duration-500 delay-200 ${
+            className={`font-quicksand text-base sm:text-lg text-[#706D66] leading-relaxed transition-all duration-500 delay-200 ${
               isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"
             }`}
           >
@@ -120,33 +120,33 @@ export default function Service() {
                 style={{
                   transitionDelay: isVisible ? `${index * 60}ms` : "0ms",
                 }}
-                className={`group relative p-7 rounded-2xl bg-white border border-[#E5DFD3] hover:border-[#C2A676] hover:bg-[#F5F2EB]/50 card-hover-lift flex flex-col justify-between ${
+                className={`group relative p-7 rounded-2xl bg-white border border-[#D6CCBC] hover:border-[#B6A58F] hover:bg-[#E8DFD2]/50 card-hover-lift flex flex-col justify-between ${
                   isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-6"
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-[#1A1A1A] group-hover:bg-[#C2A676] border border-[#1A1A1A] group-hover:border-[#C2A676] flex items-center justify-center p-2.5 transition-all duration-300 shadow-md group-hover:scale-105">
-                      <IconComponent className="w-6 h-6 text-[#C2A676] group-hover:text-[#1A1A1A] transition-colors" />
+                    <div className="w-12 h-12 rounded-xl bg-[#252522] group-hover:bg-[#B6A58F] border border-[#252522] group-hover:border-[#B6A58F] flex items-center justify-center p-2.5 transition-all duration-300 shadow-md group-hover:scale-105">
+                      <IconComponent className="w-6 h-6 text-[#B6A58F] group-hover:text-[#252522] transition-colors" />
                     </div>
-                    <span className="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#F5F2EB] group-hover:bg-white text-[#666158] border border-[#E5DFD3]">
+                    <span className="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#E8DFD2] group-hover:bg-white text-[#706D66] border border-[#D6CCBC]">
                       {service.tag}
                     </span>
                   </div>
 
-                  <h3 className="font-questrial font-bold text-lg sm:text-xl text-[#1A1A1A] mb-2.5 group-hover:text-[#1A1A1A]">
+                  <h3 className="font-questrial font-bold text-lg sm:text-xl text-[#252522] mb-2.5 group-hover:text-[#252522]">
                     {service.title}
                   </h3>
 
-                  <p className="font-quicksand text-sm text-[#666158] leading-relaxed">
+                  <p className="font-quicksand text-sm text-[#706D66] leading-relaxed">
                     {service.description}
                   </p>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-[#E5DFD3]/70 flex items-center text-xs font-semibold text-[#1A1A1A] group-hover:text-[#C2A676] transition-colors">
+                <div className="pt-6 mt-6 border-t border-[#D6CCBC]/70 flex items-center text-xs font-semibold text-[#252522] group-hover:text-[#B6A58F] transition-colors">
                   <span>Learn capability specs</span>
                   <svg
-                    className="w-3.5 h-3.5 ml-1.5 transform group-hover:translate-x-1 transition-transform text-[#1A1A1A] group-hover:text-[#C2A676]"
+                    className="w-3.5 h-3.5 ml-1.5 transform group-hover:translate-x-1 transition-transform text-[#252522] group-hover:text-[#B6A58F]"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"

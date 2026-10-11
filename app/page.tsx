@@ -1,28 +1,37 @@
-import AboutUs from "./components/AboutUs";
-import Best from "./components/Best";
 import Footer from "./components/Footer";
-import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
-import Service from "./components/Service";
-import SliderHero from "./components/SliderHero";
-import Value from "./components/Value";
-import Projects from "./components/Projects";
-import { listVideoSlugs, readVideoMetadata } from "../lib/videos";
+import HowWeWork from "./components/HowWeWork";
+import HomeHero from "./components/home/HomeHero";
+import HomeServices from "./components/home/HomeServices";
+import HomeWork from "./components/home/HomeWork";
+import HomeApproach from "./components/home/HomeApproach";
+import HomeFAQ from "./components/home/HomeFAQ";
+import HomeContact from "./components/home/HomeContact";
+import styles from "./page.module.css";
+
+export const metadata = {
+  title: "Tekstack — Enterprise AI, Put to Work",
+  description: "Your enterprise AI engineering partner. We design intelligent agents, connected workflows, and custom AI systems—from strategy to production.",
+  openGraph: {
+    title: "Tekstack — Enterprise AI, Put to Work",
+    description: "Intelligent agents. Connected workflows. AI engineering built around your enterprise.",
+  },
+};
 
 export default function Home() {
-  const videoSlugs = listVideoSlugs();
-  const videoMeta = readVideoMetadata();
-
   return (
-    <div className="bg-white min-h-screen text-[#1A1A1A]">
+    <div className={styles.page}>
+      <a className={styles.skipLink} href="#main-content">Skip to content</a>
       <Navbar />
-      <Hero />
-      <SliderHero />
-      <Service />
-      <AboutUs />
-      <Best />
-      <Projects videoSlugs={videoSlugs} videoMeta={videoMeta} />
-      <Value />
+      <main id="main-content" tabIndex={-1}>
+        <HomeHero />
+        <HomeServices />
+        <HomeWork />
+        <HomeApproach />
+        <HowWeWork />
+        <HomeFAQ />
+        <HomeContact />
+      </main>
       <Footer />
     </div>
   );

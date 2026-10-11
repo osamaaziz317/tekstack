@@ -18,25 +18,18 @@
   --breakpoint-desktop: 1300px;
   --breakpoint-desktop2: 1441px;
 
-  /* Pure White & Beige/Warm Sand Design System Tokens */
+  /* Tekstack Design System */
   --color-canvas: #FFFFFF;
-  --color-surface: #F5F2EB;
-  --color-surface-hover: #ECE7DC;
-  --color-border: #E5DFD3;
-  --color-border-hover: #D5CEBF;
-  --color-text-primary: #1A1A1A;
-  --color-text-secondary: #666158;
-  --color-accent: #C2A676;
-  --color-accent-hover: #B39564;
-  --color-accent-light: #F7F3EB;
-
-  /* High-Contrast Bold Icon Tokens */
-  --color-icon-bg: #1A1A1A;
-  --color-icon-fg: #C2A676;
-  --color-icon-contrast: #1A1A1A;
-  --color-icon-gold: #C2A676;
-  --color-icon-border: #1A1A1A;
-  --color-icon-surface: #F5F2EB;
+  --color-surface: #E8DFD2;
+  --color-surface-light: #F3EDE4;
+  --color-surface-hover: #DDD3C3;
+  --color-border: #D6CCBC;
+  --color-border-light: #E8DFD2;
+  --color-text-primary: #252522;
+  --color-text-secondary: #706D66;
+  --color-accent: #B6A58F;
+  --color-accent-hover: #A69479;
+  --color-accent-light: #F0EAE0;
 }
 
 @plugin "daisyui" {
@@ -50,16 +43,16 @@
   prefersdark: false;
   color-scheme: light;
   --color-base-100: #FFFFFF;
-  --color-base-200: #F5F2EB;
-  --color-base-300: #E5DFD3;
-  --color-base-content: #1A1A1A;
-  --color-primary: #1A1A1A;
+  --color-base-200: #E8DFD2;
+  --color-base-300: #D6CCBC;
+  --color-base-content: #252522;
+  --color-primary: #252522;
   --color-primary-content: #FFFFFF;
-  --color-secondary: #F5F2EB;
-  --color-secondary-content: #1A1A1A;
-  --color-accent: #C2A676;
+  --color-secondary: #E8DFD2;
+  --color-secondary-content: #252522;
+  --color-accent: #B6A58F;
   --color-accent-content: #FFFFFF;
-  --color-neutral: #666158;
+  --color-neutral: #706D66;
   --color-neutral-content: #FFFFFF;
   --radius-selector: 0.5rem;
   --radius-field: 0.5rem;
@@ -69,43 +62,16 @@
   --border: 1px;
 }
 
-/* Base Body Styles */
 body {
   background-color: #FFFFFF;
-  color: #1A1A1A;
+  color: #252522;
   overflow-x: hidden;
   font-feature-settings: "rlig" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Subtle Video Wrapper Overlay for Clean Light Mode */
-.video-wrapper::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(245, 242, 235, 0.9) 100%);
-  z-index: 1;
-}
-
-/* Contact Glow Refined for Beige Theme */
-.contact-form-glow::after {
-  content: "";
-  filter: blur(100px);
-  background: radial-gradient(circle, rgba(194, 166, 118, 0.18) 0%, rgba(245, 242, 235, 0.5) 70%, transparent 100%);
-  border-radius: 100%;
-  width: 480px;
-  height: 480px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* Best / Swiper Coverflow Circular 3D Carousel Motion */
+/* Best / Swiper Coverflow Carousel */
 .best-otr {
   perspective: 1200px;
 }
@@ -141,7 +107,6 @@ body {
   display: none !important;
 }
 
-/* Sleek Circular Pagination Bullets */
 .best-otr .swiper-pagination {
   bottom: 0px !important;
 }
@@ -149,7 +114,7 @@ body {
 .best-otr .swiper-pagination-bullet {
   width: 8px !important;
   height: 8px !important;
-  background-color: #E5DFD3 !important;
+  background-color: #D6CCBC !important;
   opacity: 0.8 !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
@@ -157,40 +122,39 @@ body {
 .best-otr .swiper-pagination-bullet-active {
   width: 26px !important;
   border-radius: 9999px !important;
-  background-color: #1A1A1A !important;
+  background-color: #252522 !important;
   opacity: 1 !important;
 }
 
-/* High-Contrast Swiper Controls */
 .swiper-button-prev,
 .swiper-button-next {
   width: 44px !important;
   height: 44px !important;
-  background-color: #1A1A1A !important;
-  border: 1px solid #1A1A1A !important;
+  background-color: #252522 !important;
+  border: 1px solid #252522 !important;
   border-radius: 9999px !important;
-  color: #C2A676 !important;
-  box-shadow: 0 4px 14px rgba(26, 26, 26, 0.16) !important;
+  color: #B6A58F !important;
+  box-shadow: 0 4px 14px rgba(37, 37, 34, 0.12) !important;
   transition: all 0.25s ease !important;
 }
 
 .swiper-button-prev:hover,
 .swiper-button-next:hover {
-  background-color: #C2A676 !important;
-  border-color: #C2A676 !important;
-  color: #1A1A1A !important;
+  background-color: #B6A58F !important;
+  border-color: #B6A58F !important;
+  color: #252522 !important;
   transform: scale(1.08);
-  box-shadow: 0 6px 20px rgba(194, 166, 118, 0.3) !important;
+  box-shadow: 0 6px 20px rgba(182, 165, 143, 0.3) !important;
 }
 
 .swiper-button-prev::after,
 .swiper-button-next::after {
   font-size: 14px !important;
   font-weight: 800 !important;
-  color: #C2A676 !important;
+  color: #B6A58F !important;
 }
 
 .swiper-button-prev:hover::after,
 .swiper-button-next:hover::after {
-  color: #1A1A1A !important;
+  color: #252522 !important;
 }

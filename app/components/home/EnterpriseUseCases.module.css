@@ -1,0 +1,586 @@
+.useCases {
+  margin-top: 62px;
+  padding-top: 45px;
+  border-top: 1px solid #d6ccbc;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 42px;
+  margin-bottom: 27px;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 15px;
+  color: #786a57;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.eyebrow > span {
+  width: 5px;
+  height: 5px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #93816a;
+}
+
+.eyebrow > i {
+  color: #a99a84;
+  font-style: normal;
+}
+
+.header h3 {
+  max-width: 560px;
+  margin: 0;
+  font-family: var(--font-questrial-sans), sans-serif;
+  font-size: clamp(29px, 2.75vw, 36px);
+  font-weight: 400;
+  letter-spacing: -.04em;
+  line-height: 1.18;
+}
+
+.introduction {
+  max-width: 335px;
+  margin: 0 0 2px;
+  color: #716d65;
+  font-size: 12px;
+  line-height: 1.85;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 26px;
+  border: 1px solid #d6ccbc;
+  border-radius: 15px;
+  background: #fffefa;
+}
+
+.featuredCard {
+  padding: 30px 32px 23px;
+  border-color: #252522;
+  background: #252522;
+  color: #f8f6f2;
+}
+
+.featuredMain {
+  display: grid;
+  grid-template-columns: minmax(0, .98fr) minmax(0, 2.25fr);
+  align-items: start;
+  gap: 38px;
+}
+
+.featuredMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.industry {
+  margin: 0;
+  color: #78674e;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .13em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.featuredCard .industry {
+  color: #d7c6ab;
+}
+
+.status {
+  padding: 4px 7px;
+  border: 1px solid #5a554b;
+  border-radius: 4px;
+  color: #c9bfae;
+  font-size: 8px;
+  line-height: 1.35;
+}
+
+.featuredIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 15px;
+  border: 1px solid #5c5547;
+  border-radius: 50%;
+  background: #34332d;
+  color: #d2b991;
+}
+
+.featuredHeader h4 {
+  max-width: 290px;
+  margin: 0;
+  font-family: var(--font-questrial-sans), sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: -.035em;
+  line-height: 1.14;
+}
+
+.workflow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  max-width: 320px;
+  margin-top: 21px;
+  color: #c3b6a0;
+  font-size: 8px;
+  line-height: 1.8;
+}
+
+.workflow > svg {
+  flex: 0 0 auto;
+  color: #a18e71;
+}
+
+.details {
+  display: grid;
+  gap: 19px;
+  margin: 0 0 24px;
+}
+
+.details > div {
+  min-width: 0;
+}
+
+.details dt {
+  margin: 0 0 6px;
+  color: #786a56;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.details dd {
+  margin: 0;
+  color: #716d65;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.details .impact dd {
+  color: #3f493a;
+}
+
+.featuredCard .details {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 50px 0 20px;
+}
+
+.featuredCard .details > div {
+  padding-top: 15px;
+  border-top: 1px solid #5a5449;
+}
+
+.featuredCard .details dt {
+  margin-bottom: 12px;
+  color: #dfccb0;
+}
+
+.featuredCard .details dd {
+  color: #c9c5bb;
+}
+
+.featuredCard .details .impact dd {
+  color: #ebe4d6;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #e4ddd1;
+}
+
+.featuredCard .cardFooter {
+  margin-top: 25px;
+  border-color: #4d493f;
+}
+
+.footerLabel {
+  color: #827766;
+  font-size: 9px;
+  line-height: 1.6;
+}
+
+.featuredCard .footerLabel {
+  color: #b8ac98;
+}
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 28px;
+  flex: 0 0 auto;
+  color: #554935;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: none;
+  text-underline-offset: 4px;
+  transition: color 160ms ease;
+}
+
+.contactLink:hover {
+  color: #252522;
+  text-decoration: underline;
+}
+
+.contactLink:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid #93816a;
+  outline-offset: 5px;
+}
+
+.featuredCard .contactLink {
+  color: #e8d4b5;
+}
+
+.featuredCard .contactLink:hover {
+  color: #fffefa;
+}
+
+.featuredCard .contactLink:focus-visible {
+  outline-color: #e8d4b5;
+}
+
+.contactLink > svg {
+  flex: 0 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 25px;
+}
+
+.cardHeader .industry {
+  margin-bottom: 10px;
+}
+
+.cardHeader h4 {
+  max-width: 345px;
+  margin: 0;
+  font-family: var(--font-questrial-sans), sans-serif;
+  font-size: 27px;
+  font-weight: 400;
+  letter-spacing: -.035em;
+  line-height: 1.14;
+}
+
+.cardIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  border: 1px solid #e1d8c9;
+  border-radius: 10px;
+  background: #f5f1e9;
+  color: #8a7554;
+}
+
+.note {
+  margin: 21px 0 0;
+  color: #797366;
+  font-size: 11px;
+  line-height: 1.75;
+}
+
+@media (max-width: 900px) {
+  .header {
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  .introduction {
+    max-width: 270px;
+    margin-top: 27px;
+  }
+
+  .featuredCard {
+    padding: 28px;
+  }
+
+  .featuredMain {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .featuredHeader {
+    position: relative;
+    padding-right: 80px;
+  }
+
+  .featuredMeta {
+    margin-bottom: 17px;
+  }
+
+  .featuredIcon {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .featuredHeader h4 {
+    max-width: none;
+  }
+
+  .workflow {
+    max-width: none;
+    margin-top: 15px;
+    font-size: 9px;
+  }
+
+  .featuredCard .details {
+    gap: 22px;
+    margin: 0;
+  }
+
+  .grid {
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  .cardHeader {
+    gap: 14px;
+  }
+
+  .cardHeader h4 {
+    font-size: 25px;
+  }
+
+  .cardIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+  }
+
+  .cardFooter {
+    flex-wrap: wrap;
+    gap: 7px 16px;
+  }
+
+  .contactLink {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .useCases {
+    margin-top: 41px;
+    padding-top: 32px;
+  }
+
+  .header {
+    display: block;
+    margin-bottom: 23px;
+  }
+
+  .header h3 {
+    max-width: 400px;
+    font-size: 30px;
+  }
+
+  .introduction {
+    max-width: 440px;
+    margin-top: 15px;
+    font-size: 13px;
+  }
+
+  .featuredHeader {
+    padding-right: 54px;
+  }
+
+  .featuredMeta {
+    gap: 8px;
+  }
+
+  .featuredIcon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .featuredIcon > svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .featuredHeader h4 {
+    font-size: 29px;
+  }
+
+  .featuredMain {
+    gap: 23px;
+  }
+
+  .featuredCard .details {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .featuredCard .details > div {
+    padding-top: 14px;
+  }
+
+  .featuredCard .details dt {
+    margin-bottom: 6px;
+  }
+
+  .workflow {
+    margin-right: -54px;
+    gap: 6px;
+    font-size: 8px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .cardHeader h4 {
+    max-width: 340px;
+    font-size: 27px;
+  }
+
+  .cardHeader {
+    margin-bottom: 24px;
+  }
+
+  .cardIcon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .details dt {
+    font-size: 9px;
+  }
+
+  .details dd {
+    font-size: 13px;
+  }
+
+  .contactLink {
+    min-height: 35px;
+    font-size: 11px;
+  }
+
+  .note {
+    margin-top: 19px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .card {
+    padding: 23px 21px;
+  }
+
+  .header h3 {
+    font-size: 29px;
+  }
+
+  .eyebrow {
+    font-size: 8px;
+  }
+
+  .featuredMeta {
+    display: block;
+  }
+
+  .status {
+    display: inline-block;
+    margin-top: 8px;
+  }
+
+  .featuredHeader h4 {
+    margin-right: -45px;
+    font-size: 28px;
+  }
+
+  .featuredHeader {
+    padding-right: 45px;
+  }
+
+  .workflow {
+    margin-right: -45px;
+    column-gap: 5px;
+    font-size: 7px;
+  }
+
+  .cardHeader {
+    gap: 12px;
+  }
+
+  .cardHeader h4 {
+    font-size: 25px;
+  }
+
+  .cardIcon {
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+  }
+
+  .cardIcon > svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cardFooter {
+    gap: 5px 10px;
+  }
+
+  .footerLabel {
+    font-size: 8px;
+  }
+
+  .contactLink {
+    font-size: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contactLink {
+    transition: none;
+  }
+}

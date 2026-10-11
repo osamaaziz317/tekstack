@@ -1,0 +1,66 @@
+.hero { background: #f8f6f2; color: #252522; overflow: clip; }
+.container { width: min(1240px, calc(100% - 96px)); margin: 0 auto; }
+.main { display: grid; grid-template-columns: 1.05fr 1fr; gap: 28px; align-items: center; padding: 66px 0 62px; }
+.copy { position: relative; z-index: 1; padding-bottom: 8px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 30px; color: #706656; font-size: 10px; font-weight: 500; letter-spacing: .13em; text-transform: uppercase; }
+.eyebrow > span { width: 6px; height: 6px; border-radius: 50%; background: #8e7858; box-shadow: 0 0 0 5px #e9e1d5; margin: 0 5px; }
+.copy h1 { font-family: var(--font-questrial-sans), sans-serif; font-weight: 400; font-size: clamp(60px, 6.2vw, 87px); line-height: 1.025; letter-spacing: -.06em; }
+.copy h1 > span { color: #93816a; }
+.description { max-width: 455px; margin-top: 28px; color: #706d66; font-size: 15px; line-height: 1.9; }
+.actions { display: flex; align-items: center; flex-wrap: wrap; gap: 25px; margin-top: 33px; }
+.primary { display: inline-flex; align-items: center; justify-content: center; gap: 22px; min-height: 53px; padding: 15px 23px; border: 1px solid #252522; border-radius: 99px; background: #252522; color: #fff; font-size: 12px; font-weight: 500; transition: transform .2s ease, background .2s ease; }
+.primary:hover { transform: translateY(-2px); background: #44443a; }
+.secondary { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: #403e37; font-size: 12px; }
+.secondary svg { transition: transform .2s ease; }
+.secondary:hover svg { transform: translateY(3px); }
+.reassurance { display: flex; flex-wrap: wrap; gap: 13px 20px; margin-top: 29px; color: #797369; font-size: 10px; }
+.reassurance > span { display: flex; align-items: center; gap: 6px; }
+.reassurance svg { color: #8c785a; }
+.art { min-width: 0; height: 510px; }
+.foundation { display: grid; grid-template-columns: 1.15fr 1fr 1fr 1.25fr 1fr; align-items: center; gap: 24px; padding: 27px 0 32px; border-top: 1px solid #ded7cb; }
+.foundation > p { color: #79746b; font-size: 11px; line-height: 1.8; }
+.foundation strong { color: #403d37; font-weight: 500; }
+.foundation > div { display: flex; align-items: center; justify-content: center; gap: 11px; font-size: 11px; color: #5e5a51; }
+.foundation svg { flex-shrink: 0; color: #93816a; }
+.primary:focus-visible, .secondary:focus-visible { outline: 2px solid #82715b; outline-offset: 5px; }
+@media (max-width: 1100px) {
+  .container { width: calc(100% - 64px); }
+  .main { gap: 12px; padding-block: 52px; }
+  .copy h1 { font-size: 65px; }
+  .description { font-size: 14px; }
+  .art { height: 455px; }
+  .actions { gap: 18px; }
+  .primary { gap: 15px; padding-inline: 20px; }
+  .foundation { gap: 20px; grid-template-columns: 1fr 1fr 1fr; }
+  .foundation > p { grid-row: span 2; }
+  .foundation > div { justify-content: flex-start; }
+}
+@media (max-width: 800px) {
+  .main { grid-template-columns: 1fr; gap: 20px; padding: 49px 0 25px; }
+  .copy { max-width: 620px; }
+  .eyebrow { margin-bottom: 26px; }
+  .copy h1 { font-size: clamp(58px, 9.3vw, 76px); }
+  .description { max-width: 470px; }
+  .art { height: 440px; max-width: 610px; width: 100%; margin-inline: auto; }
+  .reassurance { font-size: 11px; }
+  .foundation { grid-template-columns: 1fr 1fr; gap: 24px 20px; padding-block: 25px 34px; }
+  .foundation > p { grid-row: auto; grid-column: 1 / -1; }
+  .foundation > p br { display: none; }
+  .foundation > p strong::before { content: ' '; }
+}
+@media (max-width: 480px) {
+  .container { width: calc(100% - 40px); }
+  .main { padding-top: 39px; gap: 8px; }
+  .copy h1 { font-size: clamp(47px, 12vw, 59px); }
+  .eyebrow { font-size: 9px; letter-spacing: .09em; margin-bottom: 24px; }
+  .description { font-size: 13px; line-height: 1.85; margin-top: 23px; }
+  .actions { gap: 11px 19px; margin-top: 26px; }
+  .primary { min-height: 50px; font-size: 11px; padding-inline: 20px; gap: 19px; }
+  .secondary { font-size: 11px; gap: 9px; }
+  .reassurance { gap: 9px; font-size: 9px; margin-top: 23px; }
+  .art { height: 360px; margin-top: 12px; }
+  .foundation { gap: 21px 16px; }
+  .foundation > div { gap: 9px; font-size: 10px; line-height: 1.65; }
+  .foundation svg { width: 19px; }
+}
+@media (prefers-reduced-motion: reduce) { .primary, .secondary svg { transition: none; } .primary:hover, .secondary:hover svg { transform: none; } }

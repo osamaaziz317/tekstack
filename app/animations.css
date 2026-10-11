@@ -1,85 +1,42 @@
-/* Refactored Design System Animations - Ultra-clean, subtle & accessible */
+/* Tekstack Motion System — subtle, purposeful, accessible */
 
 :root {
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
   --duration-subtle: 450ms;
   --duration-quick: 250ms;
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-@keyframes floatGentle {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
+@keyframes pulseAccent {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(182, 165, 143, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(182, 165, 143, 0); }
 }
 
-@keyframes pulseGold {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(194, 166, 118, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 0 8px rgba(194, 166, 118, 0);
-  }
-}
-
-/* Animation utilities */
 .animate-fade-in-up {
   animation: fadeInUp var(--duration-subtle) var(--ease-spring) forwards;
 }
@@ -100,32 +57,19 @@
   animation: scaleIn var(--duration-subtle) var(--ease-spring) forwards;
 }
 
-.animate-float {
-  animation: floatGentle 4s ease-in-out infinite;
-}
-
 .animate-pulse-gold {
-  animation: pulseGold 2.5s infinite;
+  animation: pulseAccent 2.5s infinite;
 }
 
-/* Stagger delay helpers for grids and lists */
-.stagger-1 { animation-delay: 50ms; }
-.stagger-2 { animation-delay: 100ms; }
-.stagger-3 { animation-delay: 150ms; }
-.stagger-4 { animation-delay: 200ms; }
-.stagger-5 { animation-delay: 250ms; }
-.stagger-6 { animation-delay: 300ms; }
-.stagger-7 { animation-delay: 350ms; }
-.stagger-8 { animation-delay: 400ms; }
+/* Stagger delay helpers */
+.stagger-1 { animation-delay: 60ms; }
+.stagger-2 { animation-delay: 120ms; }
+.stagger-3 { animation-delay: 180ms; }
+.stagger-4 { animation-delay: 240ms; }
+.stagger-5 { animation-delay: 300ms; }
+.stagger-6 { animation-delay: 360ms; }
 
-/* Micro-interaction interactive transitions */
-.transition-card {
-  transition: transform var(--duration-subtle) var(--ease-spring),
-              box-shadow var(--duration-subtle) var(--ease-spring),
-              border-color var(--duration-quick) ease,
-              background-color var(--duration-quick) ease;
-}
-
+/* Card hover lift */
 .card-hover-lift {
   transition: transform 400ms var(--ease-spring),
               box-shadow 400ms var(--ease-spring),
@@ -135,10 +79,11 @@
 
 .card-hover-lift:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 32px -8px rgba(26, 26, 26, 0.08),
-              0 4px 12px -2px rgba(26, 26, 26, 0.04);
+  box-shadow: 0 20px 40px -12px rgba(37, 37, 34, 0.08),
+              0 4px 12px -2px rgba(37, 37, 34, 0.03);
 }
 
+/* Button hover lift */
 .btn-hover-lift {
   transition: transform var(--duration-quick) var(--ease-spring),
               box-shadow var(--duration-quick) var(--ease-spring),
@@ -149,25 +94,25 @@
 
 .btn-hover-lift:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px -4px rgba(194, 166, 118, 0.35);
+  box-shadow: 0 8px 24px -4px rgba(182, 165, 143, 0.35);
 }
 
 .btn-hover-lift:active {
   transform: translateY(0);
 }
 
-/* Smooth HTML scroll */
+/* Smooth scroll */
 html {
   scroll-behavior: smooth;
 }
 
-/* Accessible focus ring */
+/* Focus ring */
 *:focus-visible {
-  outline: 2px solid #C2A676;
+  outline: 2px solid #B6A58F;
   outline-offset: 2px;
 }
 
-/* Respect user motion preferences */
+/* Respect motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -183,7 +128,6 @@ html {
   .animate-fade-in-left,
   .animate-fade-in-right,
   .animate-scale-in,
-  .animate-float,
   .animate-pulse-gold {
     opacity: 1 !important;
     transform: none !important;

@@ -1,268 +1,268 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import React from "react";
 import { useStaggerAnimation, useScrollAnimation } from "../../lib/useScrollAnimation";
+import {
+  Truck,
+  ShieldCheck,
+  HeartPulse,
+  Factory,
+  Users,
+  AlertTriangle,
+  Lightbulb,
+  TrendingUp,
+} from "lucide-react";
 
-interface VideoProjectMeta {
-  title?: string;
-  description?: string;
-  image?: string;
-  tags?: string[];
-  liveLink?: string;
-  category?: string;
-}
-
-interface ProjectItem {
+interface CaseStudy {
   id: number;
+  industry: string;
   title: string;
-  description: string;
-  image: string;
-  video?: string;
+  problem: string;
+  solution: string;
+  impact: string[];
+  icon: React.ComponentType<{ className?: string }>;
   tags: string[];
-  liveLink: string;
-  category: string;
 }
 
-const defaultProjects: ProjectItem[] = [
+const caseStudies: CaseStudy[] = [
   {
     id: 1,
-    title: "AI Architect: Autonomous Pipeline Engine",
-    description: "An agentic system orchestrating end-to-end data ingestion, model routing, and automated validation with policy compliance.",
-    image: "/videos/AI_s-impact-on-HR_Sharing-image.png",
-    video: "AI_Architect",
-    tags: ["Agentic AI", "Architecture", "Orchestration"],
-    liveLink: "/video/AI_Architect",
-    category: "ai",
+    industry: "Supply Chain & Logistics",
+    title: "Autonomous Demand Forecasting & Inventory Optimization",
+    problem:
+      "A multinational distributor faced $12M in annual losses from overstocking slow-moving SKUs and stockouts on high-demand products across 140+ warehouses.",
+    solution:
+      "We deployed a multi-agent forecasting pipeline that ingests real-time POS data, supplier lead times, and seasonal signals — autonomously adjusting reorder points and routing purchase orders without manual intervention.",
+    impact: [
+      "34% reduction in excess inventory",
+      "$8.2M annual savings recovered",
+      "Stockout incidents down 61%",
+    ],
+    icon: Truck,
+    tags: ["Multi-Agent", "Forecasting", "Orchestration"],
   },
   {
     id: 2,
-    title: "Autonomous Agent Fleet for HR & Operations",
-    description: "Multi-agent framework coordinating talent matching, automated scheduling, and continuous candidate evaluation.",
-    image: "/videos/AI_s-impact-on-HR_Sharing-image.png",
-    video: "HR_AI",
-    tags: ["Multi-Agent", "HR Ops", "Workflow"],
-    liveLink: "/video/HR_AI",
-    category: "ai",
+    industry: "Financial Services",
+    title: "Real-Time Compliance Monitoring & Fraud Detection",
+    problem:
+      "A mid-tier bank's compliance team manually reviewed 15,000+ transactions daily, resulting in 72-hour investigation backlogs and regulatory penalties for late SAR filings.",
+    solution:
+      "We built an agentic compliance engine that continuously monitors transaction streams, flags anomalies using multi-model consensus, and auto-generates preliminary SAR narratives for analyst review.",
+    impact: [
+      "Investigation backlog eliminated",
+      "92% faster SAR filing turnaround",
+      "False positive rate reduced by 47%",
+    ],
+    icon: ShieldCheck,
+    tags: ["Agentic AI", "Compliance", "Real-Time"],
   },
   {
     id: 3,
-    title: "Synthetic Focus Group Collaboration Platform",
-    description: "A distributed persona-simulation platform where autonomous agents debate, critique, and synthesize consumer insights.",
-    image: "/videos/synthetic-users-focus-group-ai.jpg",
-    video: "Focus_group",
-    tags: ["Simulation", "Multi-Agent", "Cognitive"],
-    liveLink: "/video/Focus_group",
-    category: "ai",
+    industry: "Healthcare Operations",
+    title: "Intelligent Patient Intake & Clinical Workflow Automation",
+    problem:
+      "A regional hospital network averaged 45-minute patient intake cycles with 23% data entry errors, causing downstream billing disputes and clinician frustration.",
+    solution:
+      "We deployed document-understanding agents that extract, validate, and reconcile patient records from insurance cards, referrals, and intake forms — routing verified data directly into the EHR.",
+    impact: [
+      "Intake time reduced to 12 minutes",
+      "Data entry errors dropped to under 3%",
+      "$1.4M annual billing recovery",
+    ],
+    icon: HeartPulse,
+    tags: ["Document AI", "Workflow", "Integration"],
   },
   {
     id: 4,
-    title: "Real-Time Observability & Telemetry Control Center",
-    description: "Unified telemetry dashboard monitoring agent states, latency budgets, token consumption, and failover triggers in real time.",
-    image: "/videos/AI_s-impact-on-HR_Sharing-image.png",
-    video: "Interactive_Dahboard",
-    tags: ["Observability", "APIs", "Control"],
-    liveLink: "/video/Interactive_Dahboard",
-    category: "frontend",
+    industry: "Manufacturing",
+    title: "Predictive Maintenance with Edge AI & IoT Telemetry",
+    problem:
+      "An automotive parts manufacturer experienced 340+ hours of unplanned downtime per year across 28 CNC production lines, costing $2.1M per incident in lost throughput.",
+    solution:
+      "We deployed lightweight edge agents on each machine that analyze vibration, thermal, and acoustic telemetry in real time — predicting failures 48–72 hours ahead and auto-scheduling maintenance windows.",
+    impact: [
+      "Unplanned downtime reduced by 78%",
+      "Maintenance costs down 41%",
+      "OEE improved from 64% to 87%",
+    ],
+    icon: Factory,
+    tags: ["Edge AI", "Predictive", "IoT"],
   },
   {
     id: 5,
-    title: "Predictive Enterprise Diagnostics Gateway",
-    description: "Edge and cloud hybrid agent diagnosing hardware and service telemetry before critical SLA failures occur.",
-    image: "/images/projects/placeholder.jpg",
-    tags: ["Edge AI", "Predictive", "IoT"],
-    liveLink: "#",
-    category: "ai",
-  },
-  {
-    id: 6,
-    title: "Cross-System ERP Automation Connector",
-    description: "Autonomous reconciliation agent connecting disparate ERPs, invoices, and accounting systems with full audit logging.",
-    image: "/images/projects/placeholder.jpg",
-    tags: ["Enterprise", "Integration", "RPA"],
-    liveLink: "#",
-    category: "frontend",
+    industry: "Human Resources",
+    title: "Autonomous Recruitment Pipeline & Talent Matching",
+    problem:
+      "A fast-scaling tech firm's HR team spent 80% of their time on resume screening and interview scheduling, with an average time-to-hire of 47 days and a 35% offer-decline rate.",
+    solution:
+      "We built a multi-agent recruitment system that screens candidates against role requirements, conducts automated skill assessments, coordinates interview scheduling, and surfaces top matches with explainable scoring.",
+    impact: [
+      "Time-to-hire reduced to 19 days",
+      "Recruiter capacity increased 3×",
+      "Offer acceptance rate up to 78%",
+    ],
+    icon: Users,
+    tags: ["Multi-Agent", "HR Ops", "Cognitive"],
   },
 ];
 
-export default function Projects({
-  videoSlugs = [],
-  videoMeta = {},
-}: {
-  videoSlugs?: string[];
-  videoMeta?: Record<string, VideoProjectMeta>;
-}) {
-  const [activeTab, setActiveTab] = useState<"all" | "ai" | "frontend">("all");
-  const { elementRef: headerRef, isVisible: isHeaderVisible } = useScrollAnimation({ threshold: 0.1 });
-  const { containerRef, isVisible, getItemStyle } = useStaggerAnimation(6, 0.08);
-
-  // Generate dynamic projects from public videos directory
-  const dynamicProjects: ProjectItem[] = (videoSlugs || []).map((slug, idx) => {
-    const meta = (videoMeta && videoMeta[slug]) || {};
-    const title = meta.title || slug.replace(/_/g, " ");
-    return {
-      id: 100 + idx,
-      title,
-      description:
-        meta.description ||
-        `Production demo showcasing autonomous agent capabilities in ${title}.`,
-      image: meta.image || "/videos/AI_s-impact-on-HR_Sharing-image.png",
-      video: slug,
-      tags: meta.tags || ["Autonomous AI", "Production Demo"],
-      liveLink: `/video/${slug}`,
-      category: meta.category || "ai",
-    };
-  });
-
-  // Merge projects: dynamic videos first, followed by default showcases
-  const allProjectsList: ProjectItem[] =
-    dynamicProjects.length > 0
-      ? [
-          ...dynamicProjects,
-          ...defaultProjects.filter((dp) => !dynamicProjects.some((p) => p.video === dp.video)),
-        ]
-      : defaultProjects;
-
-  const filteredProjects =
-    activeTab === "all"
-      ? allProjectsList
-      : allProjectsList.filter((p) => p.category === activeTab);
+export default function Projects() {
+  const { elementRef: headerRef, isVisible: isHeaderVisible } =
+    useScrollAnimation({ threshold: 0.1 });
+  const { containerRef, isVisible, getItemStyle } = useStaggerAnimation(5, 0.1);
 
   return (
     <section
       ref={headerRef}
-      className="bg-white py-16 sm:py-20 lg:py-28 border-b border-[#E5DFD3]"
-      aria-label="Projects and Case Studies"
+      className="bg-white py-16 sm:py-20 lg:py-28 border-b border-[#D6CCBC]"
+      aria-label="Case Studies"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-14 lg:mb-20">
           <div
-            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F5F2EB] border border-[#E5DFD3] mb-4 transition-all duration-500 ${
-              isHeaderVisible ? "animate-fade-in-down" : "opacity-0 -translate-y-4"
+            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E8DFD2] border border-[#D6CCBC] mb-4 transition-all duration-500 ${
+              isHeaderVisible
+                ? "animate-fade-in-down"
+                : "opacity-0 -translate-y-4"
             }`}
           >
-            <span className="w-2 h-2 rounded-full bg-[#C2A676]"></span>
-            <span className="text-xs font-semibold tracking-wider uppercase text-[#1A1A1A] font-quicksand">
+            <span className="w-2 h-2 rounded-full bg-[#B6A58F]"></span>
+            <span className="text-xs font-semibold tracking-wider uppercase text-[#252522] font-quicksand">
               Featured Work
             </span>
           </div>
 
           <h2
-            className={`font-gendy text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight mb-4 transition-all duration-500 delay-100 ${
-              isHeaderVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"
+            className={`font-gendy text-3xl sm:text-4xl lg:text-5xl font-bold text-[#252522] tracking-tight mb-4 transition-all duration-500 delay-100 ${
+              isHeaderVisible
+                ? "animate-fade-in-up"
+                : "opacity-0 translate-y-4"
             }`}
           >
             Proven Results &amp; Realized Impact
           </h2>
 
           <p
-            className={`font-quicksand text-base sm:text-lg text-[#666158] leading-relaxed transition-all duration-500 delay-200 ${
-              isHeaderVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"
+            className={`font-quicksand text-base sm:text-lg text-[#706D66] leading-relaxed transition-all duration-500 delay-200 ${
+              isHeaderVisible
+                ? "animate-fade-in-up"
+                : "opacity-0 translate-y-4"
             }`}
           >
-            Explore our autonomous systems deployed across real-world workflows, human-in-the-loop pipelines, and distributed architectures.
+            Real-world case studies where our autonomous systems delivered
+            measurable outcomes across industries.
           </p>
-
-          {/* Filter Tabs in Soft Beige */}
-          <div className="flex items-center justify-center gap-2 mt-8">
-            {(
-              [
-                { id: "all", label: "All Projects" },
-                { id: "ai", label: "Agentic AI & ML" },
-                { id: "frontend", label: "Observability & UI" },
-              ] as const
-            ).map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all cursor-pointer ${
-                  activeTab === tab.id
-                    ? "bg-[#1A1A1A] text-white shadow-sm"
-                    : "bg-[#F5F2EB] text-[#666158] border border-[#E5DFD3] hover:text-[#1A1A1A] hover:bg-[#ECE7DC]"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
         </div>
 
-        {/* Projects Grid */}
+        {/* Case Studies Grid */}
         <div
           ref={containerRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto"
         >
-          {filteredProjects.map((project, index) => (
-            <div
-              key={project.id}
-              style={getItemStyle(index)}
-              className={`group flex flex-col rounded-2xl bg-white border border-[#E5DFD3] hover:border-[#C2A676] hover:bg-[#F5F2EB]/40 overflow-hidden card-hover-lift shadow-xs transition-all duration-300 ${
-                isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-6"
-              }`}
-            >
-              {/* Media Preview Box */}
-              <div className="relative h-48 sm:h-52 bg-[#F5F2EB] border-b border-[#E5DFD3] overflow-hidden flex-shrink-0">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                {project.video && (
-                  <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm border border-[#E5DFD3] text-[10px] font-semibold tracking-wider text-[#1A1A1A] uppercase">
-                    Demo Available
+          {caseStudies.map((study, index) => {
+            const IconComponent = study.icon;
+            const isLast = index === caseStudies.length - 1;
+            return (
+              <div
+                key={study.id}
+                style={getItemStyle(index)}
+                className={`group relative flex flex-col rounded-2xl bg-white border border-[#D6CCBC] hover:border-[#B6A58F] overflow-hidden shadow-xs hover:shadow-md transition-all duration-300 ${
+                  isLast ? "lg:col-span-2 lg:max-w-[calc(50%-1rem)] lg:mx-auto" : ""
+                } ${
+                  isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-6"
+                }`}
+              >
+                {/* Card Header */}
+                <div className="px-6 sm:px-7 pt-6 sm:pt-7 pb-0">
+                  <div className="flex items-start justify-between mb-5">
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-xl bg-[#252522] group-hover:bg-[#B6A58F] flex items-center justify-center shadow-md transition-all duration-300 group-hover:scale-105">
+                        <IconComponent className="w-5 h-5 text-[#B6A58F] group-hover:text-[#252522] transition-colors" />
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-[#B6A58F]">
+                          {study.industry}
+                        </span>
+                        <div className="text-[11px] font-mono text-[#706D66]/60">
+                          Case Study 0{index + 1}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 justify-end max-w-[55%]">
+                      {study.tags.map((tag, tIdx) => (
+                        <span
+                          key={tIdx}
+                          className="px-2 py-0.5 rounded-full text-[9px] font-semibold uppercase tracking-wider bg-[#E8DFD2] text-[#706D66] border border-[#D6CCBC]"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                )}
-              </div>
 
-              {/* Card Body */}
-              <div className="p-6 flex flex-col flex-1 justify-between">
-                <div>
-                  <div className="flex flex-wrap gap-1.5 mb-3">
-                    {project.tags.slice(0, 3).map((tag, tIdx) => (
-                      <span
-                        key={tIdx}
-                        className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-[#F5F2EB] text-[#666158] border border-[#E5DFD3]"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <h3 className="font-questrial font-bold text-lg text-[#1A1A1A] mb-2 group-hover:text-[#1A1A1A] leading-snug">
-                    {project.title}
+                  <h3 className="font-questrial font-bold text-lg sm:text-xl text-[#252522] leading-snug mb-5">
+                    {study.title}
                   </h3>
-
-                  <p className="font-quicksand text-xs sm:text-sm text-[#666158] leading-relaxed line-clamp-3 mb-4">
-                    {project.description}
-                  </p>
                 </div>
 
-                <div className="pt-4 border-t border-[#E5DFD3]/80 flex items-center justify-between mt-auto">
-                  {project.video ? (
-                    <Link
-                      href={`/video/${project.video}`}
-                      className="inline-flex items-center gap-2 text-xs font-semibold text-[#1A1A1A] hover:text-[#C2A676] transition-colors group/link"
-                    >
-                      <span className="w-6 h-6 rounded-full bg-[#1A1A1A] text-[#C2A676] group-hover/link:bg-[#C2A676] group-hover/link:text-[#1A1A1A] flex items-center justify-center transition-all shadow-xs">
-                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                      </span>
-                      <span>Watch Demo Video</span>
-                    </Link>
-                  ) : (
-                    <span className="text-xs text-[#666158] font-medium">Enterprise Custom Architecture</span>
-                  )}
-                  <span className="text-[11px] font-mono text-[#666158]/70">0{index + 1}</span>
+                {/* Problem / Solution / Impact */}
+                <div className="px-6 sm:px-7 pb-6 sm:pb-7 flex flex-col flex-1">
+                  <div className="space-y-4 flex-1">
+                    {/* Problem */}
+                    <div className="rounded-xl bg-[#E8DFD2]/60 border border-[#D6CCBC]/60 p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <AlertTriangle className="w-3.5 h-3.5 text-[#B6A58F]" />
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-[#252522]">
+                          Challenge
+                        </span>
+                      </div>
+                      <p className="font-quicksand text-xs sm:text-sm text-[#706D66] leading-relaxed">
+                        {study.problem}
+                      </p>
+                    </div>
+
+                    {/* Solution */}
+                    <div className="rounded-xl bg-[#E8DFD2]/60 border border-[#D6CCBC]/60 p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Lightbulb className="w-3.5 h-3.5 text-[#B6A58F]" />
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-[#252522]">
+                          Solution
+                        </span>
+                      </div>
+                      <p className="font-quicksand text-xs sm:text-sm text-[#706D66] leading-relaxed">
+                        {study.solution}
+                      </p>
+                    </div>
+
+                    {/* Impact */}
+                    <div className="rounded-xl bg-[#252522] p-4">
+                      <div className="flex items-center gap-2 mb-3">
+                        <TrendingUp className="w-3.5 h-3.5 text-[#B6A58F]" />
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-[#B6A58F]">
+                          Impact
+                        </span>
+                      </div>
+                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+                        {study.impact.map((item, iIdx) => (
+                          <div
+                            key={iIdx}
+                            className="flex items-start gap-2 flex-1"
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#B6A58F] mt-1.5 flex-shrink-0"></span>
+                            <span className="font-quicksand text-xs sm:text-sm text-white/90 leading-snug font-medium">
+                              {item}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

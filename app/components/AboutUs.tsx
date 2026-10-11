@@ -27,7 +27,7 @@ export default function AboutUs() {
   return (
     <section
       ref={elementRef}
-      className="bg-[#F5F2EB] py-16 sm:py-20 lg:py-28 border-b border-[#E5DFD3]"
+      className="bg-[#E8DFD2] py-16 sm:py-20 lg:py-28 border-b border-[#D6CCBC]"
       aria-label="About Tekstack"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,30 +40,30 @@ export default function AboutUs() {
           >
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-7">
-                <div className="relative h-[340px] sm:h-[420px] rounded-2xl overflow-hidden border border-[#E5DFD3] shadow-md group">
+                <div className="relative h-[340px] sm:h-[420px] rounded-2xl overflow-hidden border border-[#D6CCBC] shadow-md group">
                   <Image
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     src={aboutImg1}
                     alt="Autonomous AI engineering team"
                     priority
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/40 via-transparent to-transparent opacity-60"></div>
-                  <div className="absolute bottom-4 left-4 right-4 p-3 bg-white/95 backdrop-blur-sm rounded-xl border border-[#E5DFD3] shadow-sm">
-                    <p className="text-xs font-semibold text-[#1A1A1A]">Enterprise AI Architects</p>
-                    <p className="text-[11px] text-[#666158]">Distributed agent system deployment</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#252522]/40 via-transparent to-transparent opacity-60"></div>
+                  <div className="absolute bottom-4 left-4 right-4 p-3 bg-white/95 backdrop-blur-sm rounded-xl border border-[#D6CCBC] shadow-sm">
+                    <p className="text-xs font-semibold text-[#252522]">Enterprise AI Architects</p>
+                    <p className="text-[11px] text-[#706D66]">Distributed agent system deployment</p>
                   </div>
                 </div>
               </div>
 
               <div className="col-span-5 flex flex-col gap-4">
-                <div className="relative h-[162px] sm:h-[202px] rounded-2xl overflow-hidden border border-[#E5DFD3] shadow-md group">
+                <div className="relative h-[162px] sm:h-[202px] rounded-2xl overflow-hidden border border-[#D6CCBC] shadow-md group">
                   <Image
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     src={aboutImg2}
                     alt="Agent workflow monitoring"
                   />
                 </div>
-                <div className="relative h-[162px] sm:h-[202px] rounded-2xl overflow-hidden border border-[#E5DFD3] shadow-md group">
+                <div className="relative h-[162px] sm:h-[202px] rounded-2xl overflow-hidden border border-[#D6CCBC] shadow-md group">
                   <Image
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     src={aboutImg3}
@@ -80,19 +80,19 @@ export default function AboutUs() {
               isVisible ? "animate-fade-in-right" : "opacity-0 translate-x-6"
             }`}
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E5DFD3] mb-4">
-              <span className="w-2 h-2 rounded-full bg-[#C2A676]"></span>
-              <span className="text-xs font-semibold tracking-wider uppercase text-[#1A1A1A] font-quicksand">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#D6CCBC] mb-4">
+              <span className="w-2 h-2 rounded-full bg-[#B6A58F]"></span>
+              <span className="text-xs font-semibold tracking-wider uppercase text-[#252522] font-quicksand">
                 Who We Are
               </span>
             </div>
 
-            <h2 className="font-gendy text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight mb-6">
+            <h2 className="font-gendy text-3xl sm:text-4xl lg:text-5xl font-bold text-[#252522] tracking-tight mb-6">
               Engineering the Next Era of Enterprise Intelligence
             </h2>
 
-            <p className="font-quicksand text-base sm:text-lg text-[#666158] leading-relaxed mb-6">
-              At <strong className="text-[#1A1A1A] font-semibold">tekstack</strong>, we build production-grade agentic layers and multi-agent coordination frameworks. Rather than static chatbots, our architectures execute complete business lifecycles—integrating directly with enterprise software to process data, resolve exceptions, and enforce policies.
+            <p className="font-quicksand text-base sm:text-lg text-[#706D66] leading-relaxed mb-6">
+              At <strong className="text-[#252522] font-semibold">tekstack</strong>, we build production-grade agentic layers and multi-agent coordination frameworks. Rather than static chatbots, our architectures execute complete business lifecycles—integrating directly with enterprise software to process data, resolve exceptions, and enforce policies.
             </p>
 
             {/* Alternating Value Cards in Pure White with Soft Borders */}
@@ -100,19 +100,19 @@ export default function AboutUs() {
               {coreValues.map((val, idx) => (
                 <div
                   key={idx}
-                  className="p-4 rounded-xl bg-white border border-[#E5DFD3] hover:border-[#C2A676] transition-colors"
+                  className="p-4 rounded-xl bg-white border border-[#D6CCBC] hover:border-[#B6A58F] transition-colors"
                 >
                   <div className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-lg bg-[#1A1A1A] border border-[#1A1A1A] flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs">
-                      <svg className="w-3.5 h-3.5 text-[#C2A676]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="w-6 h-6 rounded-lg bg-[#252522] border border-[#252522] flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs">
+                      <svg className="w-3.5 h-3.5 text-[#B6A58F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-medium text-sm text-[#1A1A1A] mb-1">
+                      <h4 className="font-medium text-sm text-[#252522] mb-1">
                         {val.title}
                       </h4>
-                      <p className="text-xs text-[#666158] leading-relaxed font-quicksand">
+                      <p className="text-xs text-[#706D66] leading-relaxed font-quicksand">
                         {val.description}
                       </p>
                     </div>

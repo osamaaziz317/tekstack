@@ -1,0 +1,17 @@
+.section { position: relative; overflow: clip; background: #e9e0d1; color: #252522; }
+.container { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 45px; width: min(1200px,calc(100% - 96px)); margin: 0 auto; padding: 70px 0 76px; }
+.copy, .actions { position: relative; z-index: 1; }
+.eyebrow { margin-bottom: 23px; font-size: 10px; letter-spacing: .13em; text-transform: uppercase; color: #71634e; }
+.copy h2 { font-family: var(--font-questrial-sans),sans-serif; font-weight: 400; font-size: clamp(38px,4vw,55px); line-height: 1.1; letter-spacing: -.045em; }
+.description { margin-top: 20px; font-size: 13px; line-height: 1.8; color: #72695b; }
+.actions { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 19px; padding-top: 26px; }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 35px; min-height: 55px; padding: 16px 25px; border: 1px solid #252522; border-radius: 99px; background: #252522; color: #fff; font-size: 12px; transition: background .2s ease, transform .2s ease; }
+.button:hover { background: #454238; transform: translateY(-2px); }
+.email { display: inline-flex; align-items: center; gap: 9px; font-size: 11px; color: #615746; text-underline-offset: 4px; }
+.email:hover { text-decoration: underline; }
+.watermark { position: absolute; right: -5px; bottom: -58px; opacity: .2; width: 275px; height: auto; transform: rotate(-12deg); pointer-events: none; }
+.button:focus-visible,.email:focus-visible { outline: 2px solid #6d583c; outline-offset: 5px; }
+@media(max-width:1100px) { .container { width:calc(100% - 64px); gap:32px; } .copy h2 { font-size:43px; } .button { gap:20px; } }
+@media(max-width:800px) { .container { align-items:flex-start; flex-direction:column; gap:25px; padding-block:56px; } .actions { flex-direction:row; flex-wrap:wrap; padding-top:0; gap:20px; } .copy h2 { font-size:45px; } .watermark { right:10px; width:220px; } }
+@media(max-width:480px) { .container { width:calc(100% - 40px); padding-block:50px; } .eyebrow { font-size:9px; margin-bottom:20px; } .copy h2 { font-size:clamp(32px,8.1vw,38px); } .description { font-size:12px; max-width:270px; } .button { font-size:11px; min-height:50px; padding-inline:22px; } .actions { gap:18px; } .watermark { right:-35px; width:190px; } }
+@media(prefers-reduced-motion:reduce) { .button { transition:none; } .button:hover { transform:none; } }

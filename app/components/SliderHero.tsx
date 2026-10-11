@@ -36,7 +36,7 @@ export default function SliderHero() {
   return (
     <section
       ref={elementRef}
-      className={`bg-[#F5F2EB] py-6 sm:py-8 border-b border-[#E5DFD3] transition-all duration-500 ${
+      className={`bg-[#E8DFD2] py-6 sm:py-8 border-b border-[#D6CCBC] transition-all duration-500 ${
         isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"
       }`}
       aria-label="Capabilities ticker"
@@ -80,15 +80,15 @@ export default function SliderHero() {
             const IconComponent = item.icon;
             return (
               <SwiperSlide key={index}>
-                <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white border border-[#E5DFD3] shadow-[0_2px_8px_rgba(26,26,26,0.03)] hover:border-[#C2A676] hover:shadow-[0_4px_16px_rgba(194,166,118,0.18)] transition-all duration-300 group cursor-default">
-                  <div className="w-10 h-10 rounded-xl bg-[#1A1A1A] group-hover:bg-[#C2A676] border border-[#1A1A1A] group-hover:border-[#C2A676] flex items-center justify-center p-2 flex-shrink-0 transition-all duration-300 group-hover:scale-105 shadow-sm">
-                    <IconComponent className="w-5 h-5 text-[#C2A676] group-hover:text-[#1A1A1A] transition-colors" />
+                <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white border border-[#D6CCBC] shadow-[0_2px_8px_rgba(26,26,26,0.03)] hover:border-[#B6A58F] hover:shadow-[0_4px_16px_rgba(194,166,118,0.18)] transition-all duration-300 group cursor-default">
+                  <div className="w-10 h-10 rounded-xl bg-[#252522] group-hover:bg-[#B6A58F] border border-[#252522] group-hover:border-[#B6A58F] flex items-center justify-center p-2 flex-shrink-0 transition-all duration-300 group-hover:scale-105 shadow-sm">
+                    <IconComponent className="w-5 h-5 text-[#B6A58F] group-hover:text-[#252522] transition-colors" />
                   </div>
                   <div className="flex flex-col min-w-0">
-                    <span className="text-[10px] uppercase tracking-wider font-semibold text-[#1A1A1A] group-hover:text-[#C2A676] transition-colors">
+                    <span className="text-[10px] uppercase tracking-wider font-semibold text-[#252522] group-hover:text-[#B6A58F] transition-colors">
                       {item.tag}
                     </span>
-                    <p className="text-xs sm:text-sm font-medium text-[#1A1A1A] truncate transition-colors">
+                    <p className="text-xs sm:text-sm font-medium text-[#252522] truncate transition-colors">
                       {item.text}
                     </p>
                   </div>

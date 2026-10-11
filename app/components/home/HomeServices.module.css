@@ -1,0 +1,44 @@
+.section { padding: 96px 0 85px; background: #fff; color: #252522; scroll-margin-top: 105px; }
+.container { width: min(1200px, calc(100% - 96px)); margin: 0 auto; }
+.header { display: grid; grid-template-columns: 1.3fr 1fr; gap: 80px; align-items: end; margin-bottom: 46px; }
+.eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 23px; font-size: 10px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; }
+.eyebrow > span { width: 26px; height: 1px; background: #93816a; }
+.header h2 { font-family: var(--font-questrial-sans), sans-serif; font-size: clamp(42px, 4vw, 55px); font-weight: 400; line-height: 1.1; letter-spacing: -.045em; }
+.header h2 > span { color: #93816a; }
+.intro > p { max-width: 380px; color: #706d66; font-size: 14px; line-height: 1.85; }
+.intro > a { display: inline-flex; gap: 16px; align-items: center; margin-top: 19px; padding-block: 6px; color: #252522; font-size: 12px; border-bottom: 1px solid #c6b9a6; transition: gap .2s ease; }
+.intro > a:hover { gap: 22px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
+.card { padding: 27px 31px 29px; border: 1px solid #e2dbd0; border-radius: 17px; background: #f8f6f2; }
+.cardTop { display: flex; align-items: center; justify-content: space-between; gap: 20px; color: #887961; }
+.cardTop > span { font-size: 9px; letter-spacing: .11em; }
+.card h3 { font-family: var(--font-questrial-sans), sans-serif; font-weight: 400; font-size: 29px; line-height: 1.2; letter-spacing: -.03em; margin-bottom: 12px; }
+.card > p { max-width: 460px; color: #706d66; font-size: 13px; line-height: 1.85; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 23px; }
+.tags > span { padding: 6px 10px; border: 1px solid #dcd3c4; border-radius: 5px; color: #786d5c; font-size: 10px; line-height: 1.4; }
+.featured { background: #292923; border-color: #292923; color: #f5f0e7; }
+.featured .cardTop { color: #c3b39a; }
+.featured > p { color: #c6c0b5; }
+.featured .tags > span { border-color: #585448; color: #d7c9b3; }
+.miniFlow, .serviceMark { display: flex; align-items: center; justify-content: center; height: 119px; margin: 9px 0 13px; }
+.miniFlow > span:not(.connector) { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; min-width: 88px; min-height: 71px; border: 1px solid #555144; border-radius: 9px; background: #33332c; color: #d6c4a9; }
+.miniFlow > span > span { font-size: 9px; color: #d4cdc0; }
+.miniFlow .agent { min-height: 83px !important; width: 100px; background: #e5dac6 !important; border-color: #e5dac6 !important; color: #685437 !important; box-shadow: 0 6px 18px #0002; }
+.miniFlow .agent > span { color: #4f4536; }
+.connector { width: 37px; height: 1px; background: #88785e; position: relative; }
+.connector::after { content: ''; position: absolute; right: 0; width: 5px; height: 5px; border-top: 1px solid #ad9979; border-right: 1px solid #ad9979; transform: translateY(-2px) rotate(45deg); }
+.serviceMark > span { display: grid; place-items: center; width: 65px; height: 59px; background: #f1ece3; border: 1px solid #ded4c4; border-radius: 12px; color: #a18c6e; }
+.serviceMark > i { width: 40px; border-top: 1px dashed #c5b79f; }
+.serviceMark .markCenter { width: 74px; height: 70px; background: #e8dfd0; color: #8a7251; transform: rotate(-5deg); }
+.roadmap { display: flex; align-items: center; gap: 0; width: 100%; max-width: 360px; }
+.roadmap > span { position: relative; display: grid; place-items: center; min-width: 86px; height: 47px; padding: 9px 12px; border: 1px solid #d0c3ae; border-radius: 99px; color: #857258; background: #f4eee4; font-size: 11px; }
+.roadmap > span:last-child { background: #e7dcc9; border-color: #bba88c; color: #5d4b34; }
+.roadmap > i { flex: 1; min-width: 12px; border-top: 1px solid #cbbda4; }
+.note { display: flex; align-items: center; justify-content: center; gap: 9px; margin-top: 25px; color: #7b7366; font-size: 11px; line-height: 1.8; text-align: center; }
+.note svg { flex-shrink: 0; color: #9a8568; }
+.intro > a:focus-visible { outline: 2px solid #82715b; outline-offset: 5px; }
+@media (max-width: 1100px) { .container { width: calc(100% - 64px); } .header { gap: 45px; } .card { padding: 25px; } .miniFlow > span:not(.connector) { min-width: 75px; } .connector { width: 25px; } }
+@media (max-width: 800px) { .section { padding: 70px 0 60px; } .header { grid-template-columns: 1fr; gap: 23px; margin-bottom: 34px; } .intro > p { max-width: 540px; } .header h2 { font-size: 45px; } .grid { gap: 16px; } .card { padding: 22px; } .cardTop > span { font-size: 8px; letter-spacing: .05em; } .cardTop svg { width: 22px; flex-shrink: 0; } .card h3 { font-size: 25px; } .card > p { font-size: 12px; } .miniFlow > span:not(.connector) { min-width: 58px; } .miniFlow .agent { width: 66px; } .miniFlow > span > span { font-size: 8px; } .connector { width: 18px; } .serviceMark > span { width: 52px; } .serviceMark .markCenter { width: 62px; } .serviceMark > i { width: 20px; } .roadmap > span { min-width: 64px; padding-inline: 8px; font-size: 9px; } .tags > span { font-size: 9px; padding-inline: 8px; } }
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .card { padding: 25px; } .cardTop > span { font-size: 9px; } .card h3 { font-size: 28px; } .card > p { font-size: 13px; } .miniFlow > span:not(.connector) { min-width: 76px; } .miniFlow .agent { width: 86px; } .miniFlow > span > span { font-size: 9px; } .connector { width: 25px; } .serviceMark > span { width: 65px; } .serviceMark .markCenter { width: 74px; } .serviceMark > i { width: 32px; } .roadmap > span { min-width: 76px; font-size: 10px; } .tags > span { font-size: 10px; } }
+@media (max-width: 480px) { .container { width: calc(100% - 40px); } .section { padding: 60px 0 51px; } .header h2 { font-size: clamp(34px,9vw,42px); } .eyebrow { font-size: 9px; margin-bottom: 20px; } .intro > p { font-size: 13px; } .card { padding: 23px 20px; } .card h3 { font-size: 27px; } .miniFlow > span:not(.connector) { min-width: 65px; } .miniFlow .agent { width: 74px; } .connector { width: 20px; } .note { align-items: flex-start; font-size: 10px; text-align: left; } .note svg { margin-top: 2px; } .roadmap > span { min-width: 69px; } }
+@media (prefers-reduced-motion: reduce) { .intro > a { transition: none; } }

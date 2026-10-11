@@ -162,18 +162,18 @@ const getSlideIcon = (id?: number | string) => {
 // Skeleton Card Component
 const SkeletonCard = () => {
   return (
-    <div className="min-h-[460px] w-full rounded-2xl border border-[#E5DFD3] p-7 bg-[#F5F2EB]/60 animate-pulse flex flex-col justify-between">
+    <div className="min-h-[460px] w-full rounded-2xl border border-[#D6CCBC] p-7 bg-[#E8DFD2]/60 animate-pulse flex flex-col justify-between">
       <div>
-        <div className="w-12 h-12 rounded-xl bg-[#E5DFD3] mb-4"></div>
-        <div className="h-6 w-3/4 bg-[#E5DFD3] rounded mb-2"></div>
-        <div className="h-4 w-full bg-[#E5DFD3] rounded mb-6"></div>
+        <div className="w-12 h-12 rounded-xl bg-[#D6CCBC] mb-4"></div>
+        <div className="h-6 w-3/4 bg-[#D6CCBC] rounded mb-2"></div>
+        <div className="h-4 w-full bg-[#D6CCBC] rounded mb-6"></div>
         <div className="space-y-3">
-          <div className="h-4 w-5/6 bg-[#E5DFD3] rounded"></div>
-          <div className="h-4 w-4/6 bg-[#E5DFD3] rounded"></div>
-          <div className="h-4 w-5/6 bg-[#E5DFD3] rounded"></div>
+          <div className="h-4 w-5/6 bg-[#D6CCBC] rounded"></div>
+          <div className="h-4 w-4/6 bg-[#D6CCBC] rounded"></div>
+          <div className="h-4 w-5/6 bg-[#D6CCBC] rounded"></div>
         </div>
       </div>
-      <div className="h-4 w-24 bg-[#E5DFD3] rounded mt-6"></div>
+      <div className="h-4 w-24 bg-[#D6CCBC] rounded mt-6"></div>
     </div>
   );
 };
@@ -182,28 +182,28 @@ const SkeletonCard = () => {
 const BestCard = ({ data }: { data: SlideData }) => {
   const IconComponent = getSlideIcon(data.id);
   return (
-    <div className="group min-h-[460px] w-full rounded-2xl border border-[#E5DFD3] p-7 bg-[#F5F2EB] hover:bg-white hover:border-[#C2A676] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+    <div className="group min-h-[460px] w-full rounded-2xl border border-[#D6CCBC] p-7 bg-[#E8DFD2] hover:bg-white hover:border-[#B6A58F] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
       <div>
-        <div className="w-12 h-12 rounded-xl bg-[#1A1A1A] group-hover:bg-[#C2A676] border border-[#1A1A1A] group-hover:border-[#C2A676] flex items-center justify-center p-2.5 mb-5 shadow-md transition-all duration-300 group-hover:scale-105">
-          <IconComponent className="w-6 h-6 text-[#C2A676] group-hover:text-[#1A1A1A] transition-colors" />
+        <div className="w-12 h-12 rounded-xl bg-[#252522] group-hover:bg-[#B6A58F] border border-[#252522] group-hover:border-[#B6A58F] flex items-center justify-center p-2.5 mb-5 shadow-md transition-all duration-300 group-hover:scale-105">
+          <IconComponent className="w-6 h-6 text-[#B6A58F] group-hover:text-[#252522] transition-colors" />
         </div>
 
-        <h3 className="font-gendy font-bold text-xl uppercase tracking-tight text-[#1A1A1A] mb-2">
+        <h3 className="font-gendy font-bold text-xl uppercase tracking-tight text-[#252522] mb-2">
           {data.title}
         </h3>
 
-        <p className="font-quicksand font-medium text-xs text-[#666158] mb-6 leading-relaxed">
+        <p className="font-quicksand font-medium text-xs text-[#706D66] mb-6 leading-relaxed">
           {data.subtitle}
         </p>
 
         <div className="space-y-3.5">
           {data.features?.map((feature: FeatureItem, idx: number) => (
-            <div key={idx} className="border-t border-[#E5DFD3]/60 pt-2.5 first:border-0 first:pt-0">
-              <p className="font-semibold text-xs uppercase flex items-center gap-2 text-[#1A1A1A] mb-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#1A1A1A] group-hover:bg-[#C2A676] inline-block transition-colors"></span>
+            <div key={idx} className="border-t border-[#D6CCBC]/60 pt-2.5 first:border-0 first:pt-0">
+              <p className="font-semibold text-xs uppercase flex items-center gap-2 text-[#252522] mb-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#252522] group-hover:bg-[#B6A58F] inline-block transition-colors"></span>
                 {feature.title}
               </p>
-              <p className="font-quicksand font-normal text-xs text-[#666158] leading-relaxed">
+              <p className="font-quicksand font-normal text-xs text-[#706D66] leading-relaxed">
                 {feature.description}
               </p>
             </div>
@@ -211,9 +211,9 @@ const BestCard = ({ data }: { data: SlideData }) => {
         </div>
       </div>
 
-      <div className="pt-5 border-t border-[#E5DFD3] flex items-center justify-between text-xs font-semibold text-[#1A1A1A]">
+      <div className="pt-5 border-t border-[#D6CCBC] flex items-center justify-between text-xs font-semibold text-[#252522]">
         <span>Explore Core Architecture</span>
-        <span className="text-[#1A1A1A] font-bold group-hover:text-[#C2A676] group-hover:translate-x-1 transition-all">&rarr;</span>
+        <span className="text-[#252522] font-bold group-hover:text-[#B6A58F] group-hover:translate-x-1 transition-all">&rarr;</span>
       </div>
     </div>
   );
@@ -260,31 +260,31 @@ export default function Best() {
   return (
     <section
       ref={elementRef}
-      className="bg-white py-16 sm:py-20 lg:py-28 border-b border-[#E5DFD3] overflow-hidden"
+      className="bg-white py-16 sm:py-20 lg:py-28 border-b border-[#D6CCBC] overflow-hidden"
       aria-label="What we do best section"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
           <div
-            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F5F2EB] border border-[#E5DFD3] mb-4 transition-all duration-500 ${
+            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E8DFD2] border border-[#D6CCBC] mb-4 transition-all duration-500 ${
               isVisible ? "animate-fade-in-down" : "opacity-0 -translate-y-4"
             }`}
           >
-            <span className="w-2 h-2 rounded-full bg-[#C2A676]"></span>
-            <span className="text-xs font-semibold tracking-wider uppercase text-[#1A1A1A] font-quicksand">
+            <span className="w-2 h-2 rounded-full bg-[#B6A58F]"></span>
+            <span className="text-xs font-semibold tracking-wider uppercase text-[#252522] font-quicksand">
               Architectural Core
             </span>
           </div>
 
           <h2
-            className={`font-gendy text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight mb-4 transition-all duration-500 delay-100 ${
+            className={`font-gendy text-3xl sm:text-4xl lg:text-5xl font-bold text-[#252522] tracking-tight mb-4 transition-all duration-500 delay-100 ${
               isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"
             }`}
           >
             {loading ? "What We Do Best" : data?.heading}
           </h2>
           <p
-            className={`font-quicksand text-base sm:text-lg text-[#666158] leading-relaxed transition-all duration-500 delay-200 ${
+            className={`font-quicksand text-base sm:text-lg text-[#706D66] leading-relaxed transition-all duration-500 delay-200 ${
               isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"
             }`}
           >
@@ -293,11 +293,11 @@ export default function Best() {
         </div>
 
         {error ? (
-          <div className="text-center py-12 bg-[#F5F2EB] rounded-2xl border border-[#E5DFD3] p-8 max-w-md mx-auto">
-            <p className="text-sm text-[#666158] mb-4">{error}</p>
+          <div className="text-center py-12 bg-[#E8DFD2] rounded-2xl border border-[#D6CCBC] p-8 max-w-md mx-auto">
+            <p className="text-sm text-[#706D66] mb-4">{error}</p>
             <button
               onClick={() => window.location.reload()}
-              className="px-5 py-2 rounded-full bg-[#1A1A1A] text-white text-xs font-semibold hover:bg-[#C2A676] transition-colors"
+              className="px-5 py-2 rounded-full bg-[#252522] text-white text-xs font-semibold hover:bg-[#B6A58F] transition-colors"
             >
               Retry
             </button>

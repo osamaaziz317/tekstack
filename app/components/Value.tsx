@@ -55,20 +55,20 @@ const AccordionItem = ({
   onToggle: () => void;
 }) => {
   return (
-    <div className="border border-[#E5DFD3] rounded-2xl bg-white overflow-hidden transition-all duration-300 hover:border-[#C2A676] shadow-xs">
+    <div className="border border-[#D6CCBC] rounded-2xl bg-white overflow-hidden transition-all duration-300 hover:border-[#B6A58F] shadow-xs">
       <button
         onClick={onToggle}
         className="flex justify-between items-center w-full p-5 sm:p-6 text-left focus:outline-none group cursor-pointer"
         aria-expanded={isOpen}
       >
-        <span className="text-base sm:text-lg font-questrial font-semibold text-[#1A1A1A] group-hover:text-[#C2A676] transition-colors pr-4">
+        <span className="text-base sm:text-lg font-questrial font-semibold text-[#252522] group-hover:text-[#B6A58F] transition-colors pr-4">
           {item.question}
         </span>
         <div
           className={`flex-shrink-0 w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-300 ${
             isOpen
-              ? "bg-[#C2A676] text-[#1A1A1A] border-[#C2A676] rotate-180 shadow-sm"
-              : "bg-[#1A1A1A] text-[#C2A676] border-[#1A1A1A] group-hover:bg-[#C2A676] group-hover:text-[#1A1A1A] group-hover:border-[#C2A676] shadow-xs"
+              ? "bg-[#B6A58F] text-[#252522] border-[#B6A58F] rotate-180 shadow-sm"
+              : "bg-[#252522] text-[#B6A58F] border-[#252522] group-hover:bg-[#B6A58F] group-hover:text-[#252522] group-hover:border-[#B6A58F] shadow-xs"
           }`}
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -83,7 +83,7 @@ const AccordionItem = ({
           isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="px-5 pb-6 sm:px-6 sm:pb-6 pt-1 text-sm sm:text-base font-quicksand text-[#666158] leading-relaxed border-t border-[#E5DFD3]/50">
+        <div className="px-5 pb-6 sm:px-6 sm:pb-6 pt-1 text-sm sm:text-base font-quicksand text-[#706D66] leading-relaxed border-t border-[#D6CCBC]/50">
           {item.answer}
         </div>
       </div>
@@ -102,25 +102,25 @@ export default function Value() {
   return (
     <section
       ref={elementRef}
-      className="bg-[#F5F2EB] py-16 sm:py-20 lg:py-28 border-b border-[#E5DFD3]"
+      className="bg-[#E8DFD2] py-16 sm:py-20 lg:py-28 border-b border-[#D6CCBC]"
       aria-label="Frequently asked questions section"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
         {/* Section Header */}
         <div className="text-center mb-12 lg:mb-16">
           <div
-            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#E5DFD3] mb-4 transition-all duration-500 ${
+            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#D6CCBC] mb-4 transition-all duration-500 ${
               isVisible ? "animate-fade-in-down" : "opacity-0 -translate-y-4"
             }`}
           >
-            <span className="w-2 h-2 rounded-full bg-[#C2A676]"></span>
-            <span className="text-xs font-semibold tracking-wider uppercase text-[#1A1A1A] font-quicksand">
+            <span className="w-2 h-2 rounded-full bg-[#B6A58F]"></span>
+            <span className="text-xs font-semibold tracking-wider uppercase text-[#252522] font-quicksand">
               Knowledge Base
             </span>
           </div>
 
           <h2
-            className={`font-gendy text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight mb-4 transition-all duration-500 delay-100 ${
+            className={`font-gendy text-3xl sm:text-4xl lg:text-5xl font-bold text-[#252522] tracking-tight mb-4 transition-all duration-500 delay-100 ${
               isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"
             }`}
           >
@@ -128,7 +128,7 @@ export default function Value() {
           </h2>
 
           <p
-            className={`font-quicksand text-base sm:text-lg text-[#666158] leading-relaxed max-w-2xl mx-auto transition-all duration-500 delay-200 ${
+            className={`font-quicksand text-base sm:text-lg text-[#706D66] leading-relaxed max-w-2xl mx-auto transition-all duration-500 delay-200 ${
               isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-4"
             }`}
           >
@@ -153,16 +153,16 @@ export default function Value() {
         </div>
 
         {/* Bottom CTA Card */}
-        <div className="mt-12 text-center p-8 rounded-2xl bg-white border border-[#E5DFD3] shadow-xs">
-          <h3 className="font-questrial font-bold text-lg sm:text-xl text-[#1A1A1A] mb-2">
+        <div className="mt-12 text-center p-8 rounded-2xl bg-white border border-[#D6CCBC] shadow-xs">
+          <h3 className="font-questrial font-bold text-lg sm:text-xl text-[#252522] mb-2">
             Have a custom workflow challenge?
           </h3>
-          <p className="font-quicksand text-sm text-[#666158] mb-6 max-w-md mx-auto">
+          <p className="font-quicksand text-sm text-[#706D66] mb-6 max-w-md mx-auto">
             Our principal engineers review technical briefs and provide architectural feedback within 48 hours.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-xs sm:text-sm uppercase tracking-wider bg-[#1A1A1A] text-white hover:bg-[#C2A676] transition-all duration-300 btn-hover-lift"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-xs sm:text-sm uppercase tracking-wider bg-[#252522] text-white hover:bg-[#B6A58F] transition-all duration-300 btn-hover-lift"
           >
             <span>Consult Our Engineering Team</span>
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
